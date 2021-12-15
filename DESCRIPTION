@@ -7,11 +7,7 @@ Authors@R:
            family = "Almeida-Silva",
            role = c("aut", "cre"),
            email = "fabricio_almeidasilva@hotmail.com",
-           comment = c(ORCID = "0000-0002-5314-2964")),
-    person(given = "Thiago",
-           family = "Venancio",
-           role = "aut",
-           comment = c(ORCID = "0000-0002-2215-8082"))
+           comment = c(ORCID = "0000-0002-5314-2964"))
     )
 Description: cogeqc aims to facilitate systematic quality checks on 
     standard comparative genomics analyses to help researchers detect issues
