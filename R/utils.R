@@ -15,7 +15,7 @@
 #' @export
 #' @rdname read_orthogroups
 #' @examples
-#' path <- system.file("extdata", "Orthogroups.tsv", package = "cogeqc")
+#' path <- system.file("extdata", "Orthogroups.tsv.gz", package = "cogeqc")
 #' og <- read_orthogroups(path)
 read_orthogroups <- function(orthogroups_path = NULL) {
     of <- utils::read.csv(orthogroups_path, sep = "\t")

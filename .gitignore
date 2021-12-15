@@ -5,3 +5,4 @@
 .httr-oauth
 .DS_Store
 inst/doc
+inst/script/data_creation.Rmd

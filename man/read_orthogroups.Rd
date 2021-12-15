@@ -19,7 +19,7 @@ This function converts the orthogroups file named \strong{Orthogroups.tsv} to
 a parsed data frame.
 }
 \examples{
-path <- system.file("extdata", "Orthogroups.tsv", package = "cogeqc")
+path <- system.file("extdata", "Orthogroups.tsv.gz", package = "cogeqc")
 og <- read_orthogroups(path)
 }
 \author{
