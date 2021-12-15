@@ -1,0 +1,6 @@
+^dev$
+^cogeqc\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^\.github$
+^codecov\.yml$

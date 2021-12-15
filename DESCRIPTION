@@ -1,0 +1,43 @@
+Package: cogeqc
+Title: Systematic quality checks on comparative genomics analyses
+Version: 0.99.0
+Authors@R: 
+    c(
+    person(given = "Fabrício",
+           family = "Almeida-Silva",
+           role = c("aut", "cre"),
+           email = "fabricio_almeidasilva@hotmail.com",
+           comment = c(ORCID = "0000-0002-5314-2964")),
+    person(given = "Thiago",
+           family = "Venancio",
+           role = "aut",
+           comment = c(ORCID = "0000-0002-2215-8082"))
+    )
+Description: cogeqc aims to facilitate systematic quality checks on 
+    standard comparative genomics analyses to help researchers detect issues
+    and select the most suitable parameters for each data set.
+License: GPL-3
+URL: https://github.com/almeidasilvaf/cageminer
+BugReports: https://support.bioconductor.org/t/cageminer
+biocViews: 
+    Software,
+    FunctionalPrediction
+Encoding: UTF-8
+LazyData: false
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Imports:
+    utils
+Depends: 
+    R (>= 4.1)
+Suggests: 
+    testthat (>= 3.0.0),
+    SummarizedExperiment,
+    knitr,
+    BiocStyle,
+    rmarkdown,
+    covr,
+    RefManageR,
+    sessioninfo
+Config/testthat/edition: 3
+VignetteBuilder: knitr
