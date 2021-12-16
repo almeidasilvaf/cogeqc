@@ -2,6 +2,7 @@
 
 export(assess_orthogroups)
 export(calculate_H)
+export(compare_orthogroups)
 export(read_orthogroups)
 importFrom(dplyr,distinct)
 importFrom(dplyr,group_by)

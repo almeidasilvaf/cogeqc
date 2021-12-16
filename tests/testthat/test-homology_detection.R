@@ -15,3 +15,13 @@ test_that("assess_orthogroups() reports homogeneity scores by species", {
     expect_equal(class(assess), "data.frame")
     expect_true("Mean_H" %in% names(assess))
 })
+
+test_that("compare_orthogroups() returns a df of preservation status", {
+    og <- og[1:5000, ]
+    ref <- og
+    test <- og
+    comparison <- compare_orthogroups(ref, test)
+    perc <- sum(comparison$Preserved) / length(comparison$Preserved)
+    expect_equal(class(comparison), "data.frame")
+    expect_true(perc == 1)
+})
