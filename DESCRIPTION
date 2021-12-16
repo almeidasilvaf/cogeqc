@@ -24,7 +24,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports:
     utils,
-    reshape2
+    reshape2,
+    dplyr
 Depends: 
     R (>= 4.1)
 Suggests: 

@@ -1,4 +1,27 @@
 
+
+#' Orthogroups between Arabidopsis thaliana and Brassica oleraceae
+#'
+#' Data obtained from PLAZA Dicots 5.0.
+#'
+#' @name og
+#' @format A 3-column data frame with the following variables:
+#' \describe{
+#'   \item{Orthogroup}{Orthogroup ID.}
+#'   \item{Species}{Abbreviation for species' name.}
+#'   \item{Gene}{Gene ID}
+#' }
+#' @references
+#' Van Bel, M., Silvestri, F., Weitz, E. M., Kreft, L., Botzki, A.,
+#' Coppens, F., & Vandepoele, K. (2021). PLAZA 5.0: extending the scope
+#' and power of comparative and functional genomics in plants.
+#' Nucleic acids research.
+#' @examples
+#' data(og)
+#' @usage data(og)
+"og"
+
+
 #' Intepro annotation for Arabidopsis thaliana's genes
 #'
 #' The annotation data were retrieved from PLAZA Dicots 5.0.
@@ -7,7 +30,7 @@
 #' @format A 2-column data frame:
 #' \describe{
 #'   \item{Gene}{Character of gene IDs.}
-#'   \item{Domain_ID}{Character of Interpro domains.}
+#'   \item{Annotation}{Character of Interpro domains.}
 #' }
 #' @references
 #' Van Bel, M., Silvestri, F., Weitz, E. M., Kreft, L., Botzki, A.,
@@ -28,7 +51,7 @@
 #' @format A 2-column data frame:
 #' \describe{
 #'   \item{Gene}{Character of gene IDs.}
-#'   \item{Domain_ID}{Character of Interpro domains.}
+#'   \item{Annotation}{Character of Interpro domains.}
 #' }
 #' @references
 #' Van Bel, M., Silvestri, F., Weitz, E. M., Kreft, L., Botzki, A.,

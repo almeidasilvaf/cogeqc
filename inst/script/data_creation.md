@@ -32,7 +32,7 @@ fam_bol <- fam_brassicaceae %>%
 
 fam_final <- inner_join(fam_ath, fam_bol)
 
-readr::write_tsv(fam_final,
+readr::write_tsv(fam_final[1:10, ],
                  file = here::here("inst", "extdata", "Orthogroups.tsv")
 )
 ```
@@ -43,6 +43,19 @@ gzip Orthogroups.tsv
 ```
 
 # Data in data/
+
+## og.rda
+
+``` r
+og <- fam %>%
+    dplyr::filter(species %in% c("ath", "bol")) %>%
+    dplyr::rename(Orthogroup = `#gf_id`, Species = species, Gene = gene_id) %>%
+    as.data.frame()
+og$Species <- gsub("ath", "Ath", og$Species)
+og$Species <- gsub("bol", "Bol", og$Species)
+
+usethis::use_data(og, compress = "xz")
+```
 
 ## interpro\_ath.rda
 

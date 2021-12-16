@@ -8,7 +8,7 @@
 A 2-column data frame:
 \describe{
 \item{Gene}{Character of gene IDs.}
-\item{Domain_ID}{Character of Interpro domains.}
+\item{Annotation}{Character of Interpro domains.}
 }
 }
 \usage{
