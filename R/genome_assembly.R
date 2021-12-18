@@ -112,7 +112,68 @@ run_busco <- function(sequence = NULL, outlabel = NULL,
 }
 
 
+#' Plot BUSCO summary output
+#'
+#' @param summary_df Data frame with BUSCO summary output as returned
+#' by \code{read_busco()}.
+#'
+#' @return A ggplot object with a barplot of BUSCOs in each class.
+#' @export
+#' @rdname plot_busco
+#' @importFrom ggplot2 ggplot aes_ geom_col ylim xlim theme_bw labs
+#' scale_fill_manual geom_text
+#' @examples
+#' # Single file
+#' result_dir <- system.file("extdata", package = "cogeqc")
+#' summary_df <- read_busco(result_dir)
+#' # Batch mode
+#' data(batch_summary)
+#' plot_busco(summary_df)
+#' plot_busco(batch_summary)
+plot_busco <- function(summary_df = NULL) {
 
+    lineage <- unique(summary_df$Lineage)
+    if("File" %in% names(summary_df)) {
+        summary_df <- add_label_busco(summary_df)
+        p <- ggplot2::ggplot(summary_df) +
+            ggplot2::geom_col(ggplot2::aes_(x = ~Frequency, y = ~File,
+                                            fill = ~Class),
+                              color = "black") +
+            ggplot2::xlim(c(0, 100)) +
+            ggplot2::labs(
+                title = "Percentage of BUSCOs for each class across files",
+                subtitle = paste0("Lineage dataset: ", lineage),
+                y = "Sequence file", x = "% BUSCOs"
+            ) +
+            ggplot2::geom_text(ggplot2::aes_(label = ~Label, x = 50,
+                                             y = ~File), color = "grey90")
+
+    } else {
+        total <- sum(summary_df$Frequency)
+        summary_df$Perc <- round((summary_df$Frequency / total) * 100, 2)
+        p <- ggplot2::ggplot(summary_df) +
+            ggplot2::geom_col(ggplot2::aes_(x = ~Class, y = ~Perc,
+                                            fill = ~Class),
+                              color = "black", show.legend = FALSE) +
+            ggplot2::ylim(c(0, 105)) +
+            ggplot2::labs(title = "Percentage of BUSCOs for each class",
+                          subtitle = paste0("Lineage dataset: ", lineage,
+                                            ", N = ", total),
+                          x = "", y = "% BUSCOs") +
+            ggplot2::geom_text(ggplot2::aes_(label = ~Perc, y = ~Perc,
+                                             x = ~Class), vjust = -0.5)
+
+    }
+    p <- p +
+        ggplot2::scale_fill_manual(labels = c(
+            "Complete & SC", "Complete & duplicate", "Fragmented", "Missing"
+        ),
+                                   values = c(
+            "#32709a", "#59AAE1", "#ebd514", "#db5850"
+        )) +
+        ggplot2::theme_bw()
+    return(p)
+}
 
 
 

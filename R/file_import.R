@@ -59,7 +59,12 @@ read_busco <- function(result_dir = NULL) {
 
     file <- dir(result_dir)
     file <- file[grepl("summary", file)]
+    if(length(file) != 1) {
+        message("More than 1 BUSCO summary file found. Using only the first.")
+        file <- file[1]
+    }
     full_path <- paste0(result_dir, "/", file)
+    cl <- c("Complete_SC", "Complete_duplicate", "Fragmented", "Missing")
     # Single run or batch mode?
     if(startsWith(file, "short")) {
         lines <- readLines(paste0(result_dir, "/", file))
@@ -77,8 +82,7 @@ read_busco <- function(result_dir = NULL) {
         missing <- lines[grepl("Missing BUSCOs", lines)]
         missing <- gsub("\\tMissing.*|\\t", "", missing)
         final_df <- data.frame(
-            Class = c("Complete_SC", "Complete_duplicate",
-                      "Fragmented", "Missing"),
+            Class = factor(cl, levels = cl),
             Frequency = as.numeric(c(complete_sc, complete_dup,
                                      fragmented, missing)),
             Lineage = lineage
@@ -91,6 +95,9 @@ read_busco <- function(result_dir = NULL) {
         final_df <- reshape2::melt(df, id = c("File", "Lineage"))
         colnames(final_df) <- c("File", "Lineage", "Class", "Frequency")
         final_df <- final_df[, c("Class", "Frequency", "Lineage", "File")]
+        final_df$Class <- factor(final_df$Class, levels = cl)
+    } else {
+        stop("Wrong results directory. Could not find BUSCO summary file.")
     }
     return(final_df)
 

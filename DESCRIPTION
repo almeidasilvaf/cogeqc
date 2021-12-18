@@ -26,7 +26,8 @@ Imports:
     utils,
     reshape2,
     dplyr,
-    Herper
+    Herper,
+    ggplot2
 Depends: 
     R (>= 4.1)
 Suggests: 

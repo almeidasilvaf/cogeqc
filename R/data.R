@@ -62,3 +62,25 @@
 #' data(interpro_bol)
 #' @usage data(interpro_bol)
 "interpro_bol"
+
+
+#' BUSCO summary output for batch mode
+#'
+#' This object was created with the function \code{read_busco()} using
+#' a batch run of BUSCO on the genomes of Herbaspirillum seropedicae SmR1
+#' and Herbaspirillum rubrisubalbicans M1.
+#'
+#' @name batch_summary
+#' @format A 2-column data frame with the following variables:
+#' \describe{
+#'   \item{Class}{Factor of BUSCO classes}
+#'   \item{Frequency}{Numeric with the percentage of BUSCOs in each class.}
+#'   \item{Lineage}{Character with the lineage dataset used.}
+#'   \item{File}{Character with the name of the FASTA file used.}
+#' }
+#' @examples
+#' data(batch_summary)
+#' @usage data(batch_summary)
+"batch_summary"
+
+

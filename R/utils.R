@@ -57,3 +57,31 @@ busco_is_installed <- function() {
     valid <- is_valid(cmd = "busco", args = "-h")
     return(valid)
 }
+
+
+#' Add label to plot results of BUSCO batch mode
+#'
+#' @param summary_df Data frame with BUSCO summary output as returned
+#' by \code{read_busco()}.
+#'
+#' @return The same input data frame, but with an additional column
+#' named \strong{Label} with labels for plotting.
+#' @noRd
+add_label_busco <- function(summary_df = NULL) {
+    slist <- split(summary_df, summary_df$File)
+    labels <- lapply(slist, function(x) {
+        sc <- x[x$Class == "Complete_SC", "Frequency"]
+        dup <- x[x$Class == "Complete_duplicate", "Frequency"]
+        comp <- sc + dup
+        frag <- x[x$Class == "Fragmented", "Frequency"]
+        mis <- x[x$Class == "Missing", "Frequency"]
+        label1 <- paste0("C: ", comp, "% [S: ", sc, "%, D: ", dup, "%]")
+        label2 <- paste0("F: ", frag, "%")
+        label3 <- paste0("M: ", mis, "%")
+        label <- paste(label1, label2, label3, sep = ", ")
+        return(label)
+    })
+    label_df <- data.frame(File = names(slist), Label = unlist(labels))
+    final_df <- merge(summary_df, label_df, by = "File")
+    return(final_df)
+}
