@@ -25,7 +25,8 @@ RoxygenNote: 7.1.2
 Imports:
     utils,
     reshape2,
-    dplyr
+    dplyr,
+    Herper
 Depends: 
     R (>= 4.1)
 Suggests: 
