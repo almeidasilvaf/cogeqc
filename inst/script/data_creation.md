@@ -1,10 +1,10 @@
 
 # Data in inst/extdata/
 
-## Orthogroups.tsv
+## Orthogroups.tsv.gz
 
 The gene family file was downloaded from [PLAZA Dicots
-5.0](https://doi.org/10.1186/s13059-019-1650-2) and converted to a
+5.0](https://doi.org/10.1186/s13059-019-1650-2) and converted to an
 OrthoFinder-like format with the following code:
 
 ``` r
@@ -42,6 +42,60 @@ cd inst/extdata
 gzip Orthogroups.tsv
 ```
 
+## short\_summary.txt (BUSCO output)
+
+Here, we will run BUSCO in a Conda environment created with a temporary
+installation of miniconda. This temporary miniconda installation is only
+possible thanks to the `Herper` package.
+
+``` r
+# Download Ostreococcus tauri's genome
+ota_genome <- file.path(tempdir(), "ota_genome.fasta.gz")
+download.file("ftp://ftp.psb.ugent.be/pub/plaza/plaza_pico_03/Genomes/ota.fasta.gz", destfile = ota_genome)
+
+system2("gunzip", args = ota_genome)
+ota_genome <- gsub("\\.gz", "", ota_genome)
+
+# Choose BUSCO dataset
+dataset <- "chlorophyta_odb10"
+```
+
+``` r
+# Install miniconda in a temporary directory
+library(Herper)
+miniconda_path <- file.path(tempdir(), "temp_miniconda")
+env <- "busco_env"
+install_CondaTools(tools = "busco", 
+                   env = env, 
+                   pathToMiniConda = miniconda_path)
+
+# Test if it is working
+with_CondaEnv(env,
+              system2(command = "busco", args = "--list-datasets", stdout = TRUE),
+              pathToMiniConda = miniconda_path)
+
+
+# Run BUSCO on Ostreococcus tauri's genome
+run_busco(sequence = ota_genome, outlabel = "ota", mode = "genome",
+          lineage = dataset, threads = 2, outpath = "~/Documents", 
+          download_path = "~/Documents/busco_datasets",
+          envname = env, miniconda_path = miniconda_path, force = TRUE)
+
+fs::file_copy("~/Documents/ota/run_chlorophyta_odb10/short_summary.txt", 
+              here::here("inst", "extdata", "short_summary.txt"))
+```
+
+## ota\_subset.fa
+
+This file contains the first 1,000 lines from the Herbaspirilllum
+seropedicae SmR1 (GCA\_000143225) genome, and it was downloaded from
+Ensembl Bacteria.
+
+``` bash
+# Bash
+head -n 1001 Hse.fa > Hse_subset.fa
+```
+
 # Data in data/
 
 ## og.rda
@@ -65,11 +119,10 @@ download.file("https://ftp.psb.ugent.be/pub/plaza/plaza_public_dicots_05/InterPr
 
 interpro_ath <- read.csv("~/Downloads/interpro.ath.csv.gz", 
                          sep = "\t", skip = 8)[, c(1, 3, 4)]
-names(interpro_ath) <- c("Gene", "Domain_ID", "Description")
+names(interpro_ath) <- c("Gene", "Annotation", "Description")
 
 # Keep only genes included in orthogroups
-og <- system.file("extdata", "Orthogroups.tsv.gz", package = "cogeqc")
-og <- read_orthogroups(og)
+data(og)
 interpro_ath <- interpro_ath[interpro_ath$Gene %in% og$Gene, ]
 
 # Save data
@@ -85,11 +138,10 @@ download.file("https://ftp.psb.ugent.be/pub/plaza/plaza_public_dicots_05/InterPr
 
 interpro_bol <- read.csv("~/Downloads/interpro.bol.csv.gz", 
                          sep = "\t", skip = 8)[, c(1, 3, 4)]
-names(interpro_bol) <- c("Gene", "Domain_ID", "Description")
+names(interpro_bol) <- c("Gene", "Annotation", "Description")
 
 # Keep only genes included in orthogroups
-og <- system.file("extdata", "Orthogroups.tsv.gz", package = "cogeqc")
-og <- read_orthogroups(og)
+data(og)
 interpro_bol <- interpro_bol[interpro_bol$Gene %in% og$Gene, ]
 
 # Save data

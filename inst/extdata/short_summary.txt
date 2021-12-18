@@ -1,0 +1,19 @@
+# BUSCO version is: 5.2.2 
+# The lineage dataset is: chlorophyta_odb10 (Creation date: 2020-08-05, number of genomes: 16, number of BUSCOs: 1519)
+# Summarized benchmarking in BUSCO notation for file /var/folders/ls/n6w3s9bx79lcr2pcd1hm77780000gn/T/RtmpUXFG0c/ota_genome.fasta
+# BUSCO was run in mode: genome
+# Gene predictor used: metaeuk
+
+	***** Results: *****
+
+	C:93.3%[S:93.0%,D:0.3%],F:2.3%,M:4.4%,n:1519	   
+	1416	Complete BUSCOs (C)			   
+	1412	Complete and single-copy BUSCOs (S)	   
+	4	Complete and duplicated BUSCOs (D)	   
+	35	Fragmented BUSCOs (F)			   
+	68	Missing BUSCOs (M)			   
+	1519	Total BUSCO groups searched		   
+
+Dependencies and versions:
+	hmmsearch: 3.1
+	metaeuk: 5.34c21f2

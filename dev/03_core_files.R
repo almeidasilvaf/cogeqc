@@ -65,6 +65,7 @@ usethis::use_github_actions_badge("R-CMD-check-bioc")
 usethis::use_testthat()
 usethis::use_test("homology_detection")
 usethis::use_test("utils")
+usethis::use_test("file_import")
 usethis::use_coverage()
 
 ## Re-knit your README.Rmd file to update your README.md file
