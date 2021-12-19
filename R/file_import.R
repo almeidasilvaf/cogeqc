@@ -125,13 +125,12 @@ read_busco <- function(result_dir = NULL) {
 #'                              species-specific orthogroups.}
 #' }
 #' @importFrom utils read.csv
-#' @importFrom reshape2 melt
 #' @export
 #' @rdname read_orthofinder_stats
 #' @examples
 #' stats_path <- system.file("extdata", "Statistics_PerSpecies.tsv",
 #'                           package = "cogeqc")
-#' ortho_stats <- read_orthofinder_stats(file)
+#' ortho_stats <- read_orthofinder_stats(stats_path)
 read_orthofinder_stats <- function(stats_path = NULL) {
     df <- read.csv(stats_path, sep = "\t", nrows = 10, header = TRUE,
                    row.names = 1)

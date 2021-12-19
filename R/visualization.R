@@ -47,7 +47,7 @@ plot_genes_in_ogs <- function(stats_table = NULL) {
                           fill = "#3B4992FF", color = "black") +
         ggplot2::theme_bw() +
         ggplot2::labs(x = "(%)", y = "",
-                      title = "Percentage of genes in orthogroups") +
+                      title = "Genes in orthogroups") +
         ggplot2::xlim(0, 105) +
         ggplot2::geom_text(ggplot2::aes_(x = ~Perc_genes_in_OGs, y = ~Species,
                                          label = ~N_genes_in_OGs), hjust = -0.1)
@@ -55,6 +55,31 @@ plot_genes_in_ogs <- function(stats_table = NULL) {
 }
 
 
+#' Plot number of species-specific orthogroups
+#'
+#' @param stats_table A 3-column data frame with Orthofinder summary stats
+#' as returned by the function \code{read_orthofinder_stats}.
+#'
+#' @return A ggplot object with a barplot of number of species-specific
+#' orthogroups for each species.
+#' @importFrom ggplot2 ggplot aes_ geom_col theme_bw labs
+#' @export
+#' @rdname plot_species_specific_ogs
+#' @examples
+#' file <- system.file("extdata", "Statistics_PerSpecies.tsv",
+#'                     package = "cogeqc")
+#' stats_table <- read_orthofinder_stats(file)
+#' plot_genes_in_ogs(stats_table)
+plot_species_specific_ogs <- function(stats_table = NULL) {
+
+    p <- ggplot2::ggplot(stats_table) +
+        ggplot2::geom_col(ggplot2::aes_(x = ~N_ss_OGs, y = ~Species),
+                          fill = "#3B4992FF", color = "black") +
+        ggplot2::theme_bw() +
+        ggplot2::labs(x = "Absolute frequency (#)", y = "",
+                      title = "Species-specific orthogroups")
+    return(p)
+}
 
 
 

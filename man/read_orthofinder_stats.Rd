@@ -33,5 +33,5 @@ Read and parse per-species summary statistics in a data frame
 \examples{
 stats_path <- system.file("extdata", "Statistics_PerSpecies.tsv",
                           package = "cogeqc")
-ortho_stats <- read_orthofinder_stats(file)
+ortho_stats <- read_orthofinder_stats(stats_path)
 }

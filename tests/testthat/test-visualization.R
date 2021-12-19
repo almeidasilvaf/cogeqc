@@ -15,3 +15,8 @@ test_that("plot_genes_in_ogs() returns a ggplot object", {
     p <- plot_genes_in_ogs(stats_table)
     expect_true("ggplot" %in% class(p))
 })
+
+test_that("plot_species_specific_ogs() returns a ggplot object", {
+    p <- plot_species_specific_ogs(stats_table)
+    expect_true("ggplot" %in% class(p))
+})
