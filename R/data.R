@@ -84,3 +84,19 @@
 "batch_summary"
 
 
+#' Species tree for model species
+#'
+#' The data used to create this object was retrived from Orthofinder's
+#' example output for model species, available in
+#' https://bioinformatics.plants.ox.ac.uk/davidemms/public_data/.
+#'
+#' @name tree
+#' @format An object of class "phylo" as returned by \code{treeio::read.tree()}.
+#' @references
+#' Emms, D. M., & Kelly, S. (2019). OrthoFinder: phylogenetic orthology
+#' inference for comparative genomics. Genome biology, 20(1), 1-14.
+#' @examples
+#' data(tree)
+#' @usage data(tree)
+"tree"
+

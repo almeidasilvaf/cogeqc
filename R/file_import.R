@@ -102,3 +102,48 @@ read_busco <- function(result_dir = NULL) {
     return(final_df)
 
 }
+
+
+#' Read and parse per-species summary statistics in a data frame
+#'
+#' @param stats_path Path to file containing Orthofinder's per-species
+#' stats. In your Orthofinder results directory, this file is located
+#' at \strong{Comparative_Genomics_Statistics/Statistics_PerSpecies.tsv}.
+#'
+#' @return A data frame in long format with the following variables:
+#' \describe{
+#'  \item{Species}{Factor of species names.}
+#'  \item{N_genes}{Numeric of number of genes.}
+#'  \item{N_genes_in_OGs}{Numeric of number of genes in orthogroups.}
+#'  \item{N_unassigned}{Numeric of number of unassigned genes (not in OGs).}
+#'  \item{Perc_genes_in_OGs}{Numeric of percentage of genes in orthogroups.}
+#'  \item{Perc_unassigned}{Numeric of percentage of unassigned genes.}
+#'  \item{N_ss_OGs}{Numeric of number of species-specific orthogroups.}
+#'  \item{N_genes_in_ss_OGs}{Numeric of number of genes in species-specific
+#'                           orthogroups.}
+#'  \item{Perc_genes_in_ss_OGs}{Numeric of percentage of genes in
+#'                              species-specific orthogroups.}
+#' }
+#' @importFrom utils read.csv
+#' @importFrom reshape2 melt
+#' @export
+#' @rdname read_orthofinder_stats
+#' @examples
+#' stats_path <- system.file("extdata", "Statistics_PerSpecies.tsv",
+#'                           package = "cogeqc")
+#' ortho_stats <- read_orthofinder_stats(file)
+read_orthofinder_stats <- function(stats_path = NULL) {
+    df <- read.csv(stats_path, sep = "\t", nrows = 10, header = TRUE,
+                   row.names = 1)
+    df <- as.data.frame(t(df))[, -c(6, 7)]
+    colnames(df) <- c("N_genes", "N_genes_in_OGs", "N_unassigned",
+                      "Perc_genes_in_OGs", "Perc_unassigned",
+                      "N_ss_OGs", "N_genes_in_ss_OGs", "Perc_genes_in_ss_OGs")
+    tidy_df <- cbind(data.frame(Species = rownames(df)), df)
+    tidy_df$Species <- as.factor(tidy_df$Species)
+    rownames(tidy_df) <- NULL
+    return(tidy_df)
+}
+
+
+
