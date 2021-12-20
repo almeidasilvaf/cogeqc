@@ -104,44 +104,72 @@ read_busco <- function(result_dir = NULL) {
 }
 
 
-#' Read and parse per-species summary statistics in a data frame
+#' Read and parse Orthofinder summary statistics
 #'
-#' @param stats_path Path to file containing Orthofinder's per-species
-#' stats. In your Orthofinder results directory, this file is located
-#' at \strong{Comparative_Genomics_Statistics/Statistics_PerSpecies.tsv}.
+#' @param stats_dir Path to directory containing Orthofinder's comparative
+#' genomics statistics. In your Orthofinder results directory, this directory
+#' is named \strong{Comparative_Genomics_Statistics}.
 #'
-#' @return A data frame in long format with the following variables:
+#' @return A list of data frames with the following elements:
+#' \enumerate{
+#'   \item \strong{stats} A data frame of summary stats per species with
+#'   the following variables:
 #' \describe{
-#'  \item{Species}{Factor of species names.}
-#'  \item{N_genes}{Numeric of number of genes.}
-#'  \item{N_genes_in_OGs}{Numeric of number of genes in orthogroups.}
-#'  \item{N_unassigned}{Numeric of number of unassigned genes (not in OGs).}
-#'  \item{Perc_genes_in_OGs}{Numeric of percentage of genes in orthogroups.}
-#'  \item{Perc_unassigned}{Numeric of percentage of unassigned genes.}
-#'  \item{N_ss_OGs}{Numeric of number of species-specific orthogroups.}
-#'  \item{N_genes_in_ss_OGs}{Numeric of number of genes in species-specific
+#'   \item{Species}{Factor of species names.}
+#'   \item{N_genes}{Numeric of number of genes.}
+#'   \item{N_genes_in_OGs}{Numeric of number of genes in orthogroups.}
+#'   \item{Perc_genes_in_OGs}{Numeric of percentage of genes in orthogroups.}
+#'   \item{N_ssOGs}{Numeric of number of species-specific orthogroups.}
+#'   \item{N_genes_in_ssOGs}{Numeric of number of genes in species-specific
 #'                           orthogroups.}
-#'  \item{Perc_genes_in_ss_OGs}{Numeric of percentage of genes in
+#'   \item{Perc_genes_in_ssOGs}{Numeric of percentage of genes in
 #'                              species-specific orthogroups.}
+#'   \item{Dups}{Integer with number of duplications per species.}
 #' }
+#'
+#'   \item \strong{og_overlap} A symmetric data frame of pairwise
+#'   orthogroup overlap between species.
+#'   \item \strong{duplications} A 2-column data frame with node IDs
+#'   in the first column and number of gene duplications (50% support)
+#'   in the second column.
+#' }
+#'
 #' @importFrom utils read.csv
 #' @export
 #' @rdname read_orthofinder_stats
 #' @examples
-#' stats_path <- system.file("extdata", "Statistics_PerSpecies.tsv",
-#'                           package = "cogeqc")
-#' ortho_stats <- read_orthofinder_stats(stats_path)
-read_orthofinder_stats <- function(stats_path = NULL) {
-    df <- read.csv(stats_path, sep = "\t", nrows = 10, header = TRUE,
-                   row.names = 1)
-    df <- as.data.frame(t(df))[, -c(6, 7)]
-    colnames(df) <- c("N_genes", "N_genes_in_OGs", "N_unassigned",
-                      "Perc_genes_in_OGs", "Perc_unassigned",
-                      "N_ss_OGs", "N_genes_in_ss_OGs", "Perc_genes_in_ss_OGs")
-    tidy_df <- cbind(data.frame(Species = rownames(df)), df)
-    tidy_df$Species <- as.factor(tidy_df$Species)
-    rownames(tidy_df) <- NULL
-    return(tidy_df)
+#' stats_dir <- system.file("extdata", package = "cogeqc")
+#' ortho_stats <- read_orthofinder_stats(stats_dir)
+read_orthofinder_stats <- function(stats_dir = NULL) {
+
+    # Create `duplications` data frame
+    dups <- file.path(stats_dir, "Duplications_per_Species_Tree_Node.tsv")
+    dups <- read.csv(dups, sep = "\t", header = TRUE)[, c(1,3)]
+    names(dups) <- c("Node", "Duplications_50")
+
+    # Create `og_overlap` data frame
+    og_overlap <- file.path(stats_dir, "Orthogroups_SpeciesOverlaps.tsv")
+    og_overlap <- read.csv(og_overlap, sep = "\t", header = TRUE, row.names = 1)
+
+    # Create `stats` data frame
+    stats <- file.path(stats_dir, "Statistics_PerSpecies.tsv")
+    stats <- read.csv(stats, sep = "\t", nrows = 10, header = TRUE,
+                      row.names = 1)
+    stats <- as.data.frame(t(stats))[, -c(3, 5, 6, 7)]
+    colnames(stats) <- c("N_genes", "N_genes_in_OGs", "Perc_genes_in_OGs",
+                      "N_ssOGs", "N_genes_in_ssOGs", "Perc_genes_in_ssOGs")
+    stats <- cbind(data.frame(Species = rownames(stats)), stats)
+    stats$Dups <- dups$Duplications_50[dups$Node %in% stats$Species]
+    stats$Species <- as.factor(stats$Species)
+    rownames(stats) <- NULL
+
+    # Final list
+    result_list <- list(
+        stats = stats,
+        og_overlap = og_overlap,
+        duplications = dups
+    )
+    return(result_list)
 }
 
 

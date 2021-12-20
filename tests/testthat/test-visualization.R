@@ -1,8 +1,8 @@
 
 #----Load data----
 data(tree)
-file <- system.file("extdata", "Statistics_PerSpecies.tsv", package = "cogeqc")
-stats_table <- read_orthofinder_stats(file)
+dir <- system.file("extdata", package = "cogeqc")
+stats_list <- read_orthofinder_stats(dir)
 
 
 #----Start tests----

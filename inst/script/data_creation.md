@@ -85,15 +85,39 @@ fs::file_copy("~/Documents/ota/run_chlorophyta_odb10/short_summary.txt",
               here::here("inst", "extdata", "short_summary.txt"))
 ```
 
-## ota\_subset.fa
+## Hse\_subset.fa
 
-This file contains the first 1,000 lines from the Herbaspirilllum
-seropedicae SmR1 (GCA\_000143225) genome, and it was downloaded from
+This file contains the first 1,000 lines from the *Herbaspirilllum
+seropedicae SmR1* (GCA\_000143225) genome, and it was downloaded from
 Ensembl Bacteria.
 
 ``` bash
 # Bash
 head -n 1001 Hse.fa > Hse_subset.fa
+```
+
+## Statistics\_PerSpecies.tsv, Duplications\_per\_Species\_Tree\_Node.tsv and Orthogroups\_SpeciesOverlaps.tsv
+
+Example of files containing Orthofinder’s per-species statistics. These
+files were downloaded from
+<https://bioinformatics.plants.ox.ac.uk/davidemms/public_data/Results_model_species.tar.gz>
+and copied to **extdata/** with:
+
+``` r
+fs::file_copy(
+    "~/Downloads/Results_orthofinder_example/Comparative_Genomics_Statistics/Statistics_PerSpecies.tsv",
+    here::here("inst", "extdata")
+)
+
+fs::file_copy(
+    "~/Downloads/Results_orthofinder_example/Comparative_Genomics_Statistics/Duplications_per_Species_Tree_Node.tsv",
+    here::here("inst", "extdata")
+)
+
+fs::file_copy(
+    "~/Downloads/Results_orthofinder_example/Comparative_Genomics_Statistics/Orthogroups_SpeciesOverlaps.tsv",
+    here::here("inst", "extdata")
+)
 ```
 
 # Data in data/
@@ -147,4 +171,40 @@ interpro_bol <- interpro_bol[interpro_bol$Gene %in% og$Gene, ]
 # Save data
 interpro_bol <- interpro_bol[, c(1,2)]
 usethis::use_data(interpro_bol, compress = "xz", overwrite = TRUE)
+```
+
+## batch\_summary.rda (BUSCO batch mode)
+
+This object contains BUSCO’s summary output for batch mode with the
+following genomes:
+
+-   *Herbaspirillum seropedicae SmR1* (GCA\_000143225)
+-   *Herbaspirillum rubrisubalbicans M1* (GCA\_001483945))
+
+Both genomes were downloaded from Ensembl Bacteria. After downloading,
+FASTA files were gunzipped and stored in the directory
+`~/Documents/Herbaspirillum_genomes`.
+
+``` r
+sequence <- "~/Documents/Herbaspirillum_genomes"
+download_path <- paste0(tempdir(), "/datasets")
+run_busco(sequence, outlabel = "Herbaspirillum", mode = "genome",
+          lineage = "burkholderiales_odb10",
+          outpath = tempdir(), download_path = download_path)
+
+batch_summary <- read_busco(tempdir())
+usethis::use_data(batch_summary, compress = "xz", overwrite = TRUE)
+```
+
+## tree.rda
+
+This is a species tree for model species retrieved from Orthofinder’s
+example in
+<https://bioinformatics.plants.ox.ac.uk/davidemms/public_data/Results_model_species.tar.gz>.
+
+``` r
+tree_file <- "~/Downloads/Results_orthofinder_example/Species_Tree/SpeciesTree_rooted_node_labels.txt"
+tree <- treeio::read.tree(tree_file)
+
+usethis::use_data(tree, compress = "xz", overwrite = TRUE)
 ```

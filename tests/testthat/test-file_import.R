@@ -19,11 +19,16 @@ test_that("read_busco() properly reads BUSCO summary output", {
 })
 
 test_that("read_orthofinder_stats() reads Orthofinder summary stats", {
-    stats_path <- system.file("extdata", "Statistics_PerSpecies.tsv",
-                              package = "cogeqc")
-    ortho_stats <- read_orthofinder_stats(file)
+    stats_path <- system.file("extdata", package = "cogeqc")
+    ortho_stats <- read_orthofinder_stats(stats_path)$stats
+    ortho_dups <- read_orthofinder_stats(stats_path)$duplications
+    ortho_overlap <- read_orthofinder_stats(stats_path)$og_overlap
+
     expect_equal(class(ortho_stats), "data.frame")
-    expect_equal(ncol(ortho_stats), 9)
-    expect_equal(sum(sapply(ortho_stats, class) == "numeric"), 8)
+    expect_equal(ncol(ortho_stats), 8)
     expect_equal(class(ortho_stats$Species), "factor")
+
+    expect_equal(class(ortho_dups), "data.frame")
+    expect_equal(class(ortho_overlap), "data.frame")
+    expect_true(identical(rownames(ortho_overlap), colnames(ortho_overlap)))
 })

@@ -4,10 +4,10 @@
 \alias{plot_species_specific_ogs}
 \title{Plot number of species-specific orthogroups}
 \usage{
-plot_species_specific_ogs(stats_table = NULL)
+plot_species_specific_ogs(stats_list = NULL)
 }
 \arguments{
-\item{stats_table}{A 3-column data frame with Orthofinder summary stats
+\item{stats_list}{A list of data frames with Orthofinder summary stats
 as returned by the function \code{read_orthofinder_stats}.}
 }
 \value{
@@ -18,8 +18,7 @@ orthogroups for each species.
 Plot number of species-specific orthogroups
 }
 \examples{
-file <- system.file("extdata", "Statistics_PerSpecies.tsv",
-                    package = "cogeqc")
-stats_table <- read_orthofinder_stats(file)
-plot_genes_in_ogs(stats_table)
+dir <- system.file("extdata", package = "cogeqc")
+stats_list <- read_orthofinder_stats(dir)
+plot_species_specific_ogs(stats_list)
 }
