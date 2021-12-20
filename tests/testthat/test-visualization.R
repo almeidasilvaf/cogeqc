@@ -12,11 +12,11 @@ test_that("plot_species_tree() returns a ggplot object with a species tree", {
 })
 
 test_that("plot_genes_in_ogs() returns a ggplot object", {
-    p <- plot_genes_in_ogs(stats_table)
+    p <- plot_genes_in_ogs(stats_list)
     expect_true("ggplot" %in% class(p))
 })
 
 test_that("plot_species_specific_ogs() returns a ggplot object", {
-    p <- plot_species_specific_ogs(stats_table)
+    p <- plot_species_specific_ogs(stats_list)
     expect_true("ggplot" %in% class(p))
 })
