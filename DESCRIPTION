@@ -28,7 +28,8 @@ Imports:
     dplyr,
     Herper,
     ggplot2,
-    ggtree
+    ggtree,
+    patchwork
 Depends: 
     R (>= 4.1)
 Suggests: 

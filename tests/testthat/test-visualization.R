@@ -20,3 +20,15 @@ test_that("plot_species_specific_ogs() returns a ggplot object", {
     p <- plot_species_specific_ogs(stats_list)
     expect_true("ggplot" %in% class(p))
 })
+
+test_that("plot_duplications() returns a ggplot object", {
+    p <- plot_duplications(stats_list)
+    expect_true("ggplot" %in% class(p))
+})
+
+test_that("plot_orthofinder_stats() returns a ggplot object", {
+    p <- plot_orthofinder_stats(tree, stats_list)
+    expect_true("ggplot" %in% class(p))
+})
+
+
