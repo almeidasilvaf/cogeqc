@@ -85,3 +85,25 @@ add_label_busco <- function(summary_df = NULL) {
     final_df <- merge(summary_df, label_df, by = "File")
     return(final_df)
 }
+
+
+#' Convert species names to abbreviated names
+#'
+#' This function converts full species names to abbreviated names according
+#' to the standard nomenclature rules. For instance, "Drosophila_melanogaster"
+#' is converted to "Dme"
+#'
+#' @param snames Character vector of species names to be converted.
+#'
+#' @return A character vector of converted names.
+#' @noRd
+abbreviate_names <- function(snames = NULL) {
+
+    genus <- substr(snames, start = 1, stop = 1)
+    specific <- substr(gsub(".*_", "", snames), start = 1, stop = 2)
+
+    new_names <- paste0(genus, specific)
+    return(new_names)
+}
+
+

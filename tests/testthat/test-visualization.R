@@ -32,3 +32,9 @@ test_that("plot_orthofinder_stats() returns a ggplot object", {
 })
 
 
+test_that("plot_og_overlap() returns a ggplot object", {
+    p <- plot_og_overlap(stats_list)
+    expect_true("ggplot" %in% class(p))
+})
+
+

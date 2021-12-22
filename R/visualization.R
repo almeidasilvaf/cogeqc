@@ -186,3 +186,62 @@ plot_orthofinder_stats <- function(tree = NULL, stats_list = NULL,
     return(final_figure)
 }
 
+
+#' Plot pairwise orthogroup overlap between species
+#'
+#' @param stats_list A list of data frames with Orthofinder summary stats
+#' as returned by the function \code{read_orthofinder_stats}.
+#' @param clust Logical indicating whether to clust data based on overlap.
+#' Default: TRUE
+#' @return A ggplot object with a heatmap.
+#' @export
+#' @rdname plot_og_overlap
+#' @importFrom reshape2 melt
+#' @importFrom ggplot2 ggplot aes_ geom_tile theme_minimal geom_text labs
+#' scale_fill_gradient coord_fixed
+#' @importFrom stats hclust as.dist quantile
+#' @examples
+#' dir <- system.file("extdata", package = "cogeqc")
+#' stats_list <- read_orthofinder_stats(dir)
+#' plot_og_overlap(stats_list)
+plot_og_overlap <- function(stats_list = NULL, clust = TRUE) {
+
+    overlap <- as.matrix(stats_list$og_overlap)
+    rownames(overlap) <- abbreviate_names(rownames(overlap))
+    colnames(overlap) <- abbreviate_names(colnames(overlap))
+
+    # Cluster to reorder
+    if(clust) {
+        hc <- stats::hclust(stats::as.dist(overlap))
+        overlap <- overlap[hc$order, hc$order]
+    }
+
+    # Remove diagonals and lower triangle
+    diag(overlap) <- NA
+    overlap[lower.tri(overlap)] <- NA
+    ovm <- reshape2::melt(overlap, na.rm = TRUE)
+    names(ovm) <- c("Species1", "Species2", "N")
+
+    q75 <- stats::quantile(ovm$N)[4]
+    ovm$high <- ifelse(ovm$N >= q75, 'yes', 'no')
+    p <- ggplot2::ggplot(ovm, ggplot2::aes_(x = ~Species1, y = ~Species2,
+                                            fill = ~N)) +
+        ggplot2::geom_tile() +
+        ggplot2::scale_fill_gradient(low = "#E5F5E0", high = "#00441B",
+                                     name = "Overlap size") +
+        ggplot2::theme_minimal() +
+        ggplot2::labs(
+            title = "Orthogroup overlap",
+            x = "",
+            y = ""
+        ) +
+        ggplot2::geom_text(ggplot2::aes_(x = ~Species1, y = ~Species2,
+                                         label = ~N, color = ~high),
+                           size = 4) +
+        ggplot2::scale_color_manual(
+            values = c('no' = 'grey20', 'yes' = "grey90"), guide = "none",
+        )
+    return(p)
+}
+
+
