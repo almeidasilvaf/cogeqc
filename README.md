@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# cogeqc
+# cogeqc <img src='man/figures/logo.png' align="right" height="139" />
 
 <!-- badges: start -->
 
@@ -43,6 +43,25 @@ Please run this yourself to check for any updates on how to cite
 
 ``` r
 print(citation('cogeqc'), bibtex = TRUE)
+#> Warning in citation("cogeqc"): no date field in DESCRIPTION file of package
+#> 'cogeqc'
+#> Warning in citation("cogeqc"): could not determine year for 'cogeqc' from
+#> package DESCRIPTION file
+#> 
+#> To cite package 'cogeqc' in publications use:
+#> 
+#>   Fabrício Almeida-Silva (NA). cogeqc: Systematic quality checks on
+#>   comparative genomics analyses. R package version 0.99.0.
+#>   https://github.com/almeidasilvaf/cageminer
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Manual{,
+#>     title = {cogeqc: Systematic quality checks on comparative genomics analyses},
+#>     author = {Fabrício Almeida-Silva},
+#>     note = {R package version 0.99.0},
+#>     url = {https://github.com/almeidasilvaf/cageminer},
+#>   }
 ```
 
 Please note that the `cogeqc` was only made possible thanks to many
