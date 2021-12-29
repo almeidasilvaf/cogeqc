@@ -41,5 +41,6 @@ Suggests:
     knitr,
     BiocStyle,
     rmarkdown,
+    covr
 Config/testthat/edition: 3
 VignetteBuilder: knitr
