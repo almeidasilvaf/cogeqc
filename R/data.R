@@ -86,7 +86,7 @@
 
 #' Species tree for model species
 #'
-#' The data used to create this object was retrived from Orthofinder's
+#' The data used to create this object was retrieved from Orthofinder's
 #' example output for model species, available in
 #' https://bioinformatics.plants.ox.ac.uk/davidemms/public_data/.
 #'
@@ -100,3 +100,19 @@
 #' @usage data(tree)
 "tree"
 
+
+#' Synteny network for Brassica oleraceae, B. napus, and B. rapa
+#'
+#' @name synnet
+#' @format A 2-column data frame with the variables \strong{anchor1}
+#' and \strong{anchor2}, containing names of loci in anchor 1 and anchor 2,
+#' respectively.
+#' @references
+#' Zhao, T., & Schranz, M. E. (2019). Network-based microsynteny
+#' analysis identifies major differences and genomic outliers
+#' in mammalian and angiosperm genomes. Proceedings of the National Academy
+#' of Sciences, 116(6), 2165-2174.
+#' @examples
+#' data(synnet)
+#' @usage data(synnet)
+"synnet"

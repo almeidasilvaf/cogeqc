@@ -67,6 +67,7 @@ usethis::use_test("homology_detection")
 usethis::use_test("utils")
 usethis::use_test("file_import")
 usethis::use_test("visualization")
+usethis::use_test("synteny")
 usethis::use_coverage()
 
 ## Re-knit your README.Rmd file to update your README.md file

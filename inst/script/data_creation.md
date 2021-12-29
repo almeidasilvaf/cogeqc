@@ -208,3 +208,35 @@ tree <- treeio::read.tree(tree_file)
 
 usethis::use_data(tree, compress = "xz", overwrite = TRUE)
 ```
+
+## synnet.rda
+
+The synteny network of 107 angiosperms was downloaded from [this
+link](https://dataverse.harvard.edu/file.xhtml?persistentId=doi:10.7910/DVN/BDMA7A/EEVYWV&version=7.0),
+which is associated with the publication [*Network-based Microsynteny
+Analysis Identifies Major Differences and Genomic Outliers in Mammalian
+and Angiosperm Genomes*](https://doi.org/10.1073/pnas.1801757116). For
+package size issues, the network was filtered to keep only *Brassica
+sp.* species (*B. rapa*, *B. napus*, and *B. oleraceae*).
+
+``` r
+synnet <- readr::read_tsv("~/Downloads/107Plant-SynNet-b5s5m25.gz",
+                          col_names = FALSE)[, c(3,4)]
+synnet <- as.data.frame(synnet)
+names(synnet) <- c("anchor1", "anchor2")
+
+# See all species abbreviations
+species <- c(
+    substr(synnet$anchor1, start = 1, stop = 3),
+    substr(synnet$anchor2, start = 1, stop = 3)
+)
+species <- unique(species)
+sort(species)
+
+# Pick only 'bol', 'bnp', and 'bra'
+synnet <- synnet[grepl("^(bol|bra|bnp).*", synnet$anchor1), ]
+synnet <- synnet[grepl("^(bol|bra|bnp).*", synnet$anchor2), ]
+rownames(synnet) <- NULL
+
+usethis::use_data(synnet, compress = "xz", overwrite = TRUE)
+```

@@ -11,7 +11,7 @@ An object of class "phylo" as returned by \code{treeio::read.tree()}.
 data(tree)
 }
 \description{
-The data used to create this object was retrived from Orthofinder's
+The data used to create this object was retrieved from Orthofinder's
 example output for model species, available in
 https://bioinformatics.plants.ox.ac.uk/davidemms/public_data/.
 }

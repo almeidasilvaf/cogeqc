@@ -90,8 +90,6 @@ contributing to this project, you agree to abide by its terms.
 -   The [documentation website](http://almeidasilvaf.github.io/cogeqc)
     is automatically updated thanks to
     *[pkgdown](https://CRAN.R-project.org/package=pkgdown)*.
--   The code is styled automatically thanks to
-    *[styler](https://CRAN.R-project.org/package=styler)*.
 -   The documentation is formatted thanks to
     *[devtools](https://CRAN.R-project.org/package=devtools)* and
     *[roxygen2](https://CRAN.R-project.org/package=roxygen2)*.
