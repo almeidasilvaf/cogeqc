@@ -144,7 +144,7 @@ jobs:
           pacman -Sy mingw-w64-x86_64-glpk
           pacman -Sy mingw-w64-x86_64-libxml2
 
-        shell: Rscript {0}
+        shell: bash
 
       - name: Install BiocManager
         run: |
