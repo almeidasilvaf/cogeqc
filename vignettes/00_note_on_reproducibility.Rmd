@@ -1,0 +1,74 @@
+---
+title: "A note on reproducibility"
+author: 
+  - name: Fabricio Almeida-Silva
+    affiliation: Universidade Estadual do Norte Fluminense Darcy Ribeiro, RJ, Brazil
+output: 
+  BiocStyle::html_document:
+    toc: true
+    number_sections: yes
+bibliography: vignette_00.bib
+vignette: >
+  %\VignetteIndexEntry{A note on reproducibility}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    crop = NULL
+)
+```
+
+# Introduction
+
+`cogeqc` allows you to run BUSCO [@simao2015busco] from the comfort of your R session with the function `run_busco()`. However, you are required to have BUSCO installed in your machine and in your PATH variable. There are two ways you can handle this external dependency:
+
+- Install it manually. To check if BUSCO has been properly installed, run `busco_is_installed()`.
+- Install and run BUSCO from a **miniconda** environment with the `Herper` package [@herper]. In the section below, I will guide you on how to manage external dependencies in `cogeqc` with `Herper`.
+
+# Managing external dependencies with {Herper}
+
+In the code chunk below, we are installing **miniconda** in a temporary directory. In this temporary **miniconda** installation, we can create a virtual environment named "busco_env" where we will install BUSCO.
+
+```{r herper, eval = FALSE}
+library(Herper)
+miniconda_path <- file.path(tempdir(), "temp_miniconda")
+env <- "busco_env"
+
+# Install miniconda, create env "busco_env" and install BUSCO inside it
+install_CondaTools(
+  tools = "busco", 
+  env = env, 
+  pathToMiniConda = miniconda_path
+)
+```
+
+Then, you can use the function `run_busco()` and pass the variables **env** and **miniconda_path** as input to the arguments *envname* and *miniconda_path*.
+
+**NOTE:** As we installed **miniconda** in a temporary directory, it will be removed as soon as the R session closes. If you already have a miniconda installation in your machine or if you want to install it in a persistent directory, you can change the input directory to the argument **pathToMiniconda** in `install_CondaTools`. For instance, if you want to install **miniconda** in "Documents/miniconda", you can run:
+
+```{r persistent_miniconda, eval=FALSE}
+miniconda_path <- file.path("~/Document", "miniconda")
+env <- "busco_env"
+
+# Install miniconda in "~/Documents/miniconda"
+install_CondaTools(
+  tools = "busco", 
+  env = env, 
+  pathToMiniConda = miniconda_path
+)
+```
+
+# Session information {.unnumbered}
+
+This document was created under the following conditions:
+
+```{r}
+sessionInfo()
+```
+
+# References {.unnumbered}
+

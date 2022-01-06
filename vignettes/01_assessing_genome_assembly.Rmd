@@ -1,0 +1,105 @@
+---
+title: "Assessing genome assembly quality"
+author: 
+  - name: Fabricio Almeida-Silva
+    affiliation: Universidade Estadual do Norte Fluminense Darcy Ribeiro, RJ, Brazil
+output: 
+  BiocStyle::html_document:
+    toc: true
+    number_sections: yes
+bibliography: vignette_01.bib
+vignette: >
+  %\VignetteIndexEntry{Assessing genome assembly}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    crop = NULL
+)
+```
+
+# Introduction
+
+One of the most common metrics to assess the quality of genome assemblies is BUSCO (best universal single-copy orthologs) [@simao2015busco]. `cogeqc` allows users to run BUSCO from an R session and visualize results graphically. BUSCO summary statistics will help you assess which assemblies have high quality based on the percentage of complete BUSCOs.
+
+# Installation
+
+```{r installation, eval=FALSE}
+if(!requireNamespace('BiocManager', quietly = TRUE))
+  install.packages('BiocManager')
+BiocManager::install("cogeqc")
+```
+
+```{r load_package, message=FALSE}
+# Load package after installation
+library(cogeqc)
+```
+
+# Running BUSCO
+
+To run BUSCO from R, you will use the function `run_busco()`[^1]. Here, we will use an example FASTA file containing the first 1,000 lines of the *Herbaspirilllum seropedicae SmR1* genome (GCA_000143225), which was downloaded from Ensembl Bacteria.
+
+[^1]: **NOTE:** You must have BUSCO installed in your machine to use `run_busco()`. If you don't already have it, please refer to the vignette *A note on reproducibility* to learn how to easily install BUSCO in a miniconda environment and use it with `run_busco()`, or install it manually.
+
+```{r run_busco, eval=FALSE}
+# Path to FASTA file
+sequence <- system.file("extdata", "Hse_subset.fa", package = "cogeqc")
+
+# Path to directory where BUSCO datasets will be stored
+download_path <- paste0(tempdir(), "/datasets")
+
+# Run BUSCO if it is installed
+if(busco_is_installed()) {
+  run_busco(sequence, outlabel = "Hse", mode = "genome",
+            lineage = "burkholderiales_odb10",
+            outpath = tempdir(), download_path = download_path)
+}
+```
+
+The output will be stored in the directory specified in *outpath*. You can read and parse BUSCO's output with the function `read_busco()`. For example, let's read the output of a BUSCO run using the genome of the green algae *Ostreococcus tauri*. The output directory is `/extdata`.
+
+```{r}
+# Path to output directory
+output_dir <- system.file("extdata", package = "cogeqc")
+
+busco_summary <- read_busco(output_dir)
+busco_summary
+```
+
+This is an example output for a BUSCO run with a single FASTA file. You can also specify a directory containing multiple FASTA files in the *sequence* argument of `run_busco()`. This way, BUSCO will be run in batch mode. Let's see what the output of BUSCO in batch mode looks like:
+
+```{r}
+data(batch_summary)
+batch_summary
+```
+
+The only difference between this data frame and the previous one is the column **File**, which contains information on the FASTA file. The example dataset `batch_summary` contains the output of `run_busco()` using a directory containing two genomes (*Herbaspirillum seropedicae SmR1* and *Herbaspirillum rubrisubalbicans M1*) as parameter to the *sequence* argument.
+
+# Visualizing summary statistics
+
+After using `run_busco()` and parsing its output with `read_busco()`, users can visualize summary statistics with `plot_busco()`.
+
+```{r plot_busco, out.width = '100%', dpi = 100}
+# Single FASTA file - Ostreococcus tauri
+plot_busco(busco_summary)
+
+# Batch mode - Herbaspirillum seropedicae and H. rubrisubalbicans
+plot_busco(batch_summary)
+```
+
+We usually consider genomes with >90% of complete BUSCOs as having high quality. Thus, we can conclude that the three genomes analyzed here are high-quality genomes.
+
+# Session information {.unnumbered}
+
+This document was created under the following conditions:
+
+```{r}
+sessionInfo()
+```
+
+# References {.unnumbered}
+
