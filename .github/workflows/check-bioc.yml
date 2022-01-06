@@ -139,6 +139,7 @@ jobs:
 
       - name: Install Windows system dependencies
         if: runner.os == 'Windows'
+        shell: bash
         env:
           WINGLPK_URL: "https://sourceforge.net/projects/winglpk/files/winglpk/GLPK-4.65/winglpk-4.65.zip/download"
         run: |
