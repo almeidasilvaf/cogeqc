@@ -141,6 +141,8 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           ## Add code here to install dependencies
+          pacman -Sy mingw-w64-x86_64-glpk
+          pacman -Sy mingw-w64-x86_64-libxml2
 
         shell: Rscript {0}
 
