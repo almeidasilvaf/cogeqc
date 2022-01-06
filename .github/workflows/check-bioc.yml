@@ -143,7 +143,7 @@ jobs:
         env:
           WINGLPK_URL: "https://sourceforge.net/projects/winglpk/files/winglpk/GLPK-4.65/winglpk-4.65.zip/download"
         run: |
-          curl -L $WINGLPK_URL --output glpk.zip
+          curl  -L $WINGLPK_URL --output glpk.zip
           7z x glpk.zip -o/c/
           mv /c/glpk-4.65 /c/glpk
           cp /c/glpk/w64/glpk_4_65.lib /c/glpk/w64/glpk.lib
