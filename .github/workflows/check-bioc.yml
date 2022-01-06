@@ -139,16 +139,14 @@ jobs:
 
       - name: Install Windows system dependencies
         if: runner.os == 'Windows'
+        env:
+          WINGLPK_URL: "https://sourceforge.net/projects/winglpk/files/winglpk/GLPK-4.65/winglpk-4.65.zip/download"
         run: |
-          ## Edit below if you have any Windows system dependencies
-          curl -O http://ftp.gnu.org/gnu/glpk/glpk-4.49.tar.gz
-          curl -O http://ftp.gnu.org/gnu/glpk/glpk-4.49.tar.gz.sig
-          gpg --verify glpk-4.49.tar.gz.sig && tar zfvx glpk-4.49.tar.gz
-          cd glpk-4.49
-          ./configure CFLAGS="-I$PREFIX/include -L$PREFIX/lib" --prefix="$PREFIX" --disable-shared --with-gmp \
-              && make \
-              && make check \
-              && make install
+          curl -L $WINGLPK_URL --output glpk.zip
+          7z x glpk.zip -o/c/
+          mv /c/glpk-4.65 /c/glpk
+          cp /c/glpk/w64/glpk_4_65.lib /c/glpk/w64/glpk.lib
+          cp /c/glpk/w64/glpk_4_65.dll /c/glpk/w64/glpk.dll
 
         shell: Rscript {0}
 
