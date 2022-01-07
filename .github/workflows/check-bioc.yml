@@ -54,7 +54,7 @@ jobs:
         config:
           - { os: ubuntu-latest, r: '4.1', bioc: '3.13', cont: "bioconductor/bioconductor_docker:RELEASE_3_13", rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest" }
           - { os: macOS-latest, r: '4.1', bioc: '3.13'}
-          - { os: windows-latest, r: '4.1', bioc: '3.13'}
+        #  - { os: windows-latest, r: '4.1', bioc: '3.13'}
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
@@ -141,23 +141,6 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           ## Edit below if you have any Windows system dependencies
-          PREFIX="${HOME}/local"
-
-          curl -O http://ftp.gnu.org/gnu/glpk/glpk-5.0.tar.gz
-          curl -O http://ftp.gnu.org/gnu/glpk/glpk-5.0.tar.gz.sig
-          gpg --verify glpk-5.0.tar.gz.sig && tar zfvx glpk-5.0.tar.gz
-          cd glpk-5.0
-          ./configure CFLAGS="-I$PREFIX/include -L$PREFIX/lib" --prefix="$PREFIX" --disable-shared --with-gmp \
-              && make \
-              && make check \
-              && make install
-
-          # curl -L $WINGLPK_URL --output glpk.zip
-          # 7z x glpk.zip -o/c/
-          # mv /c/glpk-4.65 /c/glpk
-          # cp /c/glpk/w64/glpk_4_65.lib /c/glpk/w64/glpk.lib
-          # cp /c/glpk/w64/glpk_4_65.dll /c/glpk/w64/glpk.dll
-
           ## Add code here to install dependencies
           # yes | pacman -Sy mingw-w64-x86_64-glpk
           # yes | pacman -Sy mingw-w64-x86_64-libxml2
