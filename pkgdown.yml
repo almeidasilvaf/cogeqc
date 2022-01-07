@@ -4,5 +4,6 @@ pkgdown_sha: ~
 articles:
   vignette_00_note_on_reproducibility: vignette_00_note_on_reproducibility.html
   vignette_01_assessing_genome_assembly: vignette_01_assessing_genome_assembly.html
-last_built: 2022-01-07T00:15Z
+  vignette_02_assessing_orthogroup_inference: vignette_02_assessing_orthogroup_inference.html
+last_built: 2022-01-07T23:45Z
 
