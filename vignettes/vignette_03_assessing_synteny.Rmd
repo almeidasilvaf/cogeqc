@@ -1,0 +1,104 @@
+---
+title: "Assessing synteny identification"
+author: 
+  - name: Fabricio Almeida-Silva
+    affiliation: Ghent University / VIB Center for Plant Systems Biology, Ghent, Belgium
+  - name: Yves Van de Peer
+    affiliation: Ghent University / VIB Center for Plant Systems Biology, Ghent, Belgium
+output: 
+  BiocStyle::html_document:
+    toc: true
+    number_sections: yes
+bibliography: vignette_bibliography.bib
+vignette: >
+  %\VignetteIndexEntry{Assessing synteny identification}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    crop = NULL
+)
+```
+
+# Introduction
+
+Synteny analysis allows the identification of conserved gene content and gene order (collinearity) in a genomic segment, and it is often used to study how genomic rearrangements have shaped chromosomes during the course of evolution. However, accurate detection of syntenic blocks is highly dependent on parameters such as number of top hits in similarity searches (e.g., with BLAST [@altschul1990basic] or DIAMOND [@buchfink2015fast]), number of anchors, and number of upstream and downstream genes to search for syntenic blocks. @zhao2019network proposed a network-based synteny analysis that allows the identification of optimal parameters using the network's **average clustering coefficient** and **number of nodes**.
+
+# Installation
+
+```{r installation, eval=FALSE}
+if(!requireNamespace('BiocManager', quietly = TRUE))
+  install.packages('BiocManager')
+BiocManager::install("cogeqc")
+```
+
+```{r load_package, message=FALSE}
+# Load package after installation
+library(cogeqc)
+set.seed(123) # for reproducibility
+```
+
+# Data description
+
+Here, we will use a subset of the synteny network inferred in @zhao2019network that contains the synteny network for *Brassica oleraceae*, *B. napus*, and *B. rapa*.
+
+```{r data_description}
+# Load synteny network for 
+data(synnet)
+
+head(synnet)
+```
+
+# Network-based assessment of synteny identification
+
+To assess synteny detection, we calculate a synteny network score as follows:
+
+$$
+\begin{aligned}
+S &= C N, \text{ where:} \\
+\\
+C &= \text{Clustering coefficient} \\
+N &= \text{Number of nodes}
+\end{aligned}
+$$
+
+The network with the highest score is considered the most accurate. To score a network, you will use the function `assess_synnet()`.
+
+```{r assess_synnet}
+assess_synnet(synnet)
+```
+
+Ideally, you should be able to run a synteny detection program (e.g., MCScanX [@wang2012mcscanx] or i-ADHoRE [@proost2012adhore]) with multiple combinations of parameters, infer a synteny network for each run, and assess each network to pick the best. To demonstrate it, let's simulate different networks through resampling and calculate scores for each of them with the wrapper function `assess_synnet_list()`.
+
+```{r assess_list}
+net1 <- synnet
+net2 <- synnet[-sample(1:10000, 500), ]
+net3 <- synnet[-sample(1:10000, 1000), ]
+synnet_list <- list(
+  net1 = net1, 
+  net2 = net2, 
+  net3 = net3
+)
+synnet_assesment <- assess_synnet_list(synnet_list)
+synnet_assesment
+
+# Determine the best network
+synnet_assesment$Network[which.max(synnet_assesment$Score)]
+```
+
+As you can see, the first (original) network is the best one, as it has the highest score.
+
+# Session information {.unnumbered}
+
+This document was created under the following conditions:
+
+```{r}
+sessionInfo()
+```
+
+# References {.unnumbered}
+

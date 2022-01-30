@@ -8,7 +8,12 @@ Authors@R:
            family = "Almeida-Silva",
            role = c("aut", "cre"),
            email = "fabricio_almeidasilva@hotmail.com",
-           comment = c(ORCID = "0000-0002-5314-2964"))
+           comment = c(ORCID = "0000-0002-5314-2964")),
+    person(given = "Yves",
+           family = "Van de Peer",
+           role = "aut",
+           email = "yves.vandepeer@psb.vib-ugent.be",
+           comment = c(ORCID = "0000-0003-4327-3730"))
     )
 Description: cogeqc aims to facilitate systematic quality checks on 
     standard comparative genomics analyses to help researchers detect issues
@@ -18,7 +23,10 @@ URL: https://github.com/almeidasilvaf/cogeqc
 BugReports: https://support.bioconductor.org/t/cogeqc
 biocViews: 
     Software,
-    FunctionalPrediction
+    GenomeAssembly,
+    ComparativeGenomics,
+    Phylogenetics,
+    QualityControl
 Encoding: UTF-8
 LazyData: false
 Roxygen: list(markdown = TRUE)

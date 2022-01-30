@@ -2,7 +2,9 @@
 title: "A note on reproducibility"
 author: 
   - name: Fabricio Almeida-Silva
-    affiliation: Universidade Estadual do Norte Fluminense Darcy Ribeiro, RJ, Brazil
+    affiliation: Ghent University / VIB Center for Plant Systems Biology, Ghent, Belgium
+  - name: Yves Van de Peer
+    affiliation: Ghent University / VIB Center for Plant Systems Biology, Ghent, Belgium
 output: 
   BiocStyle::html_document:
     toc: true
