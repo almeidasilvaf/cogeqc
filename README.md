@@ -43,24 +43,21 @@ Please run this yourself to check for any updates on how to cite
 
 ``` r
 print(citation('cogeqc'), bibtex = TRUE)
-#> Warning in citation("cogeqc"): no date field in DESCRIPTION file of package
-#> 'cogeqc'
-#> Warning in citation("cogeqc"): could not determine year for 'cogeqc' from
-#> package DESCRIPTION file
 #> 
 #> To cite package 'cogeqc' in publications use:
 #> 
-#>   Fabrício Almeida-Silva (NA). cogeqc: Systematic quality checks on
+#>   Fabrício Almeida-Silva (2022). cogeqc: Systematic quality checks on
 #>   comparative genomics analyses. R package version 0.99.0.
-#>   https://github.com/almeidasilvaf/cageminer
+#>   https://github.com/almeidasilvaf/cogeqc
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
 #>     title = {cogeqc: Systematic quality checks on comparative genomics analyses},
 #>     author = {Fabrício Almeida-Silva},
+#>     year = {2022},
 #>     note = {R package version 0.99.0},
-#>     url = {https://github.com/almeidasilvaf/cageminer},
+#>     url = {https://github.com/almeidasilvaf/cogeqc},
 #>   }
 ```
 
