@@ -43,7 +43,7 @@ BiocManager::install("almeidasilvaf/cogeqc")
 ## Citation
 
 Below is the citation output from using `citation('cogeqc')` in R. Please
-run this yourself to check for any updates on how to cite __cogeqc__.
+run this yourself to check for any updates on how to cite __cogeqc__. 
 
 ```{r 'citation', eval = requireNamespace('cogeqc')}
 print(citation('cogeqc'), bibtex = TRUE)

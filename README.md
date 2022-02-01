@@ -46,15 +46,15 @@ print(citation('cogeqc'), bibtex = TRUE)
 #> 
 #> To cite package 'cogeqc' in publications use:
 #> 
-#>   Fabrício Almeida-Silva (2022). cogeqc: Systematic quality checks on
-#>   comparative genomics analyses. R package version 0.99.0.
-#>   https://github.com/almeidasilvaf/cogeqc
+#>   Fabrício Almeida-Silva and Yves Van de Peer (2022). cogeqc:
+#>   Systematic quality checks on comparative genomics analyses. R package
+#>   version 0.99.0. https://github.com/almeidasilvaf/cogeqc
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
 #>     title = {cogeqc: Systematic quality checks on comparative genomics analyses},
-#>     author = {Fabrício Almeida-Silva},
+#>     author = {Fabrício Almeida-Silva and Yves {Van de Peer}},
 #>     year = {2022},
 #>     note = {R package version 0.99.0},
 #>     url = {https://github.com/almeidasilvaf/cogeqc},
