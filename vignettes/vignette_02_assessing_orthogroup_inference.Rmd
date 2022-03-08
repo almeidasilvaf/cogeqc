@@ -200,6 +200,15 @@ You can also visualize a heatmap of pairwise orthogroup overlap across species w
 plot_og_overlap(ortho_stats)
 ```
 
+## Orthogroup size per species
+
+If you want to take a look at the distribution of OG sizes for each species, you can use the function `plot_og_sizes`. If you have many extreme values and want to visualize the shape of the distribution in a better way, you can also log transform the OG sizes by setting `log = TRUE`.
+
+```{r og_sizes}
+plot_og_sizes(og) 
+plot_og_sizes(og, log = TRUE) # natural logarithm scale
+```
+
 # Session information {.unnumbered}
 
 This document was created under the following conditions:
