@@ -97,9 +97,9 @@
       <h1 data-toc-skip>Assessing genome assembly quality</h1>
                         <h4 data-toc-skip class="author">Fabricio Almeida-Silva</h4>
             <address class="author_afil">
-      Ghent University / VIB Center for Plant Systems Biology, Ghent, Belgium<br><h4 data-toc-skip class="author">Yves Van de Peer</h4>
+      VIB-UGent Center for Plant Systems Biology, Ghent, Belgium<br><h4 data-toc-skip class="author">Yves Van de Peer</h4>
             <address class="author_afil">
-      Ghent University / VIB Center for Plant Systems Biology, Ghent, Belgium<br><small class="dont-index">Source: <a href="https://github.com/almeidasilvaf/cogeqc/blob/HEAD/vignettes/vignette_01_assessing_genome_assembly.Rmd" class="external-link"><code>vignettes/vignette_01_assessing_genome_assembly.Rmd</code></a></small>
+      Department of Plant Biotechnology and Bioinformatics, Ghent University, Ghent, BelgiumVIB-UGent Center for Plant Systems Biology, Ghent, BelgiumCollege of Horticulture, Academy for Advanced Interdisciplinary Studies, Nanjing Agricultural University, Nanjing, ChinaCenter for Microbial Ecology and Genomics, Department of Biochemistry, Genetics and Microbiology, University of Pretoria, Pretoria, South Africa<br><small class="dont-index">Source: <a href="https://github.com/almeidasilvaf/cogeqc/blob/HEAD/vignettes/vignette_01_assessing_genome_assembly.Rmd" class="external-link"><code>vignettes/vignette_01_assessing_genome_assembly.Rmd</code></a></small>
       <div class="hidden name"><code>vignette_01_assessing_genome_assembly.Rmd</code></div>
 
     </address>
@@ -127,7 +127,7 @@
 <div class="section level2">
 <h2 id="running-busco">Running BUSCO<a class="anchor" aria-label="anchor" href="#running-busco"></a>
 </h2>
-<p>To run BUSCO from R, you will use the function <code><a href="../reference/run_busco.html">run_busco()</a></code><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Here, we will use an example FASTA file containing the first 1,000 lines of the <em>Herbaspirilllum seropedicae SmR1</em> genome (GCA_000143225), which was downloaded from Ensembl Bacteria.</p>
+<p>To run BUSCO from R, you will use the function <code><a href="../reference/run_busco.html">run_busco()</a></code><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Here, we will use an example FASTA file containing the first 1,000 lines of the <em>Herbaspirilllum seropedicae SmR1</em> genome (GCA_000143225), which was downloaded from Ensembl Bacteria. We will run BUSCO using <em>burkholderiales_odb10</em> as the lineage dataset. To view all available datasets, run <code><a href="../reference/list_busco_datasets.html">list_busco_datasets()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Path to FASTA file</span>
 <span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"Hse_subset.fa"</span>, package <span class="op">=</span> <span class="st">"cogeqc"</span><span class="op">)</span>
@@ -218,7 +218,7 @@
 <span class="co">#&gt; [13] highr_0.9           ggplot2_3.3.5       pillar_1.7.0       </span>
 <span class="co">#&gt; [16] ggfun_0.0.5         yulab.utils_0.0.4   rlang_1.0.2        </span>
 <span class="co">#&gt; [19] lazyeval_0.2.2      jquerylib_0.1.4     Matrix_1.4-0       </span>
-<span class="co">#&gt; [22] reticulate_1.24     rmarkdown_2.12      pkgdown_2.0.2      </span>
+<span class="co">#&gt; [22] reticulate_1.24     rmarkdown_2.13      pkgdown_2.0.2      </span>
 <span class="co">#&gt; [25] labeling_0.4.2      textshaping_0.3.6   desc_1.4.1         </span>
 <span class="co">#&gt; [28] stringr_1.4.0       igraph_1.2.11       munsell_0.5.0      </span>
 <span class="co">#&gt; [31] compiler_4.1.1      xfun_0.30           pkgconfig_2.0.3    </span>
