@@ -72,7 +72,7 @@ head(orthogroups)
 
 # Assessing orthogroups
 
-In `cogeqc`, you can assess orthogroup inference with either a protein-domain-based approach or a reference-based approach. Both approaches are described below.
+In `cogeqc`, you can assess orthogroup inference with either a protein domain-based approach or a reference-based approach. Both approaches are described below.
 
 ## Protein domain-based orthogroup assessment
 
@@ -198,7 +198,7 @@ plot_orthofinder_stats(
 
 You can also visualize a heatmap of pairwise orthogroup overlap across species with `plot_og_overlap()`. 
 
-```{r}
+```{r plot_og_overlap}
 plot_og_overlap(ortho_stats)
 ```
 

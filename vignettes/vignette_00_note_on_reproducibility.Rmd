@@ -53,7 +53,7 @@ Then, you can use the function `run_busco()` and pass the variables **env** and 
 **NOTE:** As we installed **miniconda** in a temporary directory, it will be removed as soon as the R session closes. If you already have a miniconda installation in your machine or if you want to install it in a persistent directory, you can change the input directory to the argument **pathToMiniconda** in `install_CondaTools`. For instance, if you want to install **miniconda** in "Documents/miniconda", you can run:
 
 ```{r persistent_miniconda, eval=FALSE}
-miniconda_path <- file.path("~/Document", "miniconda")
+miniconda_path <- file.path("~/Documents", "miniconda")
 env <- "busco_env"
 
 # Install miniconda in "~/Documents/miniconda"
