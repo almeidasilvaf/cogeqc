@@ -20,7 +20,11 @@
 <script src="pkgdown.js"></script><meta property="og:title" content="Systematic quality checks on comparative genomics analyses">
 <meta property="og:description" content="cogeqc aims to facilitate systematic quality checks on 
     standard comparative genomics analyses to help researchers detect issues
-    and select the most suitable parameters for each data set.">
+    and select the most suitable parameters for each data set. cogeqc can
+    be used to asses: i. genome assembly quality with BUSCOs; 
+    ii. orthogroup inference using a protein domain-based approach and;
+    iii. synteny detection using synteny network properties. There are also
+    data visualization functions to explore QC summary statistics.">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -100,7 +104,15 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of <code>cogeqc</code> is to facilitate systematic quality checks on standard comparative genomics analyses to help researchers detect issues and select the most suitable parameters for each data set.</p>
+<p>The goal of <code>cogeqc</code> is to facilitate systematic quality checks on standard comparative genomics analyses to help researchers detect issues and select the most suitable parameters for each data set. Currently, cogeqc can be used to assess:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Genome assembly quality:</strong> users can assess genome completeness using Best Universal Single-Copy Orthologs (BUSCOs). <code>cogeqc</code> allows users to run BUSCO from the comfort of an R session and explore summary statistics with publication-ready plots.</li>
+<li>
+<strong>Orthogroup inference:</strong> orthogroups are assessed based on the percentage of shared protein domains in all ortogroups. The rationale for this approach is that genes in the same orthogroup evolved from a common ancestor, so the percentage of conserved protein domains in an orthogroup should be as high as possible.</li>
+<li>
+<strong>Synteny detection:</strong> synteny detection is assessed using network-based approaches, namely the clustering coefficient and degree of a synteny network.</li>
+</ol>
 <div class="section level2">
 <h2 id="installation-instructions">Installation instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
 </h2>
