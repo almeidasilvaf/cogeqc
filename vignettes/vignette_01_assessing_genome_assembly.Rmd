@@ -20,7 +20,8 @@ vignette: >
 knitr::opts_chunk$set(
     collapse = TRUE,
     comment = "#>",
-    crop = NULL
+    crop = NULL,
+    dpi = 100
 )
 ```
 
@@ -85,7 +86,7 @@ The only difference between this data frame and the previous one is the column *
 
 After using `run_busco()` and parsing its output with `read_busco()`, users can visualize summary statistics with `plot_busco()`.
 
-```{r plot_busco, out.width = '100%', dpi = 100}
+```{r plot_busco, out.width = '100%'}
 # Single FASTA file - Ostreococcus tauri
 plot_busco(busco_summary)
 
