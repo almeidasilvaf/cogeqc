@@ -1,6 +1,7 @@
 
 #----Load data----
 data(tree)
+data(og)
 dir <- system.file("extdata", package = "cogeqc")
 stats_list <- read_orthofinder_stats(dir)
 
@@ -31,10 +32,13 @@ test_that("plot_orthofinder_stats() returns a ggplot object", {
     expect_true("ggplot" %in% class(p))
 })
 
-
 test_that("plot_og_overlap() returns a ggplot object", {
     p <- plot_og_overlap(stats_list)
     expect_true("ggplot" %in% class(p))
 })
 
+test_that("plot_og_sizes() returns a ggplot object", {
+    p <- plot_og_sizes(og, log = TRUE)
+    expect_true("ggplot" %in% class(p))
+})
 

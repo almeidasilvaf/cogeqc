@@ -8,6 +8,7 @@ test_that("read_orthogroups() correctly reads and parses Orthogroups.tsv", {
     og <- read_orthogroups(file)
     expect_equal(class(og), "data.frame")
     expect_equal(names(og), c("Orthogroup", "Species", "Gene"))
+    expect_equal(ncol(og), 3)
 })
 
 test_that("read_busco() properly reads BUSCO summary output", {
