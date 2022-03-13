@@ -135,7 +135,7 @@
 <p>Then, you can use the function <code><a href="../reference/run_busco.html">run_busco()</a></code> and pass the variables <strong>env</strong> and <strong>miniconda_path</strong> as input to the arguments <em>envname</em> and <em>miniconda_path</em>.</p>
 <p><strong>NOTE:</strong> As we installed <strong>miniconda</strong> in a temporary directory, it will be removed as soon as the R session closes. If you already have a miniconda installation in your machine or if you want to install it in a persistent directory, you can change the input directory to the argument <strong>pathToMiniconda</strong> in <code>install_CondaTools</code>. For instance, if you want to install <strong>miniconda</strong> in “Documents/miniconda,” you can run:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">miniconda_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"~/Document"</span>, <span class="st">"miniconda"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">miniconda_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"~/Documents"</span>, <span class="st">"miniconda"</span><span class="op">)</span>
 <span class="va">env</span> <span class="op">&lt;-</span> <span class="st">"busco_env"</span>
 
 <span class="co"># Install miniconda in "~/Documents/miniconda"</span>
