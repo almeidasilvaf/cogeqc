@@ -12,6 +12,7 @@
 #' @export
 #' @rdname calculate_H
 #' @importFrom dplyr group_by summarise mutate ungroup select distinct n
+#' @importFrom rlang .data
 #' @examples
 #' data(og)
 #' data(interpro_ath)
@@ -19,11 +20,11 @@
 #' H <- calculate_H(orthogroup_df)
 calculate_H <- function(orthogroup_df = NULL) {
 
-    h <- dplyr::group_by(orthogroup_df, Orthogroup, Annotation)
+    h <- dplyr::group_by(orthogroup_df, .data$Orthogroup, .data$Annotation)
     h <- dplyr::summarise(h, n = dplyr::n())
-    h <- dplyr::mutate(h, H = n / sum(n), mean_H = mean(H))
+    h <- dplyr::mutate(h, H = .data$n / sum(.data$n), mean_H = mean(.data$H))
     h <- dplyr::ungroup(h)
-    h <- dplyr::select(h, Orthogroup, mean_H)
+    h <- dplyr::select(h, .data$Orthogroup, .data$mean_H)
     h <- as.data.frame(dplyr::distinct(h, .keep_all = TRUE))
     return(h)
 }
@@ -51,7 +52,7 @@ calculate_H <- function(orthogroup_df = NULL) {
 #' data(og)
 #' data(interpro_ath)
 #' data(interpro_bol)
-#' # Subsetting annotation for demonstration purposes. Do not subset.
+#' # Subsetting annotation for demonstration purposes.
 #' annotation <- list(Ath = interpro_ath[1:1000,], Bol = interpro_bol[1:1000,])
 #' assess <- assess_orthogroups(og, annotation)
 assess_orthogroups <- function(orthogroups = NULL, annotation = NULL) {

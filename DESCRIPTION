@@ -34,6 +34,7 @@ RoxygenNote: 7.1.2
 Imports:
     utils,
     stats,
+    rlang,
     methods,
     reshape2,
     dplyr,

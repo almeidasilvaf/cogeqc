@@ -4,11 +4,7 @@ author:
   - name: Fabricio Almeida-Silva
     affiliation: VIB-UGent Center for Plant Systems Biology, Ghent, Belgium
   - name: Yves Van de Peer
-    affiliation: 
-    - Department of Plant Biotechnology and Bioinformatics, Ghent University, Ghent, Belgium
-    - VIB-UGent Center for Plant Systems Biology, Ghent, Belgium
-    - College of Horticulture, Academy for Advanced Interdisciplinary Studies, Nanjing Agricultural University, Nanjing, China
-    - Center for Microbial Ecology and Genomics, Department of Biochemistry, Genetics and Microbiology, University of Pretoria, Pretoria, South Africa
+    affiliation: VIB-UGent Center for Plant Systems Biology, Ghent, Belgium
 output: 
   BiocStyle::html_document:
     toc: true

@@ -4,11 +4,7 @@ author:
   - name: Fabricio Almeida-Silva
     affiliation: VIB-UGent Center for Plant Systems Biology, Ghent, Belgium
   - name: Yves Van de Peer
-    affiliation: 
-    - Department of Plant Biotechnology and Bioinformatics, Ghent University, Ghent, Belgium
-    - VIB-UGent Center for Plant Systems Biology, Ghent, Belgium
-    - College of Horticulture, Academy for Advanced Interdisciplinary Studies, Nanjing Agricultural University, Nanjing, China
-    - Center for Microbial Ecology and Genomics, Department of Biochemistry, Genetics and Microbiology, University of Pretoria, Pretoria, South Africa
+    affiliation: VIB-UGent Center for Plant Systems Biology, Ghent, Belgium
 output: 
   BiocStyle::html_document:
     toc: true
@@ -101,7 +97,9 @@ Now, we can calculate the mean homogeneity for this orthogroup inference.
 mean(og_assessment$Mean_H)
 ```
 
-Ideally, to have a reliable orthogroup inference, you should be able to run OrthoFinder with multiple combinations of parameters and assess each inference with `assess_orthogroups()`. The inference with the highest mean homonegeneity will be the best.
+Ideally, to have a reliable orthogroup inference, you should be able to run OrthoFinder with multiple combinations of parameters and assess each inference with `assess_orthogroups()`. The inference with the highest mean homonegeneity will be the best.[^3]
+
+[^3]: **Friendly tip:** if you want to calculate homogeneity scores using a single species as a proxy (your orthogroups data frame will have only one species), you can use the function `calculate_H()`.
 
 ## Reference-based orthogroup assessment
 

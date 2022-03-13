@@ -108,7 +108,7 @@ run_busco <- function(sequence = NULL, outlabel = NULL,
 
     system2("busco", args = args)
     out_dir <- dir(paste0(outpath, "/", outlabel))
-    return(outdir)
+    return(out_dir)
 }
 
 

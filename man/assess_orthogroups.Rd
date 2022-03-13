@@ -31,7 +31,7 @@ Assess orthogroup inference based on functional annotation
 data(og)
 data(interpro_ath)
 data(interpro_bol)
-# Subsetting annotation for demonstration purposes. Do not subset.
+# Subsetting annotation for demonstration purposes.
 annotation <- list(Ath = interpro_ath[1:1000,], Bol = interpro_bol[1:1000,])
 assess <- assess_orthogroups(og, annotation)
 }
