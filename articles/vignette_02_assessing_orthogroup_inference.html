@@ -308,11 +308,11 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">tree</span><span class="op">)</span>
 <span class="fu"><a href="../reference/plot_species_tree.html">plot_species_tree</a></span><span class="op">(</span><span class="va">tree</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/plot_species_tree-1.png" width="1458.33333333333"></p>
+<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/plot_species_tree-1.png" width="729.166666666667"></p>
 <p>You can also include the number of gene duplications in each node.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_species_tree.html">plot_species_tree</a></span><span class="op">(</span><span class="va">tree</span>, stats_list <span class="op">=</span> <span class="va">ortho_stats</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/plot_species_tree_with_dups-1.png" width="1458.33333333333"></p>
+<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/plot_species_tree_with_dups-1.png" width="729.166666666667"></p>
 </div>
 <div class="section level3">
 <h3 id="species-specific-duplications">Species-specific duplications<a class="anchor" aria-label="anchor" href="#species-specific-duplications"></a>
@@ -320,7 +320,7 @@
 <p>The species tree above shows duplications per node, but it does not show species-duplications. To visualize that, you can use the function <code><a href="../reference/plot_duplications.html">plot_duplications()</a></code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_duplications.html">plot_duplications</a></span><span class="op">(</span><span class="va">ortho_stats</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/unnamed-chunk-2-1.png" width="1458.33333333333"></p>
+<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/unnamed-chunk-2-1.png" width="729.166666666667"></p>
 </div>
 <div class="section level3">
 <h3 id="genes-in-orthogroups">Genes in orthogroups<a class="anchor" aria-label="anchor" href="#genes-in-orthogroups"></a>
@@ -328,7 +328,7 @@
 <p>Visualizing the percentage of genes in orthogroups is particularly useful for quality check, since one would usually expect a large percentage of genes in orthogroups, unless there is a very distant species in OrthoFinder’s input proteome data.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_genes_in_ogs.html">plot_genes_in_ogs</a></span><span class="op">(</span><span class="va">ortho_stats</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/plot_genes_in_ogs-1.png" width="1458.33333333333"></p>
+<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/plot_genes_in_ogs-1.png" width="729.166666666667"></p>
 </div>
 <div class="section level3">
 <h3 id="species-specific-orthogroups">Species-specific orthogroups<a class="anchor" aria-label="anchor" href="#species-specific-orthogroups"></a>
@@ -336,7 +336,7 @@
 <p>To visualize the number of species-specific orthogroups, use the function <code><a href="../reference/plot_species_specific_ogs.html">plot_species_specific_ogs()</a></code>. This plot can reveal a unique gene repertoire of a particular species if it has a large number of species-specific OGs as compared to the other ones.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_species_specific_ogs.html">plot_species_specific_ogs</a></span><span class="op">(</span><span class="va">ortho_stats</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/ssOGs-1.png" width="1458.33333333333"></p>
+<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/ssOGs-1.png" width="729.166666666667"></p>
 </div>
 <div class="section level3">
 <h3 id="all-in-one">All in one<a class="anchor" aria-label="anchor" href="#all-in-one"></a>
@@ -348,7 +348,7 @@
   xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">2</span><span class="op">)</span>,
   stats_list <span class="op">=</span> <span class="va">ortho_stats</span>
 <span class="op">)</span></code></pre></div>
-<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/plot_orthofinder_stats-1.png" width="2400"></p>
+<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/plot_orthofinder_stats-1.png" width="1200"></p>
 </div>
 <div class="section level3">
 <h3 id="orthogroup-overlap">Orthogroup overlap<a class="anchor" aria-label="anchor" href="#orthogroup-overlap"></a>
@@ -356,7 +356,7 @@
 <p>You can also visualize a heatmap of pairwise orthogroup overlap across species with <code><a href="../reference/plot_og_overlap.html">plot_og_overlap()</a></code>.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_og_overlap.html">plot_og_overlap</a></span><span class="op">(</span><span class="va">ortho_stats</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/plot_og_overlap-1.png" width="1458.33333333333"></p>
+<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/plot_og_overlap-1.png" width="729.166666666667"></p>
 </div>
 <div class="section level3">
 <h3 id="orthogroup-size-per-species">Orthogroup size per species<a class="anchor" aria-label="anchor" href="#orthogroup-size-per-species"></a>
@@ -364,10 +364,10 @@
 <p>If you want to take a look at the distribution of OG sizes for each species, you can use the function <code>plot_og_sizes</code>. If you have many extreme values and want to visualize the shape of the distribution in a better way, you can also log transform the OG sizes by setting <code>log = TRUE</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_og_sizes.html">plot_og_sizes</a></span><span class="op">(</span><span class="va">og</span><span class="op">)</span> </code></pre></div>
-<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/og_sizes-1.png" width="1458.33333333333"></p>
+<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/og_sizes-1.png" width="729.166666666667"></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_og_sizes.html">plot_og_sizes</a></span><span class="op">(</span><span class="va">og</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># natural logarithm scale</span></code></pre></div>
-<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/og_sizes-2.png" width="1458.33333333333"></p>
+<p><img src="vignette_02_assessing_orthogroup_inference_files/figure-html/og_sizes-2.png" width="729.166666666667"></p>
 </div>
 </div>
 <div class="section level2">
