@@ -17,7 +17,11 @@ Authors@R:
     )
 Description: cogeqc aims to facilitate systematic quality checks on 
     standard comparative genomics analyses to help researchers detect issues
-    and select the most suitable parameters for each data set.
+    and select the most suitable parameters for each data set. cogeqc can
+    be used to asses: i. genome assembly quality with BUSCOs; 
+    ii. orthogroup inference using a protein domain-based approach and;
+    iii. synteny detection using synteny network properties. There are also
+    data visualization functions to explore QC summary statistics.
 License: GPL-3
 URL: https://github.com/almeidasilvaf/cogeqc
 BugReports: https://support.bioconductor.org/t/cogeqc
@@ -25,6 +29,7 @@ biocViews:
     Software,
     GenomeAssembly,
     ComparativeGenomics,
+    FunctionalGenomics,
     Phylogenetics,
     QualityControl
 Encoding: UTF-8

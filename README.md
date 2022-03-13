@@ -14,7 +14,21 @@ coverage](https://codecov.io/gh/almeidasilvaf/cogeqc/branch/master/graph/badge.s
 
 The goal of `cogeqc` is to facilitate systematic quality checks on
 standard comparative genomics analyses to help researchers detect issues
-and select the most suitable parameters for each data set.
+and select the most suitable parameters for each data set. Currently,
+cogeqc can be used to assess:
+
+1.  **Genome assembly quality:** users can assess genome completeness
+    using Best Universal Single-Copy Orthologs (BUSCOs). `cogeqc` allows
+    users to run BUSCO from the comfort of an R session and explore
+    summary statistics with publication-ready plots.
+2.  **Orthogroup inference:** orthogroups are assessed based on the
+    percentage of shared protein domains in all ortogroups. The
+    rationale for this approach is that genes in the same orthogroup
+    evolved from a common ancestor, so the percentage of conserved
+    protein domains in an orthogroup should be as high as possible.
+3.  **Synteny detection:** synteny detection is assessed using
+    network-based approaches, namely the clustering coefficient and
+    degree of a synteny network.
 
 ## Installation instructions
 
