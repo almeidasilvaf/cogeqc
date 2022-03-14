@@ -2,9 +2,8 @@ pandoc: 2.11.4
 pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
-  vignette_00_note_on_reproducibility: vignette_00_note_on_reproducibility.html
   vignette_01_assessing_genome_assembly: vignette_01_assessing_genome_assembly.html
   vignette_02_assessing_orthogroup_inference: vignette_02_assessing_orthogroup_inference.html
   vignette_03_assessing_synteny: vignette_03_assessing_synteny.html
-last_built: 2022-03-13T12:18Z
+last_built: 2022-03-14T17:12Z
 
