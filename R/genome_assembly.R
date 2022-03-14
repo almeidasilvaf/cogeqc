@@ -2,9 +2,6 @@
 
 #' List BUSCO data sets
 #'
-#' @param envname Name of the Conda environment with external dependencies
-#' to be included in the temporary R environment.
-#' @param miniconda_path Path to miniconda. Only valid if envname is specified.
 #'
 #' @return A hierarchically organized list of available data sets as returned
 #' by \code{busco --list-datasets}.
@@ -14,10 +11,7 @@
 #' if(busco_is_installed()) {
 #'     list_busco_datasets()
 #' }
-list_busco_datasets <- function(envname = NULL, miniconda_path = NULL) {
-    if(load_env(envname, miniconda_path)) {
-        Herper::local_CondaEnv(envname, pathToMiniConda = miniconda_path)
-    }
+list_busco_datasets <- function() {
     if(!busco_is_installed()) { stop("Unable to find BUSCO in PATH.") }
 
     out <- system2("busco", args = "--list-datasets")
@@ -49,15 +43,11 @@ list_busco_datasets <- function(envname = NULL, miniconda_path = NULL) {
 #' in the current working directory. Default: NULL.
 #' @param download_path Path to directory where BUSCO datasets will be stored
 #' after downloading. Default: tempdir().
-#' @param envname Name of the Conda environment with external dependencies
-#' to be included in the temporary R environment.
-#' @param miniconda_path Path to miniconda. Only valid if envname is specified.
 #'
 #' @return A character vector with the names of subdirectories and files
 #' in the results directory.
 #' @export
 #' @rdname run_busco
-#' @importFrom Herper local_CondaEnv
 #' @examples
 #' \donttest{
 #' sequence <- system.file("extdata", "Hse_subset.fa", package = "cogeqc")
@@ -71,11 +61,8 @@ list_busco_datasets <- function(envname = NULL, miniconda_path = NULL) {
 run_busco <- function(sequence = NULL, outlabel = NULL,
                       mode = c("genome", "transcriptome", "proteins"),
                       lineage = NULL, auto_lineage = NULL, force = FALSE,
-                      threads = 1, outpath = NULL, download_path = tempdir(),
-                      envname = NULL, miniconda_path = NULL) {
-    if(load_env(envname, miniconda_path)) {
-        Herper::local_CondaEnv(envname, pathToMiniConda = miniconda_path)
-    }
+                      threads = 1, outpath = NULL, download_path = tempdir()) {
+
     if(!busco_is_installed()) { stop("Unable to find BUSCO in PATH.") }
     # Handle outlabel
     if(is.null(outlabel)) {

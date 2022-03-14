@@ -1,30 +1,5 @@
 
 
-#' Check prerequisites to load conda environment temporarily with Herper
-#'
-#' @param envname Name of the Conda environment with external dependencies
-#' to be included in the temporary R environment.
-#' @param miniconda_path Path to miniconda. Only valid if envname is specified.
-#'
-#' @author Fabricio Almeida-Silva
-#' @return Logical indicating whether conda environment should be loaded on not.
-#' @noRd
-load_env <- function(envname = NULL, miniconda_path = NULL) {
-    if(!is.null(envname) & !is.null(miniconda_path)) {
-        load <- TRUE
-    } else if(!is.null(envname) & is.null(miniconda_path)) {
-        stop("To load a conda environment, both `envname` and `miniconda_path`
-             must be defined.")
-    } else if(is.null(envname) & !is.null(miniconda_path)) {
-        stop("To load a conda environment, both `envname` and `miniconda_path`
-             must be defined.")
-    } else {
-        load <- FALSE
-    }
-    return(load)
-}
-
-
 #' Wrapper to check if command is found in PATH
 #'
 #' @param cmd Command to test.

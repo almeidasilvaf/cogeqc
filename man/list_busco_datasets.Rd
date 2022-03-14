@@ -4,13 +4,7 @@
 \alias{list_busco_datasets}
 \title{List BUSCO data sets}
 \usage{
-list_busco_datasets(envname = NULL, miniconda_path = NULL)
-}
-\arguments{
-\item{envname}{Name of the Conda environment with external dependencies
-to be included in the temporary R environment.}
-
-\item{miniconda_path}{Path to miniconda. Only valid if envname is specified.}
+list_busco_datasets()
 }
 \value{
 A hierarchically organized list of available data sets as returned

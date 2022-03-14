@@ -46,7 +46,7 @@ library(cogeqc)
 
 To run BUSCO from R, you will use the function `run_busco()`[^1]. Here, we will use an example FASTA file containing the first 1,000 lines of the *Herbaspirilllum seropedicae SmR1* genome (GCA_000143225), which was downloaded from Ensembl Bacteria. We will run BUSCO using *burkholderiales_odb10* as the lineage dataset. To view all available datasets, run `list_busco_datasets()`.
 
-[^1]: **NOTE:** You must have BUSCO installed in your machine to use `run_busco()`. If you don't already have it, please refer to the vignette *A note on reproducibility* to learn how to easily install BUSCO in a miniconda environment and use it with `run_busco()`, or install it manually.
+[^1]: **NOTE:** You must have BUSCO installed and in your PATH to use `run_busco()`. You can check if BUSCO is installed by running `busco_is_installed()`. If you don't have it already, you can manually install it or use a conda virtual environment with the Bioconductor package `Herper` [@herper].
 
 ```{r run_busco, eval=FALSE}
 # Path to FASTA file

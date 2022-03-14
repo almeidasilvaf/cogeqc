@@ -13,9 +13,7 @@ run_busco(
   force = FALSE,
   threads = 1,
   outpath = NULL,
-  download_path = tempdir(),
-  envname = NULL,
-  miniconda_path = NULL
+  download_path = tempdir()
 )
 }
 \arguments{
@@ -50,11 +48,6 @@ in the current working directory. Default: NULL.}
 
 \item{download_path}{Path to directory where BUSCO datasets will be stored
 after downloading. Default: tempdir().}
-
-\item{envname}{Name of the Conda environment with external dependencies
-to be included in the temporary R environment.}
-
-\item{miniconda_path}{Path to miniconda. Only valid if envname is specified.}
 }
 \value{
 A character vector with the names of subdirectories and files
