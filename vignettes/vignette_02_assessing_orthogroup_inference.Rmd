@@ -215,7 +215,7 @@ plot_og_sizes(og, log = TRUE) # natural logarithm scale
 
 This document was created under the following conditions:
 
-```{r}
+```{r session_info}
 sessionInfo()
 ```
 

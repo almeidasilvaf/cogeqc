@@ -96,7 +96,7 @@ As you can see, the first (original) network is the best one, as it has the high
 
 This document was created under the following conditions:
 
-```{r}
+```{r session_info}
 sessionInfo()
 ```
 
