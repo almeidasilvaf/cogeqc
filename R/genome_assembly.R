@@ -29,8 +29,7 @@ list_busco_datasets <- function() {
 #'
 #' @return Path to FASTA file with the input sequence.
 #' @noRd
-#' @importFrom Biostrings readAAStringSet readDNAStringSet readRNAStringSet
-#' writeXStringSet
+#' @importFrom Biostrings writeXStringSet
 handle_busco_input <- function(sequence = NULL) {
     outfile <- sequence
     ss <- class(sequence) %in% c("DNAStringSet", "RNAStringSet", "AAStringSet")

@@ -1,6 +1,6 @@
 Package: cogeqc
 Title: Systematic quality checks on comparative genomics analyses
-Version: 0.99.3
+Version: 0.99.4
 Date: 2022-01-26
 Authors@R: 
     c(
@@ -31,7 +31,8 @@ biocViews:
     ComparativeGenomics,
     FunctionalGenomics,
     Phylogenetics,
-    QualityControl
+    QualityControl,
+    Network
 Encoding: UTF-8
 LazyData: false
 Roxygen: list(markdown = TRUE)
@@ -50,7 +51,7 @@ Imports:
     igraph,
     Biostrings
 Depends: 
-    R (>= 4.1)
+    R (>= 4.2.0)
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
