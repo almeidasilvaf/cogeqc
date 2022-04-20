@@ -18,9 +18,35 @@ list_busco_datasets <- function() {
     return(out)
 }
 
+
+#' A wrapper to handle input file to \code{run_busco()}
+#'
+#' @param sequence An object of class DNAStringSet/AAStringSet/RNAStringSet or
+#' path to FASTA file with the genome, transcriptome, or
+#' protein sequences to be analyzed. If there are many FASTA files in a
+#' directory, you can input the path to this directory, so BUSCO will be run
+#' in all FASTA files inside it.
+#'
+#' @return Path to FASTA file with the input sequence.
+#' @noRd
+#' @importFrom Biostrings readAAStringSet readDNAStringSet readRNAStringSet
+#' writeXStringSet
+handle_busco_input <- function(sequence = NULL) {
+    outfile <- sequence
+    ss <- class(sequence) %in% c("DNAStringSet", "RNAStringSet", "AAStringSet")
+
+    if(ss) {
+        outfile <- tempfile(pattern = "busco", fileext = ".fa")
+        Biostrings::writeXStringSet(seq, filepath = outfile)
+    }
+    return(outfile)
+}
+
+
 #' Run BUSCO assessment of assembly and annotation quality
 #'
-#' @param sequence Path to FASTA file with the genome, transcriptome, or
+#' @param sequence An object of class DNAStringSet/AAStringSet/RNAStringSet or
+#' path to FASTA file with the genome, transcriptome, or
 #' protein sequences to be analyzed. If there are many FASTA files in a
 #' directory, you can input the path to this directory, so BUSCO will be run
 #' in all FASTA files inside it.
@@ -64,6 +90,9 @@ run_busco <- function(sequence = NULL, outlabel = NULL,
                       threads = 1, outpath = NULL, download_path = tempdir()) {
 
     if(!busco_is_installed()) { stop("Unable to find BUSCO in PATH.") }
+    # Handle input type
+    sequence <- handle_busco_input(sequence)
+
     # Handle outlabel
     if(is.null(outlabel)) {
         outlabel <- paste0("run_", paste0(sample(letters, 3), collapse = ""))

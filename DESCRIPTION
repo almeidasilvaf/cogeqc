@@ -1,6 +1,6 @@
 Package: cogeqc
 Title: Systematic quality checks on comparative genomics analyses
-Version: 0.99.2
+Version: 0.99.3
 Date: 2022-01-26
 Authors@R: 
     c(
@@ -47,7 +47,8 @@ Imports:
     ggplot2,
     ggtree,
     patchwork,
-    igraph
+    igraph,
+    Biostrings
 Depends: 
     R (>= 4.1)
 Suggests: 

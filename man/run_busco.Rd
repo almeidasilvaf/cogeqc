@@ -17,7 +17,8 @@ run_busco(
 )
 }
 \arguments{
-\item{sequence}{Path to FASTA file with the genome, transcriptome, or
+\item{sequence}{An object of class DNAStringSet/AAStringSet/RNAStringSet or
+path to FASTA file with the genome, transcriptome, or
 protein sequences to be analyzed. If there are many FASTA files in a
 directory, you can input the path to this directory, so BUSCO will be run
 in all FASTA files inside it.}
