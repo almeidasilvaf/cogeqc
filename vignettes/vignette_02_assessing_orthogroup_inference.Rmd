@@ -27,7 +27,14 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-The identification of groups of homologous genes within and across species is a powerful tool for evolutionary genomics. The most widely used tools to identify orthogroups (i.e., groups of orthologous genes) are OrthoFinder [@emms2019orthofinder] and OrthoMCL [@li2003orthomcl]. However, these tools generate different results depending on the parameters used, such as *mcl inflation parameter*, *E-value*, *maximum number of hits*, and others. Here, we propose a protein domain-aware assessment of orthogroup inference. The goal is to maximize the percentage of shared protein domains for genes in the same orthogroup.
+The identification of groups of homologous genes within and across species is 
+a powerful tool for evolutionary genomics. The most widely used tools to 
+identify orthogroups (i.e., groups of orthologous genes) are OrthoFinder [@emms2019orthofinder] and OrthoMCL [@li2003orthomcl]. However, these tools 
+generate different results depending on the parameters used, such 
+as *mcl inflation parameter*, *E-value*, *maximum number of hits*, and others. 
+Here, we propose a protein domain-aware assessment of orthogroup inference. 
+The goal is to maximize the percentage of shared protein domains for genes in 
+the same orthogroup.
 
 # Installation
 
@@ -44,7 +51,11 @@ library(cogeqc)
 
 # Data description
 
-Here, we will use orthogroups from the PLAZA 5.0 database [@van2021plaza], inferred with OrthoFinder [@emms2019orthofinder]. For the purpose of demonstration, the complete dataset was filtered to only keep orthogroups for the Brassicaceae species *Arabidopsis thaliana* and *Brassica oleraceae*. Interpro domain annotations were also retrieved from PLAZA 5.0.
+Here, we will use orthogroups from the PLAZA 5.0 database [@van2021plaza], 
+inferred with OrthoFinder [@emms2019orthofinder]. For the purpose of 
+demonstration, the complete dataset was filtered to only keep orthogroups for 
+the Brassicaceae species *Arabidopsis thaliana* and *Brassica oleraceae*. 
+Interpro domain annotations were also retrieved from PLAZA 5.0.
 
 ```{r data_description}
 # Orthogroups for Arabidopsis thaliana and Brassica oleraceae
@@ -59,7 +70,8 @@ head(interpro_ath)
 head(interpro_bol)
 ```
 
-If you infer orthogroups with OrthoFinder, you can read and parse the output file **Orthogroups.tsv** with the function `read_orthogroups()`. For example:
+If you infer orthogroups with OrthoFinder, you can read and parse the output 
+file **Orthogroups.tsv** with the function `read_orthogroups()`. For example:
 
 ```{r read_orthogroups_demo}
 # Path to the Orthogroups.tsv file created by OrthoFinder
@@ -72,15 +84,29 @@ head(orthogroups)
 
 # Assessing orthogroups
 
-In `cogeqc`, you can assess orthogroup inference with either a protein domain-based approach or a reference-based approach. Both approaches are described below.
+In `cogeqc`, you can assess orthogroup inference with either a protein 
+domain-based approach or a reference-based approach. Both approaches are 
+described below.
 
 ## Protein domain-based orthogroup assessment
 
-To assess the orthogroup inference, you can use the function `assess_orthogroups()`. This function takes as input a list of annotation data frames[^1] and an orthogroups data frame, and returns the relative homogeneity frequency [^2] of each orthogroup for each species.
+To assess the orthogroup inference, you can use the 
+function `assess_orthogroups()`. This function takes as input a list of 
+annotation data frames[^1] and an orthogroups data frame, and returns the 
+relative homogeneity scores of each orthogroup for each species.
 
-[^1]: **NOTE:** The names of the list elements must match the species abbreviations in the column *Species* of the orthogroups data frame. For instance, if your orthogroups data frame contains the species **Ath** and **Bol**, the data frames in the annotation list must be named **Ath** and **Bol** (not necessarily in that order, but with these exact names).
+Relative homogeneity scores for each orthogroup are calculated using 
+pairwise Sorensen-Dice similarity indices between genes, and they range 
+from 0 to 1. Homogeneity scores of 1 indicate that all genes in that particular
+orthogroup share the same protein domains, and scores of 0 mean that each gene 
+in the orthogroup has a different protein domain.
 
-[^2]: **Interpretation guide:** Relative homogeneity frequencies range from 0 to 1, with 1 meaning that all genes in that particular orthogroup share the same protein domains, and 0 meaning that each gene in the orthogroup has a different protein domain.
+[^1]: **NOTE:** The names of the list elements must match the species 
+abbreviations in the column *Species* of the orthogroups data frame. 
+For instance, if your orthogroups data frame contains the species **Ath** 
+and **Bol**, the data frames in the annotation list must be named **Ath** and
+**Bol** (not necessarily in that order, but with these exact names).
+
 
 ```{r assess_og}
 # Create a list of annotation data frames
@@ -97,13 +123,21 @@ Now, we can calculate the mean homogeneity for this orthogroup inference.
 mean(og_assessment$Mean_H)
 ```
 
-Ideally, to have a reliable orthogroup inference, you should be able to run OrthoFinder with multiple combinations of parameters and assess each inference with `assess_orthogroups()`. The inference with the highest mean homonegeneity will be the best.[^3]
+Ideally, to have a reliable orthogroup inference, you should be able to run 
+OrthoFinder with multiple combinations of parameters and assess each inference
+with `assess_orthogroups()`. The inference with the highest mean homonegeneity
+will be the best.[^2]
 
-[^3]: **Friendly tip:** if you want to calculate homogeneity scores using a single species as a proxy (your orthogroups data frame will have only one species), you can use the function `calculate_H()`.
+[^2]: **Friendly tip:** if you want to calculate homogeneity scores using a 
+single species as a proxy (your orthogroups data frame will have only one 
+species), you can use the function `calculate_H()`.
 
 ## Reference-based orthogroup assessment
 
-In some cases, you may want to compare your orthogroup inference to a reference orthogroup inference. To do that, you can use the function `compare_orthogroups()`. For example, let's simulate a different orthogroup inference by shuffling some rows of the `og` data frame and comparing it to the original data frame.
+In some cases, you may want to compare your orthogroup inference to a 
+reference orthogroup inference. To do that, you can use the function `compare_orthogroups()`. For example, let's simulate a different orthogroup 
+inference by shuffling some rows of the `og` data frame and comparing it to 
+the original data frame.
 
 ```{r ref-based_og_assessment}
 set.seed(123)
@@ -128,11 +162,17 @@ preserved <- sum(comparison$Preserved) / length(comparison$Preserved)
 preserved
 ```
 
-As we can see, `r paste0(round(preserved * 100, 2), "%")` of the orthogroups in the reference data set are preserved in the shuffled data set.
+As we can see, `r paste0(round(preserved * 100, 2), "%")` of the orthogroups 
+in the reference data set are preserved in the shuffled data set.
 
 # Visualizing summary statistics
 
-Now that you have identified the best combination of parameters for your orthogroup inference, you can visually explore some of its summary statistics. OrthoFinder automatically saves summary statistics in a directory named **Comparative_Genomics_Statistics**. You can parse this directory in a list of summary statistics with the function `read_orthofinder_stats()`. To demonstrate it, let's read the output of OrthoFinder's example with model species.
+Now that you have identified the best combination of parameters for your 
+orthogroup inference, you can visually explore some of its summary statistics.
+OrthoFinder automatically saves summary statistics in a directory named **Comparative_Genomics_Statistics**. You can parse this directory in a list 
+of summary statistics with the function `read_orthofinder_stats()`.
+To demonstrate it, let's read the output of OrthoFinder's example with 
+model species.
 
 ```{r}
 stats_dir <- system.file("extdata", package = "cogeqc")
@@ -144,7 +184,9 @@ Now, we can use this list to visually explore summary statistics.
 
 ## Species tree
 
-To start, one would usually want to look at the species tree to detect possible issues that would compromise the accuracy of orthologs detection. The tree file can be easily read with `treeio::read.tree()`.
+To start, one would usually want to look at the species tree to detect 
+possible issues that would compromise the accuracy of orthologs detection. 
+The tree file can be easily read with `treeio::read.tree()`.
 
 ```{r plot_species_tree}
 data(tree)
@@ -159,7 +201,9 @@ plot_species_tree(tree, stats_list = ortho_stats)
 
 ## Species-specific duplications
 
-The species tree above shows duplications per node, but it does not show species-duplications. To visualize that, you can use the function `plot_duplications()`.
+The species tree above shows duplications per node, but it does not show
+species-duplications. To visualize that, you can use the 
+function `plot_duplications()`.
 
 ```{r}
 plot_duplications(ortho_stats)
@@ -168,7 +212,10 @@ plot_duplications(ortho_stats)
 
 ## Genes in orthogroups
 
-Visualizing the percentage of genes in orthogroups is particularly useful for quality check, since one would usually expect a large percentage of genes in orthogroups, unless there is a very distant species in OrthoFinder's input proteome data.
+Visualizing the percentage of genes in orthogroups is particularly useful 
+for quality check, since one would usually expect a large percentage of
+genes in orthogroups, unless there is a very distant species in OrthoFinder's 
+input proteome data.
 
 ```{r plot_genes_in_ogs}
 plot_genes_in_ogs(ortho_stats)
@@ -176,7 +223,10 @@ plot_genes_in_ogs(ortho_stats)
 
 ## Species-specific orthogroups
 
-To visualize the number of species-specific orthogroups, use the function `plot_species_specific_ogs()`. This plot can reveal a unique gene repertoire of a particular species if it has a large number of species-specific OGs as compared to the other ones.  
+To visualize the number of species-specific orthogroups, use the function
+`plot_species_specific_ogs()`. This plot can reveal a unique gene repertoire 
+of a particular species if it has a large number of species-specific OGs as 
+compared to the other ones.  
 
 ```{r ssOGs}
 plot_species_specific_ogs(ortho_stats)
@@ -184,7 +234,9 @@ plot_species_specific_ogs(ortho_stats)
 
 ## All in one
 
-To get a complete picture of OrthoFinder results, you can combine all plots together with `plot_orthofinder_stats()`, a wrapper that integrates all previously demonstrated plotting functions.
+To get a complete picture of OrthoFinder results, you can combine all plots 
+together with `plot_orthofinder_stats()`, a wrapper that integrates all 
+previously demonstrated plotting functions.
 
 ```{r plot_orthofinder_stats, fig.width = 12, fig.height = 7}
 plot_orthofinder_stats(
@@ -196,7 +248,8 @@ plot_orthofinder_stats(
 
 ## Orthogroup overlap
 
-You can also visualize a heatmap of pairwise orthogroup overlap across species with `plot_og_overlap()`. 
+You can also visualize a heatmap of pairwise orthogroup overlap across species 
+with `plot_og_overlap()`. 
 
 ```{r plot_og_overlap}
 plot_og_overlap(ortho_stats)
@@ -204,7 +257,10 @@ plot_og_overlap(ortho_stats)
 
 ## Orthogroup size per species
 
-If you want to take a look at the distribution of OG sizes for each species, you can use the function `plot_og_sizes`. If you have many extreme values and want to visualize the shape of the distribution in a better way, you can also log transform the OG sizes by setting `log = TRUE`.
+If you want to take a look at the distribution of OG sizes for each species, 
+you can use the function `plot_og_sizes`. If you have many extreme values and 
+want to visualize the shape of the distribution in a better way, you can also 
+log transform the OG sizes by setting `log = TRUE`.
 
 ```{r og_sizes}
 plot_og_sizes(og) 

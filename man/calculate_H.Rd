@@ -4,7 +4,7 @@
 \alias{calculate_H}
 \title{Calculate homogeneity scores for orthogroups}
 \usage{
-calculate_H(orthogroup_df = NULL)
+calculate_H(og_df)
 }
 \arguments{
 \item{orthogroup_df}{Data frame with orthogroups and their associated genes
@@ -20,9 +20,19 @@ respectively.
 \description{
 Calculate homogeneity scores for orthogroups
 }
+\details{
+Homogeneity is calculated based on pairwise Sorensen-Dice similarity
+indices between gene pairs in an orthogroup, and they range
+from 0 to 1. Thus, if all genes in an
+orthogroup share the same domain, the orthogroup will have a homogeneity
+score of 1. On the other hand, if genes in an orthogroup do not have any
+domain in common, the orthogroup will have a homogeneity score of 0.
+}
 \examples{
 data(og)
 data(interpro_ath)
 orthogroup_df <- merge(og[og$Species == "Ath", ], interpro_ath)
+# Filter data to reduce run time
+orthogroup_df <- orthogroup_df[1:10000, ]
 H <- calculate_H(orthogroup_df)
 }
