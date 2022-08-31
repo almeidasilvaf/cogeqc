@@ -26,9 +26,9 @@
 #' # Filter data to reduce run time
 #' orthogroup_df <- orthogroup_df[1:10000, ]
 #' H <- calculate_H(orthogroup_df)
-calculate_H <- function(og_df) {
+calculate_H <- function(orthogroup_df) {
 
-    by_og <- split(og_df, og_df$Orthogroup)
+    by_og <- split(orthogroup_df, orthogroup_df$Orthogroup)
     sdice <- Reduce(rbind, lapply(by_og, function(x) {
         genes <- unique(x$Gene)
         og <- unique(x$Orthogroup)
