@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="cogeqc">
 <title>Assessing genome assembly quality • cogeqc</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -12,12 +13,13 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Atkinson_Hyperlegible-0.4.2/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet">
+<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Assessing genome assembly quality">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Assessing genome assembly quality">
 <meta property="og:description" content="cogeqc">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -25,80 +27,72 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">cogeqc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.3</span>
-      </span>
-    </div>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-#0092ac"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">cogeqc</a>
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../reference/index.html">Reference</a>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/vignette_01_assessing_genome_assembly.html">Assessing genome assembly quality</a>
-    </li>
-    <li>
-      <a href="../articles/vignette_02_assessing_orthogroup_inference.html">Assessing orthogroup inference</a>
-    </li>
-    <li>
-      <a href="../articles/vignette_03_assessing_synteny.html">Assessing synteny identification</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/almeidasilvaf/cogeqc/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-</div>
-<!--/.nav-collapse -->
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/vignette_01_assessing_genome_assembly.html">Assessing genome assembly quality</a>
+    <a class="dropdown-item" href="../articles/vignette_02_assessing_orthogroup_inference.html">Assessing orthogroup inference</a>
+    <a class="dropdown-item" href="../articles/vignette_03_assessing_synteny.html">Assessing synteny identification</a>
   </div>
-<!--/.container -->
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/almeidasilvaf/cogeqc/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
+    
+  </div>
+</nav><div class="container template-article">
 
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Assessing genome assembly quality</h1>
-                        <h4 data-toc-skip class="author">Fabricio Almeida-Silva</h4>
+
+
+
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+      <img src="../logo.png" class="logo" alt=""><h1>Assessing genome assembly quality</h1>
+                        <h4 data-toc-skip class="author">Fabricio
+Almeida-Silva</h4>
             <address class="author_afil">
-      VIB-UGent Center for Plant Systems Biology, Ghent, Belgium<br><h4 data-toc-skip class="author">Yves Van de Peer</h4>
+      VIB-UGent Center for Plant Systems Biology, Ghent,
+Belgium<br><h4 data-toc-skip class="author">Yves
+Van de Peer</h4>
             <address class="author_afil">
-      VIB-UGent Center for Plant Systems Biology, Ghent, Belgium<br><small class="dont-index">Source: <a href="https://github.com/almeidasilvaf/cogeqc/blob/HEAD/vignettes/vignette_01_assessing_genome_assembly.Rmd" class="external-link"><code>vignettes/vignette_01_assessing_genome_assembly.Rmd</code></a></small>
-      <div class="hidden name"><code>vignette_01_assessing_genome_assembly.Rmd</code></div>
-
+      VIB-UGent Center for Plant Systems Biology, Ghent,
+Belgium<br><small class="dont-index">Source: <a href="https://github.com/almeidasilvaf/cogeqc/blob/HEAD/vignettes/vignette_01_assessing_genome_assembly.Rmd" class="external-link"><code>vignettes/vignette_01_assessing_genome_assembly.Rmd</code></a></small>
+      <div class="d-none name"><code>vignette_01_assessing_genome_assembly.Rmd</code></div>
     </address>
 </address>
 </div>
@@ -108,180 +102,206 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>One of the most common metrics to assess the quality of genome assemblies is BUSCO (best universal single-copy orthologs) <span class="citation">(Simão et al. 2015)</span>. <code>cogeqc</code> allows users to run BUSCO from an R session and visualize results graphically. BUSCO summary statistics will help you assess which assemblies have high quality based on the percentage of complete BUSCOs.</p>
+<p>One of the most common metrics to assess the quality of genome
+assemblies is BUSCO (best universal single-copy orthologs) <span class="citation">(Simão et al. 2015)</span>. <code>cogeqc</code> allows
+users to run BUSCO from an R session and visualize results graphically.
+BUSCO summary statistics will help you assess which assemblies have high
+quality based on the percentage of complete BUSCOs.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">'BiocManager'</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'BiocManager'</span><span class="op">)</span>
-<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"cogeqc"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">'BiocManager'</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'BiocManager'</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"cogeqc"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Load package after installation</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/almeidasilvaf/cogeqc" class="external-link">cogeqc</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Load package after installation</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/almeidasilvaf/cogeqc" class="external-link">cogeqc</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="running-busco">Running BUSCO<a class="anchor" aria-label="anchor" href="#running-busco"></a>
 </h2>
-<p>To run BUSCO from R, you will use the function <code><a href="../reference/run_busco.html">run_busco()</a></code><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Here, we will use an example FASTA file containing the first 1,000 lines of the <em>Herbaspirilllum seropedicae SmR1</em> genome (GCA_000143225), which was downloaded from Ensembl Bacteria. We will run BUSCO using <em>burkholderiales_odb10</em> as the lineage dataset. To view all available datasets, run <code><a href="../reference/list_busco_datasets.html">list_busco_datasets()</a></code>.</p>
+<p>To run BUSCO from R, you will use the function
+<code><a href="../reference/run_busco.html">run_busco()</a></code><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; You must have BUSCO installed and
+in your PATH to use &lt;code&gt;&lt;a href="../reference/run_busco.html"&gt;run_busco()&lt;/a&gt;&lt;/code&gt;. You can check if BUSCO is
+installed by running &lt;code&gt;&lt;a href="../reference/busco_is_installed.html"&gt;busco_is_installed()&lt;/a&gt;&lt;/code&gt;. If you don’t
+have it already, you can manually install it or use a conda virtual
+environment with the Bioconductor package &lt;code&gt;Herper&lt;/code&gt; &lt;span class="citation"&gt;(Paul, Carroll, and Barrows 2021)&lt;/span&gt;.&lt;/p&gt;'><sup>1</sup></a>. Here, we will use an example FASTA file
+containing the first 1,000 lines of the <em>Herbaspirilllum seropedicae
+SmR1</em> genome (GCA_000143225), which was downloaded from Ensembl
+Bacteria. We will run BUSCO using <em>burkholderiales_odb10</em> as the
+lineage dataset. To view all available datasets, run
+<code><a href="../reference/list_busco_datasets.html">list_busco_datasets()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Path to FASTA file</span>
-<span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"Hse_subset.fa"</span>, package <span class="op">=</span> <span class="st">"cogeqc"</span><span class="op">)</span>
-
-<span class="co"># Path to directory where BUSCO datasets will be stored</span>
-<span class="va">download_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"/datasets"</span><span class="op">)</span>
-
-<span class="co"># Run BUSCO if it is installed</span>
-<span class="kw">if</span><span class="op">(</span><span class="fu"><a href="../reference/busco_is_installed.html">busco_is_installed</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="../reference/run_busco.html">run_busco</a></span><span class="op">(</span><span class="va">sequence</span>, outlabel <span class="op">=</span> <span class="st">"Hse"</span>, mode <span class="op">=</span> <span class="st">"genome"</span>,
-            lineage <span class="op">=</span> <span class="st">"burkholderiales_odb10"</span>,
-            outpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, download_path <span class="op">=</span> <span class="va">download_path</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
-<p>The output will be stored in the directory specified in <em>outpath</em>. You can read and parse BUSCO’s output with the function <code><a href="../reference/read_busco.html">read_busco()</a></code>. For example, let’s read the output of a BUSCO run using the genome of the green algae <em>Ostreococcus tauri</em>. The output directory is <code>/extdata</code>.</p>
+<code class="sourceCode R"><span><span class="co"># Path to FASTA file</span></span>
+<span><span class="va">sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"Hse_subset.fa"</span>, package <span class="op">=</span> <span class="st">"cogeqc"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Path to directory where BUSCO datasets will be stored</span></span>
+<span><span class="va">download_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"/datasets"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Run BUSCO if it is installed</span></span>
+<span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="../reference/busco_is_installed.html">busco_is_installed</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../reference/run_busco.html">run_busco</a></span><span class="op">(</span><span class="va">sequence</span>, outlabel <span class="op">=</span> <span class="st">"Hse"</span>, mode <span class="op">=</span> <span class="st">"genome"</span>,</span>
+<span>            lineage <span class="op">=</span> <span class="st">"burkholderiales_odb10"</span>,</span>
+<span>            outpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, download_path <span class="op">=</span> <span class="va">download_path</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>The output will be stored in the directory specified in
+<em>outpath</em>. You can read and parse BUSCO’s output with the
+function <code><a href="../reference/read_busco.html">read_busco()</a></code>. For example, let’s read the output
+of a BUSCO run using the genome of the green algae <em>Ostreococcus
+tauri</em>. The output directory is <code>/extdata</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Path to output directory</span>
-<span class="va">output_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"cogeqc"</span><span class="op">)</span>
-
-<span class="va">busco_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_busco.html">read_busco</a></span><span class="op">(</span><span class="va">output_dir</span><span class="op">)</span>
-<span class="va">busco_summary</span>
-<span class="co">#&gt;                Class Frequency           Lineage</span>
-<span class="co">#&gt; 1        Complete_SC      1412 chlorophyta_odb10</span>
-<span class="co">#&gt; 2 Complete_duplicate         4 chlorophyta_odb10</span>
-<span class="co">#&gt; 3         Fragmented        35 chlorophyta_odb10</span>
-<span class="co">#&gt; 4            Missing        68 chlorophyta_odb10</span></code></pre></div>
-<p>This is an example output for a BUSCO run with a single FASTA file. You can also specify a directory containing multiple FASTA files in the <em>sequence</em> argument of <code><a href="../reference/run_busco.html">run_busco()</a></code>. This way, BUSCO will be run in batch mode. Let’s see what the output of BUSCO in batch mode looks like:</p>
+<code class="sourceCode R"><span><span class="co"># Path to output directory</span></span>
+<span><span class="va">output_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"cogeqc"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">busco_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_busco.html">read_busco</a></span><span class="op">(</span><span class="va">output_dir</span><span class="op">)</span></span>
+<span><span class="va">busco_summary</span></span>
+<span><span class="co">#&gt;                Class Frequency           Lineage</span></span>
+<span><span class="co">#&gt; 1        Complete_SC      1412 chlorophyta_odb10</span></span>
+<span><span class="co">#&gt; 2 Complete_duplicate         4 chlorophyta_odb10</span></span>
+<span><span class="co">#&gt; 3         Fragmented        35 chlorophyta_odb10</span></span>
+<span><span class="co">#&gt; 4            Missing        68 chlorophyta_odb10</span></span></code></pre></div>
+<p>This is an example output for a BUSCO run with a single FASTA file.
+You can also specify a directory containing multiple FASTA files in the
+<em>sequence</em> argument of <code><a href="../reference/run_busco.html">run_busco()</a></code>. This way, BUSCO
+will be run in batch mode. Let’s see what the output of BUSCO in batch
+mode looks like:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">batch_summary</span><span class="op">)</span>
-<span class="va">batch_summary</span>
-<span class="co">#&gt;                Class Frequency               Lineage   File</span>
-<span class="co">#&gt; 1        Complete_SC      98.5 burkholderiales_odb10 Hse.fa</span>
-<span class="co">#&gt; 2        Complete_SC      98.8 burkholderiales_odb10 Hru.fa</span>
-<span class="co">#&gt; 3 Complete_duplicate       0.7 burkholderiales_odb10 Hse.fa</span>
-<span class="co">#&gt; 4 Complete_duplicate       0.7 burkholderiales_odb10 Hru.fa</span>
-<span class="co">#&gt; 5         Fragmented       0.4 burkholderiales_odb10 Hse.fa</span>
-<span class="co">#&gt; 6         Fragmented       0.3 burkholderiales_odb10 Hru.fa</span>
-<span class="co">#&gt; 7            Missing       0.4 burkholderiales_odb10 Hse.fa</span>
-<span class="co">#&gt; 8            Missing       0.2 burkholderiales_odb10 Hru.fa</span></code></pre></div>
-<p>The only difference between this data frame and the previous one is the column <strong>File</strong>, which contains information on the FASTA file. The example dataset <code>batch_summary</code> contains the output of <code><a href="../reference/run_busco.html">run_busco()</a></code> using a directory containing two genomes (<em>Herbaspirillum seropedicae SmR1</em> and <em>Herbaspirillum rubrisubalbicans M1</em>) as parameter to the <em>sequence</em> argument.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">batch_summary</span><span class="op">)</span></span>
+<span><span class="va">batch_summary</span></span>
+<span><span class="co">#&gt;                Class Frequency               Lineage   File</span></span>
+<span><span class="co">#&gt; 1        Complete_SC      98.5 burkholderiales_odb10 Hse.fa</span></span>
+<span><span class="co">#&gt; 2        Complete_SC      98.8 burkholderiales_odb10 Hru.fa</span></span>
+<span><span class="co">#&gt; 3 Complete_duplicate       0.7 burkholderiales_odb10 Hse.fa</span></span>
+<span><span class="co">#&gt; 4 Complete_duplicate       0.7 burkholderiales_odb10 Hru.fa</span></span>
+<span><span class="co">#&gt; 5         Fragmented       0.4 burkholderiales_odb10 Hse.fa</span></span>
+<span><span class="co">#&gt; 6         Fragmented       0.3 burkholderiales_odb10 Hru.fa</span></span>
+<span><span class="co">#&gt; 7            Missing       0.4 burkholderiales_odb10 Hse.fa</span></span>
+<span><span class="co">#&gt; 8            Missing       0.2 burkholderiales_odb10 Hru.fa</span></span></code></pre></div>
+<p>The only difference between this data frame and the previous one is
+the column <strong>File</strong>, which contains information on the
+FASTA file. The example dataset <code>batch_summary</code> contains the
+output of <code><a href="../reference/run_busco.html">run_busco()</a></code> using a directory containing two
+genomes (<em>Herbaspirillum seropedicae SmR1</em> and <em>Herbaspirillum
+rubrisubalbicans M1</em>) as parameter to the <em>sequence</em>
+argument.</p>
 </div>
 <div class="section level2">
 <h2 id="visualizing-summary-statistics">Visualizing summary statistics<a class="anchor" aria-label="anchor" href="#visualizing-summary-statistics"></a>
 </h2>
-<p>After using <code><a href="../reference/run_busco.html">run_busco()</a></code> and parsing its output with <code><a href="../reference/read_busco.html">read_busco()</a></code>, users can visualize summary statistics with <code><a href="../reference/plot_busco.html">plot_busco()</a></code>.</p>
+<p>After using <code><a href="../reference/run_busco.html">run_busco()</a></code> and parsing its output with
+<code><a href="../reference/read_busco.html">read_busco()</a></code>, users can visualize summary statistics with
+<code><a href="../reference/plot_busco.html">plot_busco()</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Single FASTA file - Ostreococcus tauri</span>
-<span class="fu"><a href="../reference/plot_busco.html">plot_busco</a></span><span class="op">(</span><span class="va">busco_summary</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Single FASTA file - Ostreococcus tauri</span></span>
+<span><span class="fu"><a href="../reference/plot_busco.html">plot_busco</a></span><span class="op">(</span><span class="va">busco_summary</span><span class="op">)</span></span></code></pre></div>
 <p><img src="vignette_01_assessing_genome_assembly_files/figure-html/plot_busco-1.png" width="100%"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co"># Batch mode - Herbaspirillum seropedicae and H. rubrisubalbicans</span>
-<span class="fu"><a href="../reference/plot_busco.html">plot_busco</a></span><span class="op">(</span><span class="va">batch_summary</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Batch mode - Herbaspirillum seropedicae and H. rubrisubalbicans</span></span>
+<span><span class="fu"><a href="../reference/plot_busco.html">plot_busco</a></span><span class="op">(</span><span class="va">batch_summary</span><span class="op">)</span></span></code></pre></div>
 <p><img src="vignette_01_assessing_genome_assembly_files/figure-html/plot_busco-2.png" width="100%"></p>
-<p>We usually consider genomes with &gt;90% of complete BUSCOs as having high quality. Thus, we can conclude that the three genomes analyzed here are high-quality genomes.</p>
+<p>We usually consider genomes with &gt;90% of complete BUSCOs as having
+high quality. Thus, we can conclude that the three genomes analyzed here
+are high-quality genomes.</p>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
 <p>This document was created under the following conditions:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; R version 4.1.1 (2021-08-10)</span>
-<span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span>
-<span class="co">#&gt; Running under: Ubuntu 20.04.3 LTS</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Matrix products: default</span>
-<span class="co">#&gt; BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; locale:</span>
-<span class="co">#&gt;  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span>
-<span class="co">#&gt;  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    </span>
-<span class="co">#&gt;  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             </span>
-<span class="co">#&gt;  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 </span>
-<span class="co">#&gt;  [9] LC_ADDRESS=C               LC_TELEPHONE=C            </span>
-<span class="co">#&gt; [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attached base packages:</span>
-<span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; other attached packages:</span>
-<span class="co">#&gt; [1] cogeqc_0.99.3    BiocStyle_2.20.2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; loaded via a namespace (and not attached):</span>
-<span class="co">#&gt;  [1] sass_0.4.1             tidyr_1.2.0            jsonlite_1.8.0        </span>
-<span class="co">#&gt;  [4] bslib_0.3.1            highr_0.9              BiocManager_1.30.16   </span>
-<span class="co">#&gt;  [7] stats4_4.1.1           yulab.utils_0.0.4      GenomeInfoDbData_1.2.6</span>
-<span class="co">#&gt; [10] yaml_2.3.5             pillar_1.7.0           lattice_0.20-45       </span>
-<span class="co">#&gt; [13] glue_1.6.2             digest_0.6.29          XVector_0.32.0        </span>
-<span class="co">#&gt; [16] colorspace_2.0-3       ggfun_0.0.6            htmltools_0.5.2       </span>
-<span class="co">#&gt; [19] plyr_1.8.7             pkgconfig_2.0.3        bookdown_0.26         </span>
-<span class="co">#&gt; [22] zlibbioc_1.38.0        purrr_0.3.4            patchwork_1.1.1       </span>
-<span class="co">#&gt; [25] tidytree_0.3.9         scales_1.2.0           ggplotify_0.1.0       </span>
-<span class="co">#&gt; [28] tibble_3.1.6           farver_2.1.0           generics_0.1.2        </span>
-<span class="co">#&gt; [31] IRanges_2.26.0         ggplot2_3.3.5          ellipsis_0.3.2        </span>
-<span class="co">#&gt; [34] cachem_1.0.6           BiocGenerics_0.38.0    lazyeval_0.2.2        </span>
-<span class="co">#&gt; [37] cli_3.2.0              magrittr_2.0.3         crayon_1.5.1          </span>
-<span class="co">#&gt; [40] memoise_2.0.1          evaluate_0.15          fs_1.5.2              </span>
-<span class="co">#&gt; [43] fansi_1.0.3            nlme_3.1-157           textshaping_0.3.6     </span>
-<span class="co">#&gt; [46] tools_4.1.1            lifecycle_1.0.1        stringr_1.4.0         </span>
-<span class="co">#&gt; [49] aplot_0.1.3            S4Vectors_0.30.2       ggtree_3.0.4          </span>
-<span class="co">#&gt; [52] munsell_0.5.0          Biostrings_2.60.2      compiler_4.1.1        </span>
-<span class="co">#&gt; [55] pkgdown_2.0.2          jquerylib_0.1.4        GenomeInfoDb_1.28.4   </span>
-<span class="co">#&gt; [58] systemfonts_1.0.4      gridGraphics_0.5-1     rlang_1.0.2           </span>
-<span class="co">#&gt; [61] grid_4.1.1             RCurl_1.98-1.6         igraph_1.3.0          </span>
-<span class="co">#&gt; [64] labeling_0.4.2         bitops_1.0-7           rmarkdown_2.13        </span>
-<span class="co">#&gt; [67] gtable_0.3.0           reshape2_1.4.4         R6_2.5.1              </span>
-<span class="co">#&gt; [70] knitr_1.38             dplyr_1.0.8            fastmap_1.1.0         </span>
-<span class="co">#&gt; [73] utf8_1.2.2             rprojroot_2.0.3        treeio_1.16.2         </span>
-<span class="co">#&gt; [76] ragg_1.2.2             desc_1.4.1             ape_5.6-2             </span>
-<span class="co">#&gt; [79] stringi_1.7.6          parallel_4.1.1         Rcpp_1.0.8.3          </span>
-<span class="co">#&gt; [82] vctrs_0.4.1            tidyselect_1.1.2       xfun_0.30</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; R version 4.2.1 (2022-06-23)</span></span>
+<span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
+<span><span class="co">#&gt; Running under: Ubuntu 20.04.4 LTS</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Matrix products: default</span></span>
+<span><span class="co">#&gt; BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3</span></span>
+<span><span class="co">#&gt; LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; locale:</span></span>
+<span><span class="co">#&gt;  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span></span>
+<span><span class="co">#&gt;  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    </span></span>
+<span><span class="co">#&gt;  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   </span></span>
+<span><span class="co">#&gt;  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 </span></span>
+<span><span class="co">#&gt;  [9] LC_ADDRESS=C               LC_TELEPHONE=C            </span></span>
+<span><span class="co">#&gt; [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attached base packages:</span></span>
+<span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; other attached packages:</span></span>
+<span><span class="co">#&gt; [1] cogeqc_1.1.2     BiocStyle_2.24.0</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
+<span><span class="co">#&gt;  [1] sass_0.4.2             tidyr_1.2.0            jsonlite_1.8.0        </span></span>
+<span><span class="co">#&gt;  [4] bslib_0.4.0            highr_0.9              BiocManager_1.30.18   </span></span>
+<span><span class="co">#&gt;  [7] stats4_4.2.1           yulab.utils_0.0.5      GenomeInfoDbData_1.2.8</span></span>
+<span><span class="co">#&gt; [10] yaml_2.3.5             pillar_1.8.1           lattice_0.20-45       </span></span>
+<span><span class="co">#&gt; [13] glue_1.6.2             digest_0.6.29          XVector_0.36.0        </span></span>
+<span><span class="co">#&gt; [16] colorspace_2.0-3       ggfun_0.0.6            htmltools_0.5.3       </span></span>
+<span><span class="co">#&gt; [19] plyr_1.8.7             pkgconfig_2.0.3        bookdown_0.28         </span></span>
+<span><span class="co">#&gt; [22] zlibbioc_1.42.0        purrr_0.3.4            patchwork_1.1.2       </span></span>
+<span><span class="co">#&gt; [25] tidytree_0.4.0         scales_1.2.1           ggplotify_0.1.0       </span></span>
+<span><span class="co">#&gt; [28] tibble_3.1.8           farver_2.1.1           generics_0.1.3        </span></span>
+<span><span class="co">#&gt; [31] IRanges_2.30.1         ggplot2_3.3.6          cachem_1.0.6          </span></span>
+<span><span class="co">#&gt; [34] BiocGenerics_0.42.0    lazyeval_0.2.2         cli_3.3.0             </span></span>
+<span><span class="co">#&gt; [37] magrittr_2.0.3         crayon_1.5.1           memoise_2.0.1         </span></span>
+<span><span class="co">#&gt; [40] evaluate_0.16          fs_1.5.2               fansi_1.0.3           </span></span>
+<span><span class="co">#&gt; [43] nlme_3.1-159           textshaping_0.3.6      tools_4.2.1           </span></span>
+<span><span class="co">#&gt; [46] lifecycle_1.0.1        stringr_1.4.1          aplot_0.1.6           </span></span>
+<span><span class="co">#&gt; [49] S4Vectors_0.34.0       ggtree_3.4.2           munsell_0.5.0         </span></span>
+<span><span class="co">#&gt; [52] Biostrings_2.64.1      compiler_4.2.1         pkgdown_2.0.6         </span></span>
+<span><span class="co">#&gt; [55] jquerylib_0.1.4        GenomeInfoDb_1.32.3    systemfonts_1.0.4     </span></span>
+<span><span class="co">#&gt; [58] gridGraphics_0.5-1     rlang_1.0.4            grid_4.2.1            </span></span>
+<span><span class="co">#&gt; [61] RCurl_1.98-1.8         igraph_1.3.4           bitops_1.0-7          </span></span>
+<span><span class="co">#&gt; [64] labeling_0.4.2         rmarkdown_2.16         gtable_0.3.0          </span></span>
+<span><span class="co">#&gt; [67] reshape2_1.4.4         R6_2.5.1               knitr_1.40            </span></span>
+<span><span class="co">#&gt; [70] dplyr_1.0.9            fastmap_1.1.0          utf8_1.2.2            </span></span>
+<span><span class="co">#&gt; [73] rprojroot_2.0.3        treeio_1.20.2          ragg_1.2.2            </span></span>
+<span><span class="co">#&gt; [76] desc_1.4.1             ape_5.6-2              stringi_1.7.8         </span></span>
+<span><span class="co">#&gt; [79] parallel_4.2.1         Rcpp_1.0.9             vctrs_0.4.1           </span></span>
+<span><span class="co">#&gt; [82] tidyselect_1.1.2       xfun_0.32</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-herper" class="csl-entry">
-Paul, Matt, Thomas Carroll, and Doug Barrows. 2021. <em>Herper: The Herper Package Is a Simple Toolset to Install and Manage Conda Packages and Environments from r</em>. <a href="https://github.com/RockefellerUniversity/Herper" class="external-link">https://github.com/RockefellerUniversity/Herper</a>.
+Paul, Matt, Thomas Carroll, and Doug Barrows. 2021. <em>Herper: The
+Herper Package Is a Simple Toolset to Install and Manage Conda Packages
+and Environments from r</em>. <a href="https://github.com/RockefellerUniversity/Herper" class="external-link">https://github.com/RockefellerUniversity/Herper</a>.
 </div>
 <div id="ref-simao2015busco" class="csl-entry">
-Simão, Felipe A, Robert M Waterhouse, Panagiotis Ioannidis, Evgenia V Kriventseva, and Evgeny M Zdobnov. 2015. <span>“BUSCO: Assessing Genome Assembly and Annotation Completeness with Single-Copy Orthologs.”</span> <em>Bioinformatics</em> 31 (19): 3210–12.
+Simão, Felipe A, Robert M Waterhouse, Panagiotis Ioannidis, Evgenia V
+Kriventseva, and Evgeny M Zdobnov. 2015. <span>“BUSCO: Assessing Genome
+Assembly and Annotation Completeness with Single-Copy Orthologs.”</span>
+<em>Bioinformatics</em> 31 (19): 3210–12.
 </div>
 </div>
-</div>
-<div class="footnotes">
-<hr>
-<ol>
-<li id="fn1"><p><strong>NOTE:</strong> You must have BUSCO installed and in your PATH to use <code><a href="../reference/run_busco.html">run_busco()</a></code>. You can check if BUSCO is installed by running <code><a href="../reference/busco_is_installed.html">busco_is_installed()</a></code>. If you don’t have it already, you can manually install it or use a conda virtual environment with the Bioconductor package <code>Herper</code> <span class="citation">(Paul, Carroll, and Barrows 2021)</span>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-</ol>
-</div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
 </div>
 
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
+    <footer><div class="pkgdown-footer-left">
   <p></p>
 <p>Developed by Fabrício Almeida-Silva, Yves Van de Peer.</p>
 </div>
 
-<div class="pkgdown">
+<div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
-
 
   
 
