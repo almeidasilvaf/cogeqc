@@ -41,7 +41,6 @@ SystemRequirements: BUSCO (>= 5.1.3) <https://busco.ezlab.org/>
 Imports:
     utils,
     stats,
-    rlang,
     methods,
     reshape2,
     ggplot2,

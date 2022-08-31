@@ -4,7 +4,7 @@
 \alias{calculate_H}
 \title{Calculate homogeneity scores for orthogroups}
 \usage{
-calculate_H(og_df)
+calculate_H(orthogroup_df)
 }
 \arguments{
 \item{orthogroup_df}{Data frame with orthogroups and their associated genes
