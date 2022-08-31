@@ -6,28 +6,63 @@
 #' \strong{Annotation} are mandatory, and they must represent Gene ID,
 #' Orthogroup ID, and Annotation ID (e.g., Interpro/PFAM), respectively.
 #'
+#' @details
+#' Homogeneity is calculated based on pairwise Sorensen-Dice similarity
+#' indices between gene pairs in an orthogroup, and they range
+#' from 0 to 1. Thus, if all genes in an
+#' orthogroup share the same domain, the orthogroup will have a homogeneity
+#' score of 1. On the other hand, if genes in an orthogroup do not have any
+#' domain in common, the orthogroup will have a homogeneity score of 0.
+#'
 #' @return A 2-column data frame with the variables \strong{Orthogroup}
 #' and \strong{mean_H}, corresponding to orthogroup ID and mean homogeneity,
 #' respectively.
 #' @export
 #' @rdname calculate_H
-#' @importFrom dplyr group_by summarise mutate ungroup select distinct n
-#' @importFrom rlang .data
 #' @examples
 #' data(og)
 #' data(interpro_ath)
 #' orthogroup_df <- merge(og[og$Species == "Ath", ], interpro_ath)
+#' # Filter data to reduce run time
+#' orthogroup_df <- orthogroup_df[1:10000, ]
 #' H <- calculate_H(orthogroup_df)
-calculate_H <- function(orthogroup_df = NULL) {
+calculate_H <- function(og_df) {
 
-    h <- dplyr::group_by(orthogroup_df, .data$Orthogroup, .data$Annotation)
-    h <- dplyr::summarise(h, n = dplyr::n())
-    h <- dplyr::mutate(h, H = .data$n / sum(.data$n), mean_H = mean(.data$H))
-    h <- dplyr::ungroup(h)
-    h <- dplyr::select(h, .data$Orthogroup, .data$mean_H)
-    h <- as.data.frame(dplyr::distinct(h, .keep_all = TRUE))
-    return(h)
+    by_og <- split(og_df, og_df$Orthogroup)
+    sdice <- Reduce(rbind, lapply(by_og, function(x) {
+        genes <- unique(x$Gene)
+        og <- unique(x$Orthogroup)
+
+        scores_df <- NULL
+        if(length(genes) > 1) {
+            # Create a list of domains for each gene
+            domains_per_gene <- split(x$Annotation, x$Gene)
+
+            # Calculate Sorensen-Dice indices for all pairwise combinations
+            combinations <- utils::combn(genes, 2, simplify = FALSE)
+            scores <- lapply(combinations, function(y) {
+                d1 <- x$Annotation[x$Gene == y[1]]
+                d2 <- x$Annotation[x$Gene == y[2]]
+
+                numerator <- 2 * length(intersect(d1, d2))
+                denominator <- length(d1) + length(d2)
+                s <- round(numerator / denominator, 2)
+                return(s)
+            })
+            scores <- mean(Reduce(c, scores))
+
+            scores_df <- data.frame(
+                Orthogroup = og,
+                mean_H = scores
+            )
+        }
+
+        return(scores_df)
+    }))
+    return(sdice)
 }
+
+
 
 #' Assess orthogroup inference based on functional annotation
 #'

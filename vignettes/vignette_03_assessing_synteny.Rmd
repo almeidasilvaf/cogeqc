@@ -26,7 +26,9 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-Synteny analysis allows the identification of conserved gene content and gene order (collinearity) in a genomic segment, and it is often used to study how genomic rearrangements have shaped genomes during the course of evolution. However, accurate detection of syntenic blocks is highly dependent on parameters such as number of top hits in similarity searches (e.g., with BLAST [@altschul1990basic] or DIAMOND [@buchfink2015fast]), number of anchors, and number of upstream and downstream genes to search for syntenic blocks. @zhao2019network proposed a network-based synteny analysis that allows the identification of optimal parameters using the network's **average clustering coefficient** and **number of nodes**.
+Synteny analysis allows the identification of conserved gene content and gene order (collinearity) in a genomic segment, and it is often used to study how genomic rearrangements have shaped genomes during the course of evolution. However, accurate detection of syntenic blocks is highly dependent on parameters such as number of top hits in similarity searches (e.g., with BLAST [@altschul1990basic] or DIAMOND [@buchfink2015fast]), number of anchors, and number of upstream and downstream genes to search for syntenic blocks. @zhao2019network proposed a network-based synteny analysis that allows the identification of optimal parameters using the network's **average clustering coefficient** and **number of nodes**. The algorithm for
+synteny network inference has been implemented in the Bioconductor package
+`r BiocStyle::Biocpkg("syntenet")`.
 
 # Installation
 

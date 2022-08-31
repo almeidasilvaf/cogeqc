@@ -5,8 +5,10 @@
 
 <!-- badges: start -->
 
+[![GitHub
+issues](https://img.shields.io/github/issues/almeidasilvaf/cogeqc)](https://github.com/almeidasilvaf/cogeqc/issues)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check-bioc](https://github.com/almeidasilvaf/cogeqc/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/almeidasilvaf/cogeqc/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/almeidasilvaf/cogeqc/branch/master/graph/badge.svg)](https://codecov.io/gh/almeidasilvaf/cogeqc?branch=master)
@@ -62,9 +64,9 @@ print(citation('cogeqc'), bibtex = TRUE)
 #> 
 #> To cite package 'cogeqc' in publications use:
 #> 
-#>   Fabrício Almeida-Silva and Yves Van de Peer (2022). cogeqc:
-#>   Systematic quality checks on comparative genomics analyses. R package
-#>   version 0.99.0. https://github.com/almeidasilvaf/cogeqc
+#>   Almeida-Silva F, Van de Peer Y (2022). _cogeqc: Systematic quality
+#>   checks on comparative genomics analyses_. R package version 1.0.0,
+#>   <https://github.com/almeidasilvaf/cogeqc>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -72,7 +74,7 @@ print(citation('cogeqc'), bibtex = TRUE)
 #>     title = {cogeqc: Systematic quality checks on comparative genomics analyses},
 #>     author = {Fabrício Almeida-Silva and Yves {Van de Peer}},
 #>     year = {2022},
-#>     note = {R package version 0.99.0},
+#>     note = {R package version 1.0.0},
 #>     url = {https://github.com/almeidasilvaf/cogeqc},
 #>   }
 ```
@@ -96,7 +98,7 @@ contributing to this project, you agree to abide by its terms.
     *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)*
     customized to use [Bioconductor’s docker
     containers](https://www.bioconductor.org/help/docker/) and
-    *[BiocCheck](https://bioconductor.org/packages/3.14/BiocCheck)*.
+    *[BiocCheck](https://bioconductor.org/packages/3.15/BiocCheck)*.
 -   Code coverage assessment is possible thanks to
     [codecov](https://codecov.io/gh) and
     *[covr](https://CRAN.R-project.org/package=covr)*.
@@ -110,4 +112,4 @@ contributing to this project, you agree to abide by its terms.
 For more details, check the `dev` directory.
 
 This package was developed using
-*[biocthis](https://bioconductor.org/packages/3.14/biocthis)*.
+*[biocthis](https://bioconductor.org/packages/3.15/biocthis)*.

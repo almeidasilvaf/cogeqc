@@ -1,12 +1,29 @@
+#----Load data------------------------------------------------------------------
 data("og")
 data("interpro_ath")
 data("interpro_bol")
 
+## Simulate orthogroups to test if percentages are correclty calculated
+fake_og_zero <- data.frame(
+    Orthogroup = "OG0001",
+    Species = "X",
+    Gene = paste0("Gene", 1:8),
+    Annotation = paste0("Domain", 1:8)
+)
+fake_og_hundred <- data.frame(
+    Orthogroup = "OG0002",
+    Species = "X",
+    Gene = paste0("Gene", 1:8),
+    Annotation = "Domain2"
+)
+fake_og <- rbind(fake_og_hundred, fake_og_zero)
+
+#----Start tests----------------------------------------------------------------
 test_that("calculate_H() calculates orthogroup homogeneity", {
-    orthogroup_df <- merge(og[og$Species == "Ath", ], interpro_ath)
-    H <- calculate_H(orthogroup_df)
+    H <- calculate_H(fake_og)
     expect_equal(class(H), "data.frame")
     expect_equal(ncol(H), 2)
+    expect_equal(H$mean_H, c(0, 1))
 })
 
 test_that("assess_orthogroups() reports homogeneity scores by species", {

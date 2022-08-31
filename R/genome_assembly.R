@@ -36,7 +36,7 @@ handle_busco_input <- function(sequence = NULL) {
 
     if(ss) {
         outfile <- tempfile(pattern = "busco", fileext = ".fa")
-        Biostrings::writeXStringSet(seq, filepath = outfile)
+        Biostrings::writeXStringSet(sequence, filepath = outfile)
     }
     return(outfile)
 }
