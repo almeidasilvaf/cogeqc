@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cogeqc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,8 +63,9 @@
 <span>  orthogroups <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  annotation <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  correct_overclustering <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  weight_homogeneity <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  weight_dispersal <span class="op">=</span> <span class="fl">1</span></span>
+<span>  weight_homogeneity <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  weight_dispersal <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -96,13 +97,19 @@ for overclustering in orthogroups. Default: TRUE.</p></dd>
 <dt>weight_homogeneity</dt>
 <dd><p>Numeric indicating the weight to which homogeneity
 scores will be multiplied. Only valid
-if <strong>correct_overclustering = TRUE</strong>. Default: 2.</p></dd>
+if <strong>correct_overclustering = TRUE</strong>. Default: 1.</p></dd>
 
 
 <dt>weight_dispersal</dt>
 <dd><p>Numeric indicating the weight to which dispersal
 scores will be multiplied. Only valid
 if <strong>correct_overclustering = TRUE</strong>. Default: 1.</p></dd>
+
+
+<dt>scale</dt>
+<dd><p>Logical indicating whether or not to scale scores by the
+maximum value. Only valid if <strong>correct_overclustering = TRUE</strong>.
+Default: TRUE.</p></dd>
 
 </dl></div>
     <div class="section level2">

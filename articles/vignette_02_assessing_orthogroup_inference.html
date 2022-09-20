@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cogeqc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -224,7 +224,7 @@ domains, it will have <span class="math inline">\(homogeneity =
 will have <span class="math inline">\(homogeneity = 0\)</span>. If only
 some gene pairs share the same domain, <span class="math inline">\(homogeneity\)</span> will be somewhere between 0
 and 1. The weight variable, <span class="math inline">\(W_{H}\)</span>,
-can be modified by the user, and it equals 2 by default.</p>
+can be modified by the user, and it equals 1 by default.</p>
 <p>The denominator, <span class="math inline">\(dispersal\)</span>, aims
 to correct for overclustering (i.e., orthogroup assignments that break
 “true” gene families into an artificially large number of smaller
@@ -237,9 +237,10 @@ Dispersal &amp;= \frac{1}{W_{D}} \left ( \frac{1}{N_{OG}}
 \sum_{i=1}^{N_{domains}}D_{i} \right ) \\
 \\
 \end{aligned}
-\]</span> where <span class="math inline">\(N_{OG}\)</span> is the
-number of orthogroups, and <span class="math inline">\(D_{i}\)</span> is
-the number of orthogroups containing the protein domain <span class="math inline">\(i\)</span>. This term penalizes orthogroup
+\]</span></p>
+<p>where <span class="math inline">\(N_{OG}\)</span> is the number of
+orthogroups, and <span class="math inline">\(D_{i}\)</span> is the
+number of orthogroups containing the protein domain <span class="math inline">\(i\)</span>. This term penalizes orthogroup
 assignments where the same protein domains appears in multiple
 orthogroups. As orthogroups represent groups of genes that evolved from
 a common ancestor, a protein domain being present in multiple
@@ -271,18 +272,18 @@ the relative homogeneity scores of each orthogroup for each species.</p>
 <span></span>
 <span><span class="va">og_assessment</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/assess_orthogroups.html">assess_orthogroups</a></span><span class="op">(</span><span class="va">og</span>, <span class="va">annotation</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">og_assessment</span><span class="op">)</span></span>
-<span><span class="co">#&gt;    Orthogroups      Ath_H      Bol_H     Mean_H</span></span>
-<span><span class="co">#&gt; 1 HOM05D000001 0.06463174 0.06239133 0.06351153</span></span>
-<span><span class="co">#&gt; 2 HOM05D000002 0.02964750 0.11819147 0.07391949</span></span>
-<span><span class="co">#&gt; 3 HOM05D000003 0.20283490 0.19456239 0.19869864</span></span>
-<span><span class="co">#&gt; 4 HOM05D000004 0.00000000 0.21575572 0.10787786</span></span>
-<span><span class="co">#&gt; 5 HOM05D000005 0.25912623 0.18538818 0.22225721</span></span>
-<span><span class="co">#&gt; 6 HOM05D000006 0.64351173 0.20636606 0.42493890</span></span></code></pre></div>
-<p>Now, we can calculate the mean homogeneity for this orthogroup
+<span><span class="co">#&gt;    Orthogroups  Ath_score Bol_score Mean_score</span></span>
+<span><span class="co">#&gt; 1 HOM05D000001 0.10043599 0.1007778  0.1006069</span></span>
+<span><span class="co">#&gt; 2 HOM05D000002 0.04607143 0.1909091  0.1184903</span></span>
+<span><span class="co">#&gt; 3 HOM05D000003 0.31520000 0.3142674  0.3147337</span></span>
+<span><span class="co">#&gt; 4 HOM05D000004 0.00000000 0.3485000  0.1742500</span></span>
+<span><span class="co">#&gt; 5 HOM05D000005 0.40267523 0.2994488  0.3510620</span></span>
+<span><span class="co">#&gt; 6 HOM05D000006 1.00000000 0.3333333  0.6666667</span></span></code></pre></div>
+<p>Now, we can calculate the mean score for this orthogroup
 inference.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">og_assessment</span><span class="op">$</span><span class="va">Mean_H</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.3861923</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">og_assessment</span><span class="op">$</span><span class="va">Mean_score</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.6155004</span></span></code></pre></div>
 <p>Ideally, to have a reliable orthogroup inference, you should be able
 to run OrthoFinder with multiple combinations of parameters and assess
 each inference with <code><a href="../reference/assess_orthogroups.html">assess_orthogroups()</a></code>. The inference
@@ -507,7 +508,7 @@ setting <code>log = TRUE</code>.</p>
 <span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] cogeqc_1.1.3     BiocStyle_2.24.0</span></span>
+<span><span class="co">#&gt; [1] cogeqc_1.1.4     BiocStyle_2.24.0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
 <span><span class="co">#&gt;  [1] sass_0.4.2             tidyr_1.2.1            jsonlite_1.8.0        </span></span>
