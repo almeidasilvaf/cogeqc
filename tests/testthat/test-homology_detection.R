@@ -21,15 +21,17 @@ fake_og <- rbind(fake_og_hundred, fake_og_zero)
 #----Start tests----------------------------------------------------------------
 test_that("calculate_H() calculates orthogroup homogeneity", {
     H <- calculate_H(fake_og)
+    H2 <- calculate_H(fake_og, scale = FALSE)
     expect_equal(class(H), "data.frame")
     expect_equal(ncol(H), 2)
+    expect_equal(ncol(H2), 2)
 })
 
 test_that("assess_orthogroups() reports homogeneity scores by species", {
     annotation <- list(Ath = interpro_ath[1:1000,], Bol = interpro_bol[1:1000,])
     assess <- assess_orthogroups(og, annotation)
     expect_equal(class(assess), "data.frame")
-    expect_true("Mean_H" %in% names(assess))
+    expect_true("Mean_score" %in% names(assess))
 })
 
 test_that("compare_orthogroups() returns a df of preservation status", {

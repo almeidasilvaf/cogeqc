@@ -8,8 +8,9 @@ assess_orthogroups(
   orthogroups = NULL,
   annotation = NULL,
   correct_overclustering = TRUE,
-  weight_homogeneity = 2,
-  weight_dispersal = 1
+  weight_homogeneity = 1,
+  weight_dispersal = 1,
+  scale = TRUE
 )
 }
 \arguments{
@@ -32,11 +33,15 @@ for overclustering in orthogroups. Default: TRUE.}
 
 \item{weight_homogeneity}{Numeric indicating the weight to which homogeneity
 scores will be multiplied. Only valid
-if \strong{correct_overclustering = TRUE}. Default: 2.}
+if \strong{correct_overclustering = TRUE}. Default: 1.}
 
 \item{weight_dispersal}{Numeric indicating the weight to which dispersal
 scores will be multiplied. Only valid
 if \strong{correct_overclustering = TRUE}. Default: 1.}
+
+\item{scale}{Logical indicating whether or not to scale scores by the
+maximum value. Only valid if \strong{correct_overclustering = TRUE}.
+Default: TRUE.}
 }
 \value{
 A data frame.
