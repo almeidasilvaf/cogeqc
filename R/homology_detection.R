@@ -5,6 +5,14 @@
 #' and annotation. The columns \strong{Gene}, \strong{Orthogroup}, and
 #' \strong{Annotation} are mandatory, and they must represent Gene ID,
 #' Orthogroup ID, and Annotation ID (e.g., Interpro/PFAM), respectively.
+#' @param correct_overclustering Logical indicating whether to correct
+#' for overclustering in orthogroups. Default: TRUE.
+#' @param weight_homogeneity Numeric indicating the weight to which homogeneity
+#' scores will be multiplied. Only valid
+#' if \strong{correct_overclustering = TRUE}. Default: 2.
+#' @param weight_dispersal Numeric indicating the weight to which dispersal
+#' scores will be multiplied. Only valid
+#' if \strong{correct_overclustering = TRUE}. Default: 1.
 #'
 #' @details
 #' Homogeneity is calculated based on pairwise Sorensen-Dice similarity
@@ -25,10 +33,13 @@
 #' orthogroup_df <- merge(og[og$Species == "Ath", ], interpro_ath)
 #' # Filter data to reduce run time
 #' orthogroup_df <- orthogroup_df[1:10000, ]
-#' H <- calculate_H(orthogroup_df)
-calculate_H <- function(orthogroup_df) {
+#' H <- calculate_H(orthogroup_df, weight_homogeneity = 1, weight_dispersal = 1)
+calculate_H <- function(orthogroup_df, correct_overclustering = TRUE,
+                        weight_homogeneity = 2, weight_dispersal = 1) {
 
     by_og <- split(orthogroup_df, orthogroup_df$Orthogroup)
+
+    # Calculate homogeneity scores
     sdice <- Reduce(rbind, lapply(by_og, function(x) {
         genes <- unique(x$Gene)
         og <- unique(x$Orthogroup)
@@ -56,9 +67,22 @@ calculate_H <- function(orthogroup_df) {
                 mean_H = scores
             )
         }
-
         return(scores_df)
     }))
+
+    # Account for overclustering
+    if(correct_overclustering) {
+        n_ortho <- length(unique(orthogroup_df$Orthogroup))
+
+        dispersal <- split(orthogroup_df, orthogroup_df$Annotation)
+        dispersal <- unlist(lapply(dispersal, function(x) {
+            return(length(unique(x$Orthogroup)))
+        }))
+        scaled_dispersal <- sum(dispersal) / n_ortho
+
+        sdice$mean_H <- (weight_homogeneity * sdice$mean_H) /
+            (1 / weight_dispersal * scaled_dispersal)
+    }
     return(sdice)
 }
 
@@ -79,6 +103,14 @@ calculate_H <- function(orthogroup_df) {
 #' "SpeciesA" and "SpeciesB", \emph{annotation} must be a
 #' list of 2 data frames, and each list element must be named
 #' "SpeciesA" and "SpeciesB".
+#' @param correct_overclustering Logical indicating whether to correct
+#' for overclustering in orthogroups. Default: TRUE.
+#' @param weight_homogeneity Numeric indicating the weight to which homogeneity
+#' scores will be multiplied. Only valid
+#' if \strong{correct_overclustering = TRUE}. Default: 2.
+#' @param weight_dispersal Numeric indicating the weight to which dispersal
+#' scores will be multiplied. Only valid
+#' if \strong{correct_overclustering = TRUE}. Default: 1.
 #'
 #' @return A data frame.
 #' @rdname assess_orthogroups
@@ -90,7 +122,9 @@ calculate_H <- function(orthogroup_df) {
 #' # Subsetting annotation for demonstration purposes.
 #' annotation <- list(Ath = interpro_ath[1:1000,], Bol = interpro_bol[1:1000,])
 #' assess <- assess_orthogroups(og, annotation)
-assess_orthogroups <- function(orthogroups = NULL, annotation = NULL) {
+assess_orthogroups <- function(orthogroups = NULL, annotation = NULL,
+                               correct_overclustering = TRUE,
+                               weight_homogeneity = 2, weight_dispersal = 1) {
 
     og_list <- split(orthogroups, orthogroups$Species)
     og_list <- lapply(seq_along(og_list), function(x) {
@@ -98,7 +132,12 @@ assess_orthogroups <- function(orthogroups = NULL, annotation = NULL) {
         idx <- which(names(annotation) == species)
         merged <- merge(og_list[[x]], annotation[[idx]])
         names(merged)[4] <- "Annotation"
-        H <- calculate_H(merged)
+        H <- calculate_H(
+            merged,
+            correct_overclustering = correct_overclustering,
+            weight_homogeneity = weight_homogeneity,
+            weight_dispersal = weight_dispersal
+        )
         names(H) <- c("Orthogroups", paste0(species, "_H"))
         return(H)
     })

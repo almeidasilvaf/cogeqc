@@ -90,16 +90,67 @@ described below.
 
 ## Protein domain-based orthogroup assessment
 
-To assess the orthogroup inference, you can use the 
+The protein-domain based assessment of orthogroups is based on the
+formula below:
+
+$$
+\begin{aligned}
+Scores &= \frac{Homogeneity}{Dispersal}
+\\
+\end{aligned}
+$$
+The numerator, $homogeneity$, is the product of a weight variable $W_{H}$
+and the mean Sorensen-Dice index for all pairwise combinations of genes
+in an orthogroup. The Sorensen-Dice index
+measures how similar two genes are, and it ranges from 0 to 1, with 0 meaning
+that a gene pair does not share any protein domain, and 1 meaning that 
+it shares all protein domains. In a formal definition:
+
+$$
+\begin{aligned}
+Homogeneity &= W_{H}\left ( \frac{1}{N_{pairs}} \sum_{i=1}^{N_{pairs}} SDI_{i} \right )
+\\
+\\
+SDI(A,B) &= \frac{2 \left| A \cap B \right|}{ \left|A \right| + \left| B \right|}
+\end{aligned}
+$$
+
+where A and B are the set of protein domains associated to genes A and B. 
+This way, if all genes in an orthogroup have the same protein domains, it
+will have $homogeneity = 1$. If each gene has a different protein domain,
+the orthogroup will have $homogeneity = 0$. If only some gene pairs share 
+the same domain, $homogeneity$ will be somewhere between 0 and 1. The
+weight variable, $W_{H}$, can be modified by the user, and it equals 2 
+by default.
+
+
+The denominator, $dispersal$, aims to correct for overclustering (i.e.,
+orthogroup assignments that break "true" gene families into an artificially
+large number of smaller subfamilies). It is the product of a weight variable
+$W_{D}$ and the sum of the number of orthogroups containing the same 
+protein domain scaled by the number of orthogroups. Formally:
+
+$$
+\begin{aligned}
+Dispersal &= \frac{1}{W_{D}} \left ( \frac{1}{N_{OG}} \sum_{i=1}^{N_{domains}}D_{i} \right ) \\
+\\
+\end{aligned}
+$$
+where $N_{OG}$ is the number of orthogroups, and $D_{i}$ is the number of 
+orthogroups containing the protein domain $i$. This term penalizes
+orthogroup assignments where the same protein domains appears in multiple 
+orthogroups. As orthogroups represent groups of genes that 
+evolved from a common ancestor, a protein domain being present in multiple 
+orthogroups indicates that this domain evolved multiple times in an independent
+way, which is not reasonable from a phylogenetic point of view, despite
+convergent evolution. The weight variable, $W_{D}$, equals 1 by default, but it
+can be modified by the user.
+
+
+To calculate scores for each orthogroup, you can use the 
 function `assess_orthogroups()`. This function takes as input a list of 
 annotation data frames[^1] and an orthogroups data frame, and returns the 
 relative homogeneity scores of each orthogroup for each species.
-
-Relative homogeneity scores for each orthogroup are calculated using 
-pairwise Sorensen-Dice similarity indices between genes, and they range 
-from 0 to 1. Homogeneity scores of 1 indicate that all genes in that particular
-orthogroup share the same protein domains, and scores of 0 mean that each gene 
-in the orthogroup has a different protein domain.
 
 [^1]: **NOTE:** The names of the list elements must match the species 
 abbreviations in the column *Species* of the orthogroups data frame. 
