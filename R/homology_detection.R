@@ -9,10 +9,13 @@
 #' for overclustering in orthogroups. Default: TRUE.
 #' @param weight_homogeneity Numeric indicating the weight to which homogeneity
 #' scores will be multiplied. Only valid
-#' if \strong{correct_overclustering = TRUE}. Default: 2.
+#' if \strong{correct_overclustering = TRUE}. Default: 1.
 #' @param weight_dispersal Numeric indicating the weight to which dispersal
 #' scores will be multiplied. Only valid
 #' if \strong{correct_overclustering = TRUE}. Default: 1.
+#' @param scale Logical indicating whether or not to scale scores by the
+#' maximum value. Only valid if \strong{correct_overclustering = TRUE}.
+#' Default: TRUE.
 #'
 #' @details
 #' Homogeneity is calculated based on pairwise Sorensen-Dice similarity
@@ -21,9 +24,11 @@
 #' orthogroup share the same domain, the orthogroup will have a homogeneity
 #' score of 1. On the other hand, if genes in an orthogroup do not have any
 #' domain in common, the orthogroup will have a homogeneity score of 0.
+#' Additionally, users can correct for overclustering by penalizing
+#' protein domains that appear in multiple orthogroups (default).
 #'
 #' @return A 2-column data frame with the variables \strong{Orthogroup}
-#' and \strong{mean_H}, corresponding to orthogroup ID and mean homogeneity,
+#' and \strong{Score}, corresponding to orthogroup ID and orthogroup score,
 #' respectively.
 #' @export
 #' @rdname calculate_H
@@ -35,7 +40,8 @@
 #' orthogroup_df <- orthogroup_df[1:10000, ]
 #' H <- calculate_H(orthogroup_df, weight_homogeneity = 1, weight_dispersal = 1)
 calculate_H <- function(orthogroup_df, correct_overclustering = TRUE,
-                        weight_homogeneity = 2, weight_dispersal = 1) {
+                        weight_homogeneity = 1, weight_dispersal = 1,
+                        scale = TRUE) {
 
     by_og <- split(orthogroup_df, orthogroup_df$Orthogroup)
 
@@ -64,7 +70,7 @@ calculate_H <- function(orthogroup_df, correct_overclustering = TRUE,
 
             scores_df <- data.frame(
                 Orthogroup = og,
-                mean_H = scores
+                Score = scores
             )
         }
         return(scores_df)
@@ -80,8 +86,11 @@ calculate_H <- function(orthogroup_df, correct_overclustering = TRUE,
         }))
         scaled_dispersal <- sum(dispersal) / n_ortho
 
-        sdice$mean_H <- (weight_homogeneity * sdice$mean_H) /
+        sdice$Score <- (weight_homogeneity * sdice$Score) /
             (1 / weight_dispersal * scaled_dispersal)
+        if(scale) {
+            sdice$Score <- sdice$Score / max(sdice$Score)
+        }
     }
     return(sdice)
 }
@@ -107,10 +116,13 @@ calculate_H <- function(orthogroup_df, correct_overclustering = TRUE,
 #' for overclustering in orthogroups. Default: TRUE.
 #' @param weight_homogeneity Numeric indicating the weight to which homogeneity
 #' scores will be multiplied. Only valid
-#' if \strong{correct_overclustering = TRUE}. Default: 2.
+#' if \strong{correct_overclustering = TRUE}. Default: 1.
 #' @param weight_dispersal Numeric indicating the weight to which dispersal
 #' scores will be multiplied. Only valid
 #' if \strong{correct_overclustering = TRUE}. Default: 1.
+#' @param scale Logical indicating whether or not to scale scores by the
+#' maximum value. Only valid if \strong{correct_overclustering = TRUE}.
+#' Default: TRUE.
 #'
 #' @return A data frame.
 #' @rdname assess_orthogroups
@@ -124,7 +136,8 @@ calculate_H <- function(orthogroup_df, correct_overclustering = TRUE,
 #' assess <- assess_orthogroups(og, annotation)
 assess_orthogroups <- function(orthogroups = NULL, annotation = NULL,
                                correct_overclustering = TRUE,
-                               weight_homogeneity = 2, weight_dispersal = 1) {
+                               weight_homogeneity = 1, weight_dispersal = 1,
+                               scale = TRUE) {
 
     og_list <- split(orthogroups, orthogroups$Species)
     og_list <- lapply(seq_along(og_list), function(x) {
@@ -136,9 +149,10 @@ assess_orthogroups <- function(orthogroups = NULL, annotation = NULL,
             merged,
             correct_overclustering = correct_overclustering,
             weight_homogeneity = weight_homogeneity,
-            weight_dispersal = weight_dispersal
+            weight_dispersal = weight_dispersal,
+            scale = scale
         )
-        names(H) <- c("Orthogroups", paste0(species, "_H"))
+        names(H) <- c("Orthogroups", paste0(species, "_score"))
         return(H)
     })
 
@@ -147,7 +161,7 @@ assess_orthogroups <- function(orthogroups = NULL, annotation = NULL,
     }
     final_df <- Reduce(merge_func, og_list)
     means <- apply(final_df[, -1], 1, mean, na.rm = TRUE)
-    final_df$Mean_H <- means
+    final_df$Mean_score <- means
     return(final_df)
 }
 

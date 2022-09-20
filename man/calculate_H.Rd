@@ -7,8 +7,9 @@
 calculate_H(
   orthogroup_df,
   correct_overclustering = TRUE,
-  weight_homogeneity = 2,
-  weight_dispersal = 1
+  weight_homogeneity = 1,
+  weight_dispersal = 1,
+  scale = TRUE
 )
 }
 \arguments{
@@ -22,15 +23,19 @@ for overclustering in orthogroups. Default: TRUE.}
 
 \item{weight_homogeneity}{Numeric indicating the weight to which homogeneity
 scores will be multiplied. Only valid
-if \strong{correct_overclustering = TRUE}. Default: 2.}
+if \strong{correct_overclustering = TRUE}. Default: 1.}
 
 \item{weight_dispersal}{Numeric indicating the weight to which dispersal
 scores will be multiplied. Only valid
 if \strong{correct_overclustering = TRUE}. Default: 1.}
+
+\item{scale}{Logical indicating whether or not to scale scores by the
+maximum value. Only valid if \strong{correct_overclustering = TRUE}.
+Default: TRUE.}
 }
 \value{
 A 2-column data frame with the variables \strong{Orthogroup}
-and \strong{mean_H}, corresponding to orthogroup ID and mean homogeneity,
+and \strong{Score}, corresponding to orthogroup ID and orthogroup score,
 respectively.
 }
 \description{
@@ -43,6 +48,8 @@ from 0 to 1. Thus, if all genes in an
 orthogroup share the same domain, the orthogroup will have a homogeneity
 score of 1. On the other hand, if genes in an orthogroup do not have any
 domain in common, the orthogroup will have a homogeneity score of 0.
+Additionally, users can correct for overclustering by penalizing
+protein domains that appear in multiple orthogroups (default).
 }
 \examples{
 data(og)

@@ -120,7 +120,7 @@ This way, if all genes in an orthogroup have the same protein domains, it
 will have $homogeneity = 1$. If each gene has a different protein domain,
 the orthogroup will have $homogeneity = 0$. If only some gene pairs share 
 the same domain, $homogeneity$ will be somewhere between 0 and 1. The
-weight variable, $W_{H}$, can be modified by the user, and it equals 2 
+weight variable, $W_{H}$, can be modified by the user, and it equals 1 
 by default.
 
 
@@ -136,6 +136,7 @@ Dispersal &= \frac{1}{W_{D}} \left ( \frac{1}{N_{OG}} \sum_{i=1}^{N_{domains}}D_
 \\
 \end{aligned}
 $$
+
 where $N_{OG}$ is the number of orthogroups, and $D_{i}$ is the number of 
 orthogroups containing the protein domain $i$. This term penalizes
 orthogroup assignments where the same protein domains appears in multiple 
@@ -168,10 +169,10 @@ og_assessment <- assess_orthogroups(og, annotation)
 head(og_assessment)
 ```
 
-Now, we can calculate the mean homogeneity for this orthogroup inference.
+Now, we can calculate the mean score for this orthogroup inference.
 
 ```{r mean_h}
-mean(og_assessment$Mean_H)
+mean(og_assessment$Mean_score)
 ```
 
 Ideally, to have a reliable orthogroup inference, you should be able to run 
