@@ -4,7 +4,13 @@
 \alias{assess_orthogroups}
 \title{Assess orthogroup inference based on functional annotation}
 \usage{
-assess_orthogroups(orthogroups = NULL, annotation = NULL)
+assess_orthogroups(
+  orthogroups = NULL,
+  annotation = NULL,
+  correct_overclustering = TRUE,
+  weight_homogeneity = 2,
+  weight_dispersal = 1
+)
 }
 \arguments{
 \item{orthogroups}{A 3-column data frame with columns \strong{Orthogroup},
@@ -20,6 +26,17 @@ two species in the \emph{orthogroups} data frame named
 "SpeciesA" and "SpeciesB", \emph{annotation} must be a
 list of 2 data frames, and each list element must be named
 "SpeciesA" and "SpeciesB".}
+
+\item{correct_overclustering}{Logical indicating whether to correct
+for overclustering in orthogroups. Default: TRUE.}
+
+\item{weight_homogeneity}{Numeric indicating the weight to which homogeneity
+scores will be multiplied. Only valid
+if \strong{correct_overclustering = TRUE}. Default: 2.}
+
+\item{weight_dispersal}{Numeric indicating the weight to which dispersal
+scores will be multiplied. Only valid
+if \strong{correct_overclustering = TRUE}. Default: 1.}
 }
 \value{
 A data frame.

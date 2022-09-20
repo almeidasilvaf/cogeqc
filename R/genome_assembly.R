@@ -183,8 +183,8 @@ plot_busco <- function(summary_df = NULL) {
         ggplot2::scale_fill_manual(labels = c(
             "Complete & SC", "Complete & duplicate", "Fragmented", "Missing"
         ),
-                                   values = c(
-            "#32709a", "#59AAE1", "#ebd514", "#db5850"
+        values = c(
+            "#32709a", "#59AAE1", "darkgoldenrod2", "#db5850"
         )) +
         ggplot2::theme_bw()
     return(p)

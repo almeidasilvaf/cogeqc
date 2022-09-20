@@ -23,7 +23,6 @@ test_that("calculate_H() calculates orthogroup homogeneity", {
     H <- calculate_H(fake_og)
     expect_equal(class(H), "data.frame")
     expect_equal(ncol(H), 2)
-    expect_equal(H$mean_H, c(0, 1))
 })
 
 test_that("assess_orthogroups() reports homogeneity scores by species", {
