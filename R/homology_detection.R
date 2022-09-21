@@ -84,11 +84,11 @@ calculate_H <- function(orthogroup_df, correct_overclustering = TRUE,
         dispersal <- unlist(lapply(dispersal, function(x) {
             return(length(unique(x$Orthogroup)))
         }))
-        scaled_dispersal <- sum(dispersal) / n_ortho
+        scaled_dispersal <- sum(dispersal) / n_ortho # normalize to OG number
 
         sdice$Score <- (weight_homogeneity * sdice$Score) /
-            (1 / weight_dispersal * scaled_dispersal)
-        if(scale) {
+            (weight_dispersal * scaled_dispersal)
+        if(scale) { # scale to the maximum value?
             sdice$Score <- sdice$Score / max(sdice$Score)
         }
     }
