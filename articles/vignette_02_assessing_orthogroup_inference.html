@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cogeqc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -193,20 +193,21 @@ Both approaches are described below.</p>
 <div class="section level3">
 <h3 id="protein-domain-based-orthogroup-assessment">Protein domain-based orthogroup assessment<a class="anchor" aria-label="anchor" href="#protein-domain-based-orthogroup-assessment"></a>
 </h3>
-<p>The protein-domain based assessment of orthogroups is based on the
+<p>The protein domain-based assessment of orthogroups is based on the
 formula below:</p>
 <p><span class="math display">\[
 \begin{aligned}
 Scores &amp;= \frac{Homogeneity}{Dispersal}
 \\
 \end{aligned}
-\]</span> The numerator, <span class="math inline">\(homogeneity\)</span>, is the product of a weight
-variable <span class="math inline">\(W_{H}\)</span> and the mean
-Sorensen-Dice index for all pairwise combinations of genes in an
-orthogroup. The Sorensen-Dice index measures how similar two genes are,
-and it ranges from 0 to 1, with 0 meaning that a gene pair does not
-share any protein domain, and 1 meaning that it shares all protein
-domains. In a formal definition:</p>
+\]</span></p>
+<p>The numerator, <span class="math inline">\(homogeneity\)</span>, is
+the product of a weight variable <span class="math inline">\(W_{H}\)</span> and the mean Sorensen-Dice index
+for all pairwise combinations of genes in an orthogroup. The
+Sorensen-Dice index measures how similar two genes are, and it ranges
+from 0 to 1, with 0 meaning that a gene pair does not share any protein
+domain, and 1 meaning that it shares all protein domains. In a formal
+definition:</p>
 <p><span class="math display">\[
 \begin{aligned}
 Homogeneity &amp;= W_{H}\left ( \frac{1}{N_{pairs}}
@@ -233,7 +234,7 @@ orthogroups containing the same protein domain scaled by the number of
 orthogroups. Formally:</p>
 <p><span class="math display">\[
 \begin{aligned}
-Dispersal &amp;= \frac{1}{W_{D}} \left ( \frac{1}{N_{OG}}
+Dispersal &amp;= W_{D} \left ( \frac{1}{N_{OG}}
 \sum_{i=1}^{N_{domains}}D_{i} \right ) \\
 \\
 \end{aligned}
@@ -508,7 +509,7 @@ setting <code>log = TRUE</code>.</p>
 <span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] cogeqc_1.1.4     BiocStyle_2.24.0</span></span>
+<span><span class="co">#&gt; [1] cogeqc_1.1.5     BiocStyle_2.24.0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
 <span><span class="co">#&gt;  [1] sass_0.4.2             tidyr_1.2.1            jsonlite_1.8.0        </span></span>
