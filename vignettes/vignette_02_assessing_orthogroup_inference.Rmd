@@ -90,8 +90,9 @@ described below.
 
 ## Protein domain-based orthogroup assessment
 
-The protein-domain based assessment of orthogroups is based on the
+The protein domain-based assessment of orthogroups is based on the
 formula below:
+
 
 $$
 \begin{aligned}
@@ -99,6 +100,8 @@ Scores &= \frac{Homogeneity}{Dispersal}
 \\
 \end{aligned}
 $$
+
+
 The numerator, $homogeneity$, is the product of a weight variable $W_{H}$
 and the mean Sorensen-Dice index for all pairwise combinations of genes
 in an orthogroup. The Sorensen-Dice index
@@ -130,12 +133,14 @@ large number of smaller subfamilies). It is the product of a weight variable
 $W_{D}$ and the sum of the number of orthogroups containing the same 
 protein domain scaled by the number of orthogroups. Formally:
 
+
 $$
 \begin{aligned}
-Dispersal &= \frac{1}{W_{D}} \left ( \frac{1}{N_{OG}} \sum_{i=1}^{N_{domains}}D_{i} \right ) \\
+Dispersal &= W_{D} \left ( \frac{1}{N_{OG}} \sum_{i=1}^{N_{domains}}D_{i} \right ) \\
 \\
 \end{aligned}
 $$
+
 
 where $N_{OG}$ is the number of orthogroups, and $D_{i}$ is the number of 
 orthogroups containing the protein domain $i$. This term penalizes
