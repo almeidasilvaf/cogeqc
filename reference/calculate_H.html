@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cogeqc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,13 +59,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_H</span><span class="op">(</span></span>
-<span>  <span class="va">orthogroup_df</span>,</span>
-<span>  correct_overclustering <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  weight_homogeneity <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  weight_dispersal <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  scale <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_H</span><span class="op">(</span><span class="va">orthogroup_df</span>, correct_overclustering <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -80,24 +74,6 @@ Orthogroup ID, and Annotation ID (e.g., Interpro/PFAM), respectively.</p></dd>
 <dt>correct_overclustering</dt>
 <dd><p>Logical indicating whether to correct
 for overclustering in orthogroups. Default: TRUE.</p></dd>
-
-
-<dt>weight_homogeneity</dt>
-<dd><p>Numeric indicating the weight to which homogeneity
-scores will be multiplied. Only valid
-if <strong>correct_overclustering = TRUE</strong>. Default: 1.</p></dd>
-
-
-<dt>weight_dispersal</dt>
-<dd><p>Numeric indicating the weight to which dispersal
-scores will be multiplied. Only valid
-if <strong>correct_overclustering = TRUE</strong>. Default: 1.</p></dd>
-
-
-<dt>scale</dt>
-<dd><p>Logical indicating whether or not to scale scores by the
-maximum value. Only valid if <strong>correct_overclustering = TRUE</strong>.
-Default: TRUE.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -129,7 +105,7 @@ protein domains that appear in multiple orthogroups (default).</p>
 <span class="r-in"><span><span class="va">orthogroup_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">og</span><span class="op">[</span><span class="va">og</span><span class="op">$</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"Ath"</span>, <span class="op">]</span>, <span class="va">interpro_ath</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Filter data to reduce run time</span></span></span>
 <span class="r-in"><span><span class="va">orthogroup_df</span> <span class="op">&lt;-</span> <span class="va">orthogroup_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10000</span>, <span class="op">]</span></span></span>
-<span class="r-in"><span><span class="va">H</span> <span class="op">&lt;-</span> <span class="fu">calculate_H</span><span class="op">(</span><span class="va">orthogroup_df</span>, weight_homogeneity <span class="op">=</span> <span class="fl">1</span>, weight_dispersal <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">H</span> <span class="op">&lt;-</span> <span class="fu">calculate_H</span><span class="op">(</span><span class="va">orthogroup_df</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

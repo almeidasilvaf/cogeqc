@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cogeqc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -202,16 +202,14 @@ Scores &amp;= \frac{Homogeneity}{Dispersal}
 \end{aligned}
 \]</span></p>
 <p>The numerator, <span class="math inline">\(homogeneity\)</span>, is
-the product of a weight variable <span class="math inline">\(W_{H}\)</span> and the mean Sorensen-Dice index
-for all pairwise combinations of genes in an orthogroup. The
-Sorensen-Dice index measures how similar two genes are, and it ranges
-from 0 to 1, with 0 meaning that a gene pair does not share any protein
-domain, and 1 meaning that it shares all protein domains. In a formal
-definition:</p>
+the mean Sorensen-Dice index for all pairwise combinations of genes in
+an orthogroup. The Sorensen-Dice index measures how similar two genes
+are, and it ranges from 0 to 1, with 0 meaning that a gene pair does not
+share any protein domain, and 1 meaning that it shares all protein
+domains. In a formal definition:</p>
 <p><span class="math display">\[
 \begin{aligned}
-Homogeneity &amp;= W_{H}\left ( \frac{1}{N_{pairs}}
-\sum_{i=1}^{N_{pairs}} SDI_{i} \right )
+Homogeneity &amp;=  \frac{1}{N_{pairs}} \sum_{i=1}^{N_{pairs}} SDI_{i}
 \\
 \\
 SDI(A,B) &amp;= \frac{2 \left| A \cap B \right|}{ \left|A \right| +
@@ -224,18 +222,16 @@ domains, it will have <span class="math inline">\(homogeneity =
 1\)</span>. If each gene has a different protein domain, the orthogroup
 will have <span class="math inline">\(homogeneity = 0\)</span>. If only
 some gene pairs share the same domain, <span class="math inline">\(homogeneity\)</span> will be somewhere between 0
-and 1. The weight variable, <span class="math inline">\(W_{H}\)</span>,
-can be modified by the user, and it equals 1 by default.</p>
+and 1.</p>
 <p>The denominator, <span class="math inline">\(dispersal\)</span>, aims
 to correct for overclustering (i.e., orthogroup assignments that break
 “true” gene families into an artificially large number of smaller
-subfamilies). It is the product of a weight variable <span class="math inline">\(W_{D}\)</span> and the sum of the number of
-orthogroups containing the same protein domain scaled by the number of
-orthogroups. Formally:</p>
+subfamilies). It is the mean number of orthogroups containing the same
+protein domain corrected by the number of orthogroup. Formally:</p>
 <p><span class="math display">\[
 \begin{aligned}
-Dispersal &amp;= W_{D} \left ( \frac{1}{N_{OG}}
-\sum_{i=1}^{N_{domains}}D_{i} \right ) \\
+Dispersal &amp;= \left ( \frac{1}{N_{domains}}
+\sum_{i=1}^{N_{domains}}D_{i} \right )^{\frac{1}{N_{OG}}} \\
 \\
 \end{aligned}
 \]</span></p>
@@ -247,8 +243,7 @@ orthogroups. As orthogroups represent groups of genes that evolved from
 a common ancestor, a protein domain being present in multiple
 orthogroups indicates that this domain evolved multiple times in an
 independent way, which is not reasonable from a phylogenetic point of
-view, despite convergent evolution. The weight variable, <span class="math inline">\(W_{D}\)</span>, equals 1 by default, but it can be
-modified by the user.</p>
+view, despite convergent evolution.</p>
 <p>To calculate scores for each orthogroup, you can use the function
 <code><a href="../reference/assess_orthogroups.html">assess_orthogroups()</a></code>. This function takes as input a list
 of annotation data frames<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; The names of the list elements
@@ -273,18 +268,18 @@ the relative homogeneity scores of each orthogroup for each species.</p>
 <span></span>
 <span><span class="va">og_assessment</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/assess_orthogroups.html">assess_orthogroups</a></span><span class="op">(</span><span class="va">og</span>, <span class="va">annotation</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">og_assessment</span><span class="op">)</span></span>
-<span><span class="co">#&gt;    Orthogroups  Ath_score Bol_score Mean_score</span></span>
-<span><span class="co">#&gt; 1 HOM05D000001 0.10043599 0.1007778  0.1006069</span></span>
-<span><span class="co">#&gt; 2 HOM05D000002 0.04607143 0.1909091  0.1184903</span></span>
-<span><span class="co">#&gt; 3 HOM05D000003 0.31520000 0.3142674  0.3147337</span></span>
-<span><span class="co">#&gt; 4 HOM05D000004 0.00000000 0.3485000  0.1742500</span></span>
-<span><span class="co">#&gt; 5 HOM05D000005 0.40267523 0.2994488  0.3510620</span></span>
-<span><span class="co">#&gt; 6 HOM05D000006 1.00000000 0.3333333  0.6666667</span></span></code></pre></div>
+<span><span class="co">#&gt;    Orthogroups  Ath_score Bol_score Mean_score Median_score</span></span>
+<span><span class="co">#&gt; 1 HOM05D000001 0.10042295 0.1007640  0.1005935    0.1005935</span></span>
+<span><span class="co">#&gt; 2 HOM05D000002 0.04606545 0.1908831  0.1184743    0.1184743</span></span>
+<span><span class="co">#&gt; 3 HOM05D000003 0.31515906 0.3142246  0.3146918    0.3146918</span></span>
+<span><span class="co">#&gt; 4 HOM05D000004 0.00000000 0.3484525  0.1742263    0.1742263</span></span>
+<span><span class="co">#&gt; 5 HOM05D000005 0.40262294 0.2994080  0.3510154    0.3510154</span></span>
+<span><span class="co">#&gt; 6 HOM05D000006 0.99987013 0.3332879  0.6665790    0.6665790</span></span></code></pre></div>
 <p>Now, we can calculate the mean score for this orthogroup
 inference.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">og_assessment</span><span class="op">$</span><span class="va">Mean_score</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.6155004</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.6154179</span></span></code></pre></div>
 <p>Ideally, to have a reliable orthogroup inference, you should be able
 to run OrthoFinder with multiple combinations of parameters and assess
 each inference with <code><a href="../reference/assess_orthogroups.html">assess_orthogroups()</a></code>. The inference
@@ -509,7 +504,7 @@ setting <code>log = TRUE</code>.</p>
 <span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] cogeqc_1.1.5     BiocStyle_2.24.0</span></span>
+<span><span class="co">#&gt; [1] cogeqc_1.1.6     BiocStyle_2.24.0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
 <span><span class="co">#&gt;  [1] sass_0.4.2             tidyr_1.2.1            jsonlite_1.8.0        </span></span>
@@ -532,7 +527,7 @@ setting <code>log = TRUE</code>.</p>
 <span><span class="co">#&gt; [52] Biostrings_2.64.1      compiler_4.2.1         pkgdown_2.0.6         </span></span>
 <span><span class="co">#&gt; [55] jquerylib_0.1.4        GenomeInfoDb_1.32.4    systemfonts_1.0.4     </span></span>
 <span><span class="co">#&gt; [58] gridGraphics_0.5-1     rlang_1.0.5            grid_4.2.1            </span></span>
-<span><span class="co">#&gt; [61] RCurl_1.98-1.8         igraph_1.3.4           bitops_1.0-7          </span></span>
+<span><span class="co">#&gt; [61] RCurl_1.98-1.8         igraph_1.3.5           bitops_1.0-7          </span></span>
 <span><span class="co">#&gt; [64] labeling_0.4.2         rmarkdown_2.16         gtable_0.3.1          </span></span>
 <span><span class="co">#&gt; [67] reshape2_1.4.4         R6_2.5.1               knitr_1.40            </span></span>
 <span><span class="co">#&gt; [70] dplyr_1.0.10           fastmap_1.1.0          utf8_1.2.2            </span></span>
