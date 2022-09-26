@@ -4,13 +4,7 @@
 \alias{calculate_H}
 \title{Calculate homogeneity scores for orthogroups}
 \usage{
-calculate_H(
-  orthogroup_df,
-  correct_overclustering = TRUE,
-  weight_homogeneity = 1,
-  weight_dispersal = 1,
-  scale = TRUE
-)
+calculate_H(orthogroup_df, correct_overclustering = TRUE)
 }
 \arguments{
 \item{orthogroup_df}{Data frame with orthogroups and their associated genes
@@ -20,18 +14,6 @@ Orthogroup ID, and Annotation ID (e.g., Interpro/PFAM), respectively.}
 
 \item{correct_overclustering}{Logical indicating whether to correct
 for overclustering in orthogroups. Default: TRUE.}
-
-\item{weight_homogeneity}{Numeric indicating the weight to which homogeneity
-scores will be multiplied. Only valid
-if \strong{correct_overclustering = TRUE}. Default: 1.}
-
-\item{weight_dispersal}{Numeric indicating the weight to which dispersal
-scores will be multiplied. Only valid
-if \strong{correct_overclustering = TRUE}. Default: 1.}
-
-\item{scale}{Logical indicating whether or not to scale scores by the
-maximum value. Only valid if \strong{correct_overclustering = TRUE}.
-Default: TRUE.}
 }
 \value{
 A 2-column data frame with the variables \strong{Orthogroup}
@@ -57,5 +39,5 @@ data(interpro_ath)
 orthogroup_df <- merge(og[og$Species == "Ath", ], interpro_ath)
 # Filter data to reduce run time
 orthogroup_df <- orthogroup_df[1:10000, ]
-H <- calculate_H(orthogroup_df, weight_homogeneity = 1, weight_dispersal = 1)
+H <- calculate_H(orthogroup_df)
 }

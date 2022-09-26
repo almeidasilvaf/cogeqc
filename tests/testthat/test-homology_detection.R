@@ -20,8 +20,8 @@ fake_og <- rbind(fake_og_hundred, fake_og_zero)
 
 #----Start tests----------------------------------------------------------------
 test_that("calculate_H() calculates orthogroup homogeneity", {
-    H <- calculate_H(fake_og)
-    H2 <- calculate_H(fake_og, scale = FALSE)
+    H <- calculate_H(fake_og, correct_overclustering = TRUE)
+    H2 <- calculate_H(fake_og, correct_overclustering = FALSE)
     expect_equal(class(H), "data.frame")
     expect_equal(ncol(H), 2)
     expect_equal(ncol(H2), 2)
