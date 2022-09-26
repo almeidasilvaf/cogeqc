@@ -1,6 +1,6 @@
 Package: cogeqc
 Title: Systematic quality checks on comparative genomics analyses
-Version: 1.1.5
+Version: 1.1.6
 Date: 2022-01-26
 Authors@R: 
     c(
