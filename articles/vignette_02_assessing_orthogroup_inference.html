@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cogeqc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -230,8 +230,8 @@ subfamilies). It is the mean number of orthogroups containing the same
 protein domain corrected by the number of orthogroup. Formally:</p>
 <p><span class="math display">\[
 \begin{aligned}
-Dispersal &amp;= \left ( \frac{1}{N_{domains}}
-\sum_{i=1}^{N_{domains}}D_{i} \right )^{\frac{1}{N_{OG}}} \\
+Dispersal &amp;=  \frac{1}{N_{domains} N_{OG}}
+\sum_{i=1}^{N_{domains}}D_{i} \\
 \\
 \end{aligned}
 \]</span></p>
@@ -253,7 +253,10 @@ contains the species &lt;strong&gt;Ath&lt;/strong&gt; and &lt;strong&gt;Bol&lt;/
 data frames in the annotation list must be named &lt;strong&gt;Ath&lt;/strong&gt;
 and &lt;strong&gt;Bol&lt;/strong&gt; (not necessarily in that order, but with these
 exact names).&lt;/p&gt;"><sup>1</sup></a> and an orthogroups data frame, and returns
-the relative homogeneity scores of each orthogroup for each species.</p>
+the relative homogeneity scores of each orthogroup for each species.
+Note that if you don’t want to take the dispersal into account, you can
+set <code>correct_overclustering = FALSE</code>. This will ignore the
+denominator of the score formula.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a list of annotation data frames</span></span>
 <span><span class="va">annotation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Ath <span class="op">=</span> <span class="va">interpro_ath</span>, Bol <span class="op">=</span> <span class="va">interpro_bol</span><span class="op">)</span></span>
@@ -268,18 +271,18 @@ the relative homogeneity scores of each orthogroup for each species.</p>
 <span></span>
 <span><span class="va">og_assessment</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/assess_orthogroups.html">assess_orthogroups</a></span><span class="op">(</span><span class="va">og</span>, <span class="va">annotation</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">og_assessment</span><span class="op">)</span></span>
-<span><span class="co">#&gt;    Orthogroups  Ath_score Bol_score Mean_score Median_score</span></span>
-<span><span class="co">#&gt; 1 HOM05D000001 0.10042295 0.1007640  0.1005935    0.1005935</span></span>
-<span><span class="co">#&gt; 2 HOM05D000002 0.04606545 0.1908831  0.1184743    0.1184743</span></span>
-<span><span class="co">#&gt; 3 HOM05D000003 0.31515906 0.3142246  0.3146918    0.3146918</span></span>
-<span><span class="co">#&gt; 4 HOM05D000004 0.00000000 0.3484525  0.1742263    0.1742263</span></span>
-<span><span class="co">#&gt; 5 HOM05D000005 0.40262294 0.2994080  0.3510154    0.3510154</span></span>
-<span><span class="co">#&gt; 6 HOM05D000006 0.99987013 0.3332879  0.6665790    0.6665790</span></span></code></pre></div>
+<span><span class="co">#&gt;    Orthogroups Ath_score Bol_score Mean_score Median_score</span></span>
+<span><span class="co">#&gt; 1 HOM05D000001  283.3132  271.9950   277.6541     277.6541</span></span>
+<span><span class="co">#&gt; 2 HOM05D000002  129.9598  515.2557   322.6078     322.6078</span></span>
+<span><span class="co">#&gt; 3 HOM05D000003  889.1268  848.1947   868.6607     868.6607</span></span>
+<span><span class="co">#&gt; 4 HOM05D000004    0.0000  940.5871   470.2935     470.2935</span></span>
+<span><span class="co">#&gt; 5 HOM05D000005 1135.8799  808.1998   972.0398     972.0398</span></span>
+<span><span class="co">#&gt; 6 HOM05D000006 2820.8337  899.6528  1860.2433    1860.2433</span></span></code></pre></div>
 <p>Now, we can calculate the mean score for this orthogroup
 inference.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">og_assessment</span><span class="op">$</span><span class="va">Mean_score</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.6154179</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 1686.855</span></span></code></pre></div>
 <p>Ideally, to have a reliable orthogroup inference, you should be able
 to run OrthoFinder with multiple combinations of parameters and assess
 each inference with <code><a href="../reference/assess_orthogroups.html">assess_orthogroups()</a></code>. The inference
@@ -353,11 +356,11 @@ read the output of OrthoFinder’s example with model species.</p>
 <span><span class="co">#&gt; 5       Takifugu_rubripes   20545          19403              94.4     135</span></span>
 <span><span class="co">#&gt; 6      Xenopus_tropicalis   19987          18755              93.8     234</span></span>
 <span><span class="co">#&gt;   N_genes_in_ssOGs Perc_genes_in_ssOGs Dups</span></span>
-<span><span class="co">#&gt; 1             3216                10.6 3353</span></span>
-<span><span class="co">#&gt; 2             3313                23.8 4527</span></span>
-<span><span class="co">#&gt; 3             1625                 6.9 2283</span></span>
+<span><span class="co">#&gt; 1             3216                10.6 9585</span></span>
+<span><span class="co">#&gt; 2             3313                23.8 3353</span></span>
+<span><span class="co">#&gt; 3             1625                 6.9 4527</span></span>
 <span><span class="co">#&gt; 4             2022                 8.8 4131</span></span>
-<span><span class="co">#&gt; 5              446                 2.2 9585</span></span>
+<span><span class="co">#&gt; 5              446                 2.2 2283</span></span>
 <span><span class="co">#&gt; 6             1580                 7.9 3650</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $og_overlap</span></span>
@@ -504,36 +507,36 @@ setting <code>log = TRUE</code>.</p>
 <span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] cogeqc_1.1.6     BiocStyle_2.24.0</span></span>
+<span><span class="co">#&gt; [1] cogeqc_1.1.7     BiocStyle_2.24.0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;  [1] sass_0.4.2             tidyr_1.2.1            jsonlite_1.8.0        </span></span>
+<span><span class="co">#&gt;  [1] sass_0.4.2             tidyr_1.2.1            jsonlite_1.8.2        </span></span>
 <span><span class="co">#&gt;  [4] bslib_0.4.0            highr_0.9              BiocManager_1.30.18   </span></span>
 <span><span class="co">#&gt;  [7] stats4_4.2.1           yulab.utils_0.0.5      GenomeInfoDbData_1.2.8</span></span>
 <span><span class="co">#&gt; [10] yaml_2.3.5             pillar_1.8.1           lattice_0.20-45       </span></span>
 <span><span class="co">#&gt; [13] glue_1.6.2             digest_0.6.29          XVector_0.36.0        </span></span>
 <span><span class="co">#&gt; [16] colorspace_2.0-3       ggfun_0.0.7            htmltools_0.5.3       </span></span>
 <span><span class="co">#&gt; [19] plyr_1.8.7             pkgconfig_2.0.3        bookdown_0.29         </span></span>
-<span><span class="co">#&gt; [22] zlibbioc_1.42.0        purrr_0.3.4            patchwork_1.1.2       </span></span>
-<span><span class="co">#&gt; [25] tidytree_0.4.0         scales_1.2.1           ggplotify_0.1.0       </span></span>
+<span><span class="co">#&gt; [22] zlibbioc_1.42.0        purrr_0.3.5            patchwork_1.1.2       </span></span>
+<span><span class="co">#&gt; [25] tidytree_0.4.1         scales_1.2.1           ggplotify_0.1.0       </span></span>
 <span><span class="co">#&gt; [28] tibble_3.1.8           farver_2.1.1           generics_0.1.3        </span></span>
 <span><span class="co">#&gt; [31] IRanges_2.30.1         ggplot2_3.3.6          cachem_1.0.6          </span></span>
-<span><span class="co">#&gt; [34] BiocGenerics_0.42.0    lazyeval_0.2.2         cli_3.4.0             </span></span>
-<span><span class="co">#&gt; [37] magrittr_2.0.3         crayon_1.5.1           memoise_2.0.1         </span></span>
+<span><span class="co">#&gt; [34] BiocGenerics_0.42.0    lazyeval_0.2.2         cli_3.4.1             </span></span>
+<span><span class="co">#&gt; [37] magrittr_2.0.3         crayon_1.5.2           memoise_2.0.1         </span></span>
 <span><span class="co">#&gt; [40] evaluate_0.16          fs_1.5.2               fansi_1.0.3           </span></span>
 <span><span class="co">#&gt; [43] nlme_3.1-159           textshaping_0.3.6      tools_4.2.1           </span></span>
 <span><span class="co">#&gt; [46] lifecycle_1.0.2        stringr_1.4.1          aplot_0.1.7           </span></span>
-<span><span class="co">#&gt; [49] S4Vectors_0.34.0       ggtree_3.4.2           munsell_0.5.0         </span></span>
+<span><span class="co">#&gt; [49] S4Vectors_0.34.0       ggtree_3.4.4           munsell_0.5.0         </span></span>
 <span><span class="co">#&gt; [52] Biostrings_2.64.1      compiler_4.2.1         pkgdown_2.0.6         </span></span>
 <span><span class="co">#&gt; [55] jquerylib_0.1.4        GenomeInfoDb_1.32.4    systemfonts_1.0.4     </span></span>
-<span><span class="co">#&gt; [58] gridGraphics_0.5-1     rlang_1.0.5            grid_4.2.1            </span></span>
-<span><span class="co">#&gt; [61] RCurl_1.98-1.8         igraph_1.3.5           bitops_1.0-7          </span></span>
+<span><span class="co">#&gt; [58] gridGraphics_0.5-1     rlang_1.0.6            grid_4.2.1            </span></span>
+<span><span class="co">#&gt; [61] RCurl_1.98-1.9         igraph_1.3.5           bitops_1.0-7          </span></span>
 <span><span class="co">#&gt; [64] labeling_0.4.2         rmarkdown_2.16         gtable_0.3.1          </span></span>
 <span><span class="co">#&gt; [67] reshape2_1.4.4         R6_2.5.1               knitr_1.40            </span></span>
 <span><span class="co">#&gt; [70] dplyr_1.0.10           fastmap_1.1.0          utf8_1.2.2            </span></span>
-<span><span class="co">#&gt; [73] rprojroot_2.0.3        treeio_1.20.2          ragg_1.2.2            </span></span>
+<span><span class="co">#&gt; [73] rprojroot_2.0.3        treeio_1.20.2          ragg_1.2.3            </span></span>
 <span><span class="co">#&gt; [76] desc_1.4.2             ape_5.6-2              stringi_1.7.8         </span></span>
-<span><span class="co">#&gt; [79] parallel_4.2.1         Rcpp_1.0.9             vctrs_0.4.1           </span></span>
+<span><span class="co">#&gt; [79] parallel_4.2.1         Rcpp_1.0.9             vctrs_0.4.2           </span></span>
 <span><span class="co">#&gt; [82] tidyselect_1.1.2       xfun_0.33</span></span></code></pre></div>
 </div>
 <div class="section level2">
