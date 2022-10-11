@@ -40,7 +40,7 @@ test_that("plot_og_overlap() returns a ggplot object", {
 
 test_that("plot_og_sizes() returns a ggplot object", {
     p <- plot_og_sizes(og, log = TRUE)
-    p2 <- plot_og_sizes(og, log = FALSE)
+    p2 <- plot_og_sizes(og, log = FALSE, max_size = 100)
 
     # Create fake orthogroup data frame with >20 species for testing
     og_sim <- data.frame(
