@@ -253,6 +253,9 @@ plot_og_overlap <- function(stats_list = NULL, clust = TRUE) {
 #' \code{read_orthogroups()}.
 #' @param log Logical indicating whether to transform orthogroups sizes with
 #' natural logarithms. Default: FALSE.
+#' @param max_size Numeric indicating the maximum orthogroup size to consider.
+#' If this parameter is not NULL, orthogroups larger
+#' than `max_size` (e.g., 100) will not be considered. Default: NULL.
 #'
 #' @return A ggplot object with a violin plot.
 #' @export
@@ -261,7 +264,9 @@ plot_og_overlap <- function(stats_list = NULL, clust = TRUE) {
 #' @examples
 #' data(og)
 #' plot_og_sizes(og, log = TRUE)
-plot_og_sizes <- function(orthogroups = NULL, log = FALSE) {
+#' plot_og_sizes(og, max_size = 100)
+#' plot_og_sizes(og, log = TRUE, max_size = 100)
+plot_og_sizes <- function(orthogroups = NULL, log = FALSE, max_size = NULL) {
 
     og_species <- split(orthogroups, orthogroups$Species)
     sizes <- Reduce(rbind, lapply(seq_along(og_species), function(x) {
@@ -270,6 +275,9 @@ plot_og_sizes <- function(orthogroups = NULL, log = FALSE) {
         return(freqs)
     }))
     names(sizes) <- c("OG", "Frequency", "Species")
+    if(!is.null(max_size) & is.numeric(max_size)) {
+        sizes <- sizes[sizes$Frequency <= max_size, ]
+    }
 
     # Define palette
     pal <- c("#1F77B4FF", "#FF7F0EFF", "#2CA02CFF", "#D62728FF", "#9467BDFF",

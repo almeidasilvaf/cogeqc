@@ -18,3 +18,17 @@ how homogeneity scores are calculated.
 NEW FEATURES
 
 * Added option to scale scores by the maximum value
+
+# cogeqc 1.1.7
+
+BUG FIXES
+
+* Variable **Duplications_50** of the `duplications` data frame was not
+matching variable **Dups** of the `stats` data frame in the output of
+`read_orthofinder_stats()`
+
+NEW FEATURES
+
+* Replaced dispersal formula with a more meaningful and interpretable one.
+* Added a *max_size* param to `plot_og_sizes()` to ignore OGs larger
+than a specific size.

@@ -76,9 +76,7 @@ calculate_H <- function(orthogroup_df, correct_overclustering = TRUE) {
             return(length(unique(x$Orthogroup)))
         }))
 
-        dispersal <- mean(dispersal)
-        dispersal <- dispersal^(1/n_ogs)
-
+        dispersal <- sum(dispersal) / (n_domains * n_ogs)
         sdice$Score <- sdice$Score / dispersal
 
     }

@@ -156,10 +156,12 @@ read_orthofinder_stats <- function(stats_dir = NULL) {
     stats <- read.csv(stats, sep = "\t", nrows = 10, header = TRUE,
                       row.names = 1)
     stats <- as.data.frame(t(stats))[, -c(3, 5, 6, 7)]
+
     colnames(stats) <- c("N_genes", "N_genes_in_OGs", "Perc_genes_in_OGs",
-                      "N_ssOGs", "N_genes_in_ssOGs", "Perc_genes_in_ssOGs")
+                         "N_ssOGs", "N_genes_in_ssOGs", "Perc_genes_in_ssOGs")
     stats <- cbind(data.frame(Species = rownames(stats)), stats)
-    stats$Dups <- dups$Duplications_50[dups$Node %in% stats$Species]
+    stats <- merge(stats, dups, by.x = "Species", by.y = "Node")
+    names(stats) <- gsub("Duplications_50", "Dups", names(stats))
     stats$Species <- as.factor(stats$Species)
     rownames(stats) <- NULL
 

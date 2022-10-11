@@ -133,7 +133,7 @@ the number of orthogroup. Formally:
 
 $$
 \begin{aligned}
-Dispersal &= \left ( \frac{1}{N_{domains}} \sum_{i=1}^{N_{domains}}D_{i} \right )^{\frac{1}{N_{OG}}} \\
+Dispersal &=  \frac{1}{N_{domains} N_{OG}} \sum_{i=1}^{N_{domains}}D_{i} \\
 \\
 \end{aligned}
 $$
@@ -151,7 +151,10 @@ convergent evolution.
 To calculate scores for each orthogroup, you can use the 
 function `assess_orthogroups()`. This function takes as input a list of 
 annotation data frames[^1] and an orthogroups data frame, and returns the 
-relative homogeneity scores of each orthogroup for each species.
+relative homogeneity scores of each orthogroup for each species. Note that
+if you don't want to take the dispersal into account, you can set
+`correct_overclustering = FALSE`. This will ignore the denominator of the
+score formula.
 
 [^1]: **NOTE:** The names of the list elements must match the species 
 abbreviations in the column *Species* of the orthogroups data frame. 
