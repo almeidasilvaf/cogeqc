@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cogeqc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,12 +86,13 @@
                         <h4 data-toc-skip class="author">Fabricio
 Almeida-Silva</h4>
             <address class="author_afil">
-      VIB-UGent Center for Plant Systems Biology, Ghent,
+      VIB-UGent Center for Plant Systems Biology, Ghent University,
+Ghent,
 Belgium<br><h4 data-toc-skip class="author">Yves
 Van de Peer</h4>
             <address class="author_afil">
-      VIB-UGent Center for Plant Systems Biology, Ghent,
-Belgium<br><small class="dont-index">Source: <a href="https://github.com/almeidasilvaf/cogeqc/blob/HEAD/vignettes/vignette_03_assessing_synteny.Rmd" class="external-link"><code>vignettes/vignette_03_assessing_synteny.Rmd</code></a></small>
+      VIB-UGent Center for Plant Systems Biology, Ghent University,
+Ghent, Belgium<br><small class="dont-index">Source: <a href="https://github.com/almeidasilvaf/cogeqc/blob/HEAD/vignettes/vignette_03_assessing_synteny.Rmd" class="external-link"><code>vignettes/vignette_03_assessing_synteny.Rmd</code></a></small>
       <div class="d-none name"><code>vignette_03_assessing_synteny.Rmd</code></div>
     </address>
 </address>
@@ -106,24 +107,28 @@ Belgium<br><small class="dont-index">Source: <a href="https://github.com/almeida
 and gene order (collinearity) in a genomic segment, and it is often used
 to study how genomic rearrangements have shaped genomes during the
 course of evolution. However, accurate detection of syntenic blocks is
-highly dependent on parameters such as number of top hits in similarity
-searches (e.g., with BLAST <span class="citation">(Altschul et al.
-1990)</span> or DIAMOND <span class="citation">(Buchfink, Xie, and Huson
-2015)</span>), number of anchors, and number of upstream and downstream
-genes to search for syntenic blocks. <span class="citation">Zhao and
-Schranz (2019)</span> proposed a network-based synteny analysis that
-allows the identification of optimal parameters using the network’s
+highly dependent on parameters such as minimum number of anchors, and
+maximum number of upstream and downstream genes to search for syntenic
+blocks. <span class="citation">Zhao and Schranz (2019)</span> proposed a
+network-based synteny analysis (algorithm now implemented in the
+Bioconductor package <em><a href="https://bioconductor.org/packages/3.15/syntenet" class="external-link">syntenet</a></em>)
+that allows the identification of optimal parameters using the network’s
 <strong>average clustering coefficient</strong> and <strong>number of
-nodes</strong>. The algorithm for synteny network inference has been
-implemented in the Bioconductor package <em><a href="https://bioconductor.org/packages/3.15/syntenet" class="external-link">syntenet</a></em>.</p>
+nodes</strong>. Here, we slightly modified the approach to also take
+into account <strong>how well the network’s degree distribution fits a
+scale-free topology</strong>, which is a typical property of biological
+networks. This method allows users to identify the best combination of
+parameters for synteny detection and synteny network inference.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
+<p>To install the package from Bioconductor, use the following code:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">'BiocManager'</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'BiocManager'</span><span class="op">)</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"cogeqc"</span><span class="op">)</span></span></code></pre></div>
+<p>Loading the package after installtion:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load package after installation</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/almeidasilvaf/cogeqc" class="external-link">cogeqc</a></span><span class="op">)</span></span>
@@ -155,28 +160,28 @@ synteny network for <em>Brassica oleraceae</em>, <em>B. napus</em>, and
 follows:</p>
 <p><span class="math display">\[
 \begin{aligned}
-S &amp;= C N, \text{ where:} \\
-\\
-C &amp;= \text{Clustering coefficient} \\
-N &amp;= \text{Number of nodes}
+Score &amp;= C N R^2_{SFT}
 \end{aligned}
 \]</span></p>
+<p>where <span class="math inline">\(C\)</span> is the network’s
+clustering coefficient, <span class="math inline">\(N\)</span> is the
+number of nodes, and <span class="math inline">\(R^2_{SFT}\)</span> is
+the coefficient of determination for the scale-free topology fit.</p>
 <p>The network with the highest score is considered the most accurate.
 To score a network, you will use the function
 <code><a href="../reference/assess_synnet.html">assess_synnet()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/assess_synnet.html">assess_synnet</a></span><span class="op">(</span><span class="va">synnet</span><span class="op">)</span></span>
-<span><span class="co">#&gt;         CC Node_number    Score</span></span>
-<span><span class="co">#&gt; 1 0.877912      149144 130935.3</span></span></code></pre></div>
-<p>Ideally, you should be able to run a synteny detection program (e.g.,
-MCScanX <span class="citation">(Wang et al. 2012)</span> or i-ADHoRE
-<span class="citation">(Proost et al. 2012)</span>) with multiple
-combinations of parameters, infer a synteny network for each run, and
-assess each network to pick the best. To demonstrate it, let’s simulate
-different networks through resampling and calculate scores for each of
-them with the wrapper function <code><a href="../reference/assess_synnet_list.html">assess_synnet_list()</a></code>.</p>
+<span><span class="co">#&gt;         CC Node_count  Rsquared    Score</span></span>
+<span><span class="co">#&gt; 1 0.877912     149144 0.6806854 89125.76</span></span></code></pre></div>
+<p>Ideally, you should infer synteny networks using <em><a href="https://bioconductor.org/packages/3.15/syntenet" class="external-link">syntenet</a></em>
+with multiple combinations of parameters and assess each network to pick
+the best. To demonstrate it, let’s simulate different networks through
+resampling and calculate scores for each of them with the wrapper
+function <code><a href="../reference/assess_synnet_list.html">assess_synnet_list()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">net1</span> <span class="op">&lt;-</span> <span class="va">synnet</span></span>
+<code class="sourceCode R"><span><span class="co"># Simulate networks</span></span>
+<span><span class="va">net1</span> <span class="op">&lt;-</span> <span class="va">synnet</span></span>
 <span><span class="va">net2</span> <span class="op">&lt;-</span> <span class="va">synnet</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10000</span>, <span class="fl">500</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">net3</span> <span class="op">&lt;-</span> <span class="va">synnet</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10000</span>, <span class="fl">1000</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">synnet_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -184,102 +189,131 @@ them with the wrapper function <code><a href="../reference/assess_synnet_list.ht
 <span>  net2 <span class="op">=</span> <span class="va">net2</span>, </span>
 <span>  net3 <span class="op">=</span> <span class="va">net3</span></span>
 <span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Assess original network + 2 simulations</span></span>
 <span><span class="va">synnet_assesment</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/assess_synnet_list.html">assess_synnet_list</a></span><span class="op">(</span><span class="va">synnet_list</span><span class="op">)</span></span>
 <span><span class="va">synnet_assesment</span></span>
-<span><span class="co">#&gt;          CC Node_number    Score Network</span></span>
-<span><span class="co">#&gt; 1 0.8779120      149144 130935.3    net1</span></span>
-<span><span class="co">#&gt; 2 0.8769428      149133 130781.1    net2</span></span>
-<span><span class="co">#&gt; 3 0.8758974      149114 130608.6    net3</span></span>
+<span><span class="co">#&gt;          CC Node_count  Rsquared    Score Network</span></span>
+<span><span class="co">#&gt; 1 0.8779120     149144 0.6806854 89125.76    net1</span></span>
+<span><span class="co">#&gt; 2 0.8769428     149133 0.6813367 89105.97    net2</span></span>
+<span><span class="co">#&gt; 3 0.8758974     149114 0.6810978 88957.20    net3</span></span>
 <span></span>
 <span><span class="co"># Determine the best network</span></span>
 <span><span class="va">synnet_assesment</span><span class="op">$</span><span class="va">Network</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">synnet_assesment</span><span class="op">$</span><span class="va">Score</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1] "net1"</span></span></code></pre></div>
-<p>As you can see, the first (original) network is the best one, as it
-has the highest score.</p>
+<p>As you can see, the first (original) network is the best, as it has
+the highest score.</p>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
 <p>This document was created under the following conditions:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; R version 4.2.1 (2022-06-23)</span></span>
-<span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
-<span><span class="co">#&gt; Running under: Ubuntu 20.04.4 LTS</span></span>
+<code class="sourceCode R"><span><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://r-lib.github.io/sessioninfo/reference/session_info.html" class="external-link">session_info</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
+<span><span class="co">#&gt;  version  R version 4.2.1 (2022-06-23)</span></span>
+<span><span class="co">#&gt;  os       Ubuntu 20.04.4 LTS</span></span>
+<span><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
+<span><span class="co">#&gt;  ui       X11</span></span>
+<span><span class="co">#&gt;  language en</span></span>
+<span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
+<span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
+<span><span class="co">#&gt;  tz       UTC</span></span>
+<span><span class="co">#&gt;  date     2022-10-20</span></span>
+<span><span class="co">#&gt;  pandoc   2.18 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Matrix products: default</span></span>
-<span><span class="co">#&gt; BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3</span></span>
-<span><span class="co">#&gt; LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package         </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
+<span><span class="co">#&gt;  ape                5.6-2    <span style="color: #555555;">2022-03-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  aplot              0.1.8    <span style="color: #555555;">2022-10-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  BiocGenerics       0.42.0   <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  BiocManager        1.30.18  <span style="color: #555555;">2022-05-18</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
+<span><span class="co">#&gt;  BiocStyle        * 2.24.0   <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  Biostrings         2.64.1   <span style="color: #555555;">2022-08-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  bitops             1.0-7    <span style="color: #555555;">2021-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  bookdown           0.29     <span style="color: #555555;">2022-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  bslib              0.4.0    <span style="color: #555555;">2022-07-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  cachem             1.0.6    <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  cli                3.4.1    <span style="color: #555555;">2022-09-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  cogeqc           * 1.1.8    <span style="color: #555555;">2022-10-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  colorspace         2.0-3    <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  crayon             1.5.2    <span style="color: #555555;">2022-09-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  desc               1.4.2    <span style="color: #555555;">2022-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  digest             0.6.30   <span style="color: #555555;">2022-10-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  dplyr              1.0.10   <span style="color: #555555;">2022-09-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  evaluate           0.17     <span style="color: #555555;">2022-10-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  fansi              1.0.3    <span style="color: #555555;">2022-03-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  fastmap            1.1.0    <span style="color: #555555;">2021-01-25</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  fs                 1.5.2    <span style="color: #555555;">2021-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  generics           0.1.3    <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  GenomeInfoDb       1.32.4   <span style="color: #555555;">2022-09-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  GenomeInfoDbData   1.2.8    <span style="color: #555555;">2022-05-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  ggfun              0.0.7    <span style="color: #555555;">2022-08-31</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  ggplot2            3.3.6    <span style="color: #555555;">2022-05-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  ggplotify          0.1.0    <span style="color: #555555;">2021-09-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  ggtree             3.4.4    <span style="color: #555555;">2022-09-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  glue               1.6.2    <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  gridGraphics       0.5-1    <span style="color: #555555;">2020-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  gtable             0.3.1    <span style="color: #555555;">2022-09-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  htmltools          0.5.3    <span style="color: #555555;">2022-07-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  igraph             1.3.5    <span style="color: #555555;">2022-09-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  IRanges            2.30.1   <span style="color: #555555;">2022-08-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  jquerylib          0.1.4    <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  jsonlite           1.8.2    <span style="color: #555555;">2022-10-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  knitr              1.40     <span style="color: #555555;">2022-08-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  lattice            0.20-45  <span style="color: #555555;">2021-09-22</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
+<span><span class="co">#&gt;  lazyeval           0.2.2    <span style="color: #555555;">2019-03-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  lifecycle          1.0.3    <span style="color: #555555;">2022-10-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  magrittr           2.0.3    <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  memoise            2.0.1    <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  munsell            0.5.0    <span style="color: #555555;">2018-06-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  nlme               3.1-160  <span style="color: #555555;">2022-10-10</span> <span style="color: #555555;">[3]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  patchwork          1.1.2    <span style="color: #555555;">2022-08-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  pillar             1.8.1    <span style="color: #555555;">2022-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  pkgconfig          2.0.3    <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  pkgdown            2.0.6    <span style="color: #555555;">2022-07-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  plyr               1.8.7    <span style="color: #555555;">2022-03-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  purrr              0.3.5    <span style="color: #555555;">2022-10-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  R6                 2.5.1    <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  ragg               1.2.3    <span style="color: #555555;">2022-09-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  Rcpp               1.0.9    <span style="color: #555555;">2022-07-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  RCurl              1.98-1.9 <span style="color: #555555;">2022-10-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  reshape2           1.4.4    <span style="color: #555555;">2020-04-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  rlang              1.0.6    <span style="color: #555555;">2022-09-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  rmarkdown          2.17     <span style="color: #555555;">2022-10-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  rprojroot          2.0.3    <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  S4Vectors          0.34.0   <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  sass               0.4.2    <span style="color: #555555;">2022-07-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  scales             1.2.1    <span style="color: #555555;">2022-08-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  sessioninfo        1.2.2    <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  stringi            1.7.8    <span style="color: #555555;">2022-07-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  stringr            1.4.1    <span style="color: #555555;">2022-08-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  systemfonts        1.0.4    <span style="color: #555555;">2022-02-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  textshaping        0.3.6    <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  tibble             3.1.8    <span style="color: #555555;">2022-07-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  tidyr              1.2.1    <span style="color: #555555;">2022-09-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  tidyselect         1.2.0    <span style="color: #555555;">2022-10-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  tidytree           0.4.1    <span style="color: #555555;">2022-09-26</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  treeio             1.20.2   <span style="color: #555555;">2022-08-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  utf8               1.2.2    <span style="color: #555555;">2021-07-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  vctrs              0.4.2    <span style="color: #555555;">2022-09-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  xfun               0.34     <span style="color: #555555;">2022-10-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  XVector            0.36.0   <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  yaml               2.3.6    <span style="color: #555555;">2022-10-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  yulab.utils        0.0.5    <span style="color: #555555;">2022-06-30</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  zlibbioc           1.42.0   <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; locale:</span></span>
-<span><span class="co">#&gt;  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span></span>
-<span><span class="co">#&gt;  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    </span></span>
-<span><span class="co">#&gt;  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   </span></span>
-<span><span class="co">#&gt;  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 </span></span>
-<span><span class="co">#&gt;  [9] LC_ADDRESS=C               LC_TELEPHONE=C            </span></span>
-<span><span class="co">#&gt; [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [1] /__w/_temp/Library</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [2] /usr/local/lib/R/site-library</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [3] /usr/local/lib/R/library</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; attached base packages:</span></span>
-<span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] cogeqc_1.1.7     BiocStyle_2.24.0</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;  [1] Rcpp_1.0.9             ape_5.6-2              lattice_0.20-45       </span></span>
-<span><span class="co">#&gt;  [4] tidyr_1.2.1            Biostrings_2.64.1      rprojroot_2.0.3       </span></span>
-<span><span class="co">#&gt;  [7] digest_0.6.29          utf8_1.2.2             plyr_1.8.7            </span></span>
-<span><span class="co">#&gt; [10] R6_2.5.1               GenomeInfoDb_1.32.4    stats4_4.2.1          </span></span>
-<span><span class="co">#&gt; [13] evaluate_0.16          ggplot2_3.3.6          pillar_1.8.1          </span></span>
-<span><span class="co">#&gt; [16] ggfun_0.0.7            yulab.utils_0.0.5      zlibbioc_1.42.0       </span></span>
-<span><span class="co">#&gt; [19] rlang_1.0.6            lazyeval_0.2.2         jquerylib_0.1.4       </span></span>
-<span><span class="co">#&gt; [22] S4Vectors_0.34.0       rmarkdown_2.16         pkgdown_2.0.6         </span></span>
-<span><span class="co">#&gt; [25] textshaping_0.3.6      desc_1.4.2             stringr_1.4.1         </span></span>
-<span><span class="co">#&gt; [28] igraph_1.3.5           RCurl_1.98-1.9         munsell_0.5.0         </span></span>
-<span><span class="co">#&gt; [31] compiler_4.2.1         xfun_0.33              gridGraphics_0.5-1    </span></span>
-<span><span class="co">#&gt; [34] pkgconfig_2.0.3        systemfonts_1.0.4      BiocGenerics_0.42.0   </span></span>
-<span><span class="co">#&gt; [37] htmltools_0.5.3        tidyselect_1.1.2       tibble_3.1.8          </span></span>
-<span><span class="co">#&gt; [40] GenomeInfoDbData_1.2.8 bookdown_0.29          IRanges_2.30.1        </span></span>
-<span><span class="co">#&gt; [43] fansi_1.0.3            crayon_1.5.2           dplyr_1.0.10          </span></span>
-<span><span class="co">#&gt; [46] bitops_1.0-7           grid_4.2.1             nlme_3.1-159          </span></span>
-<span><span class="co">#&gt; [49] jsonlite_1.8.2         gtable_0.3.1           lifecycle_1.0.2       </span></span>
-<span><span class="co">#&gt; [52] magrittr_2.0.3         scales_1.2.1           tidytree_0.4.1        </span></span>
-<span><span class="co">#&gt; [55] cli_3.4.1              stringi_1.7.8          cachem_1.0.6          </span></span>
-<span><span class="co">#&gt; [58] reshape2_1.4.4         XVector_0.36.0         fs_1.5.2              </span></span>
-<span><span class="co">#&gt; [61] ggtree_3.4.4           bslib_0.4.0            ragg_1.2.3            </span></span>
-<span><span class="co">#&gt; [64] vctrs_0.4.2            generics_0.1.3         treeio_1.20.2         </span></span>
-<span><span class="co">#&gt; [67] tools_4.2.1            ggplotify_0.1.0        glue_1.6.2            </span></span>
-<span><span class="co">#&gt; [70] purrr_0.3.5            parallel_4.2.1         fastmap_1.1.0         </span></span>
-<span><span class="co">#&gt; [73] yaml_2.3.5             colorspace_2.0-3       BiocManager_1.30.18   </span></span>
-<span><span class="co">#&gt; [76] aplot_0.1.7            memoise_2.0.1          knitr_1.40            </span></span>
-<span><span class="co">#&gt; [79] patchwork_1.1.2        sass_0.4.2</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">──────────────────────────────────────────────────────────────────────────────</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-altschul1990basic" class="csl-entry">
-Altschul, Stephen F, Warren Gish, Webb Miller, Eugene W Myers, and David
-J Lipman. 1990. <span>“Basic Local Alignment Search Tool.”</span>
-<em>Journal of Molecular Biology</em> 215 (3): 403–10.
-</div>
-<div id="ref-buchfink2015fast" class="csl-entry">
-Buchfink, Benjamin, Chao Xie, and Daniel H Huson. 2015. <span>“Fast and
-Sensitive Protein Alignment Using DIAMOND.”</span> <em>Nature
-Methods</em> 12 (1): 59–60.
-</div>
-<div id="ref-proost2012adhore" class="csl-entry">
-Proost, Sebastian, Jan Fostier, Dieter De Witte, Bart Dhoedt, Piet
-Demeester, Yves Van de Peer, and Klaas Vandepoele. 2012. <span>“I-ADHoRe
-3.0—Fast and Sensitive Detection of Genomic Homology in Extremely Large
-Data Sets.”</span> <em>Nucleic Acids Research</em> 40 (2): e11–11.
-</div>
-<div id="ref-wang2012mcscanx" class="csl-entry">
-Wang, Yupeng, Haibao Tang, Jeremy D DeBarry, Xu Tan, Jingping Li, Xiyin
-Wang, Tae-ho Lee, et al. 2012. <span>“MCScanX: A Toolkit for Detection
-and Evolutionary Analysis of Gene Synteny and Collinearity.”</span>
-<em>Nucleic Acids Research</em> 40 (7): e49–49.
-</div>
 <div id="ref-zhao2019network" class="csl-entry">
 Zhao, Tao, and M Eric Schranz. 2019. <span>“Network-Based Microsynteny
 Analysis Identifies Major Differences and Genomic Outliers in Mammalian

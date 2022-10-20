@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cogeqc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,9 +66,8 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>synnet_list</dt>
 <dd><p>A list of networks, each network being
-an edgelist as a 2-column data frame, with variables <strong>anchor1</strong>
-and <strong>anchor2</strong> representing names of loci in anchor 1 and
-anchor 2, respectively.</p></dd>
+an edge list as a 2-column data frame, with columns 1 and 2
+representing names of loci in anchor 1 and anchor 2, respectively.</p></dd>
 
 
 <dt>cc_type</dt>
@@ -83,8 +82,12 @@ One of 'global' or 'average'. Default: 'average'.</p></dd>
 <p>A data frame with the following variables:</p><dl><dt>CC</dt>
 <dd><p>Numeric representing clustering coefficient.</p></dd>
 
-<dt>Node_number</dt>
+<dt>Node_count</dt>
 <dd><p>Numeric representing number of nodes in the network.</p></dd>
+
+<dt>Rsquared</dt>
+<dd><p>Numeric indicating the coefficient of determination
+for the scale-free topology fit.</p></dd>
 
 <dt>Score</dt>
 <dd><p>Numeric representing network score, which is
@@ -105,10 +108,10 @@ the product of 'CC' and 'Node_number'.</p></dd>
 <span class="r-in"><span><span class="va">net3</span> <span class="op">&lt;-</span> <span class="va">synnet</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10000</span>, <span class="fl">1000</span><span class="op">)</span>, <span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">synnet_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>net1 <span class="op">=</span> <span class="va">net1</span>, net2 <span class="op">=</span> <span class="va">net2</span>, net3 <span class="op">=</span> <span class="va">net3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">assess_synnet_list</span><span class="op">(</span><span class="va">synnet_list</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          CC Node_number    Score Network</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.8779120      149144 130935.3    net1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.8769428      149133 130781.1    net2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.8758974      149114 130608.6    net3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          CC Node_count  Rsquared    Score Network</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.8779120     149144 0.6806854 89125.76    net1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.8769428     149133 0.6813367 89105.97    net2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.8758974     149114 0.6810978 88957.20    net3</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
