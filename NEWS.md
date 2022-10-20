@@ -32,3 +32,17 @@ NEW FEATURES
 * Replaced dispersal formula with a more meaningful and interpretable one.
 * Added a *max_size* param to `plot_og_sizes()` to ignore OGs larger
 than a specific size.
+
+# cogeqc 1.1.8
+
+CHANGES
+
+* Synteny assessment formula now also considers scale-free topology fit.
+
+BUG FIXES
+
+* Reference-based orthogroup inference does not require the exact same set
+of species anymore.
+
+
+

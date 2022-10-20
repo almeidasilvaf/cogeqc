@@ -2,7 +2,7 @@
 % Please edit documentation in R/homology_detection.R
 \name{compare_orthogroups}
 \alias{compare_orthogroups}
-\title{Compare inferred orthogroups to a references set}
+\title{Compare inferred orthogroups to a reference set}
 \usage{
 compare_orthogroups(ref_orthogroups = NULL, test_orthogroups = NULL)
 }
@@ -25,12 +25,15 @@ and FALSE otherwise.}
 }
 }
 \description{
-Compare inferred orthogroups to a references set
+Compare inferred orthogroups to a reference set
 }
 \details{
 This function compares a test set of orthogroups to a reference set
 and returns which orthogroups in the reference set are fully preserved
-in the test set (i.e., identical gene repertoire) and which are not.
+in the test set (i.e., identical gene repertoire) and which are not. Species
+names (column 2) must be the same between reference and test set. If some
+species are not shared between reference and test sets, they will not be
+considered for the comparison.
 }
 \examples{
 set.seed(123)
@@ -38,11 +41,13 @@ data(og)
 og <- og[1:5000, ]
 ref <- og
 # Shuffle genes to simulate a different set
-test <- data.frame(Orthogroup = sample(og$Orthogroup, nrow(og),
-                                       replace=FALSE),
-                   Species = og$Species,
-                   Gene = og$Gene)
+test <- data.frame(
+    Orthogroup = sample(og$Orthogroup, nrow(og), replace = FALSE),
+    Species = og$Species,
+    Gene = og$Gene
+)
 comparison <- compare_orthogroups(ref, test)
+
 # Calculating percentage of preservation
 sum(comparison$Preserved) / length(comparison$Preserved)
 }

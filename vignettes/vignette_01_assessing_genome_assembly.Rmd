@@ -2,9 +2,9 @@
 title: "Assessing genome assembly quality"
 author: 
   - name: Fabricio Almeida-Silva
-    affiliation: VIB-UGent Center for Plant Systems Biology, Ghent, Belgium
+    affiliation: VIB-UGent Center for Plant Systems Biology, Ghent University, Ghent, Belgium
   - name: Yves Van de Peer
-    affiliation: VIB-UGent Center for Plant Systems Biology, Ghent, Belgium
+    affiliation: VIB-UGent Center for Plant Systems Biology, Ghent University, Ghent, Belgium
 output: 
   BiocStyle::html_document:
     toc: true
@@ -100,8 +100,8 @@ We usually consider genomes with >90% of complete BUSCOs as having high quality.
 
 This document was created under the following conditions:
 
-```{r}
-sessionInfo()
+```{r session_info}
+sessioninfo::session_info()
 ```
 
 # References {.unnumbered}

@@ -144,7 +144,7 @@ assess_orthogroups <- function(orthogroups = NULL, annotation = NULL,
 }
 
 
-#' Compare inferred orthogroups to a references set
+#' Compare inferred orthogroups to a reference set
 #'
 #' @param ref_orthogroups Reference orthogroups in a 3-column data frame
 #' with columns \strong{Orthogroup}, \strong{Species}, and \strong{Gene}.
@@ -155,7 +155,10 @@ assess_orthogroups <- function(orthogroups = NULL, annotation = NULL,
 #'
 #' @details This function compares a test set of orthogroups to a reference set
 #' and returns which orthogroups in the reference set are fully preserved
-#' in the test set (i.e., identical gene repertoire) and which are not.
+#' in the test set (i.e., identical gene repertoire) and which are not. Species
+#' names (column 2) must be the same between reference and test set. If some
+#' species are not shared between reference and test sets, they will not be
+#' considered for the comparison.
 #'
 #' @return A 2-column data frame with the following variables:
 #' \describe{
@@ -172,30 +175,47 @@ assess_orthogroups <- function(orthogroups = NULL, annotation = NULL,
 #' og <- og[1:5000, ]
 #' ref <- og
 #' # Shuffle genes to simulate a different set
-#' test <- data.frame(Orthogroup = sample(og$Orthogroup, nrow(og),
-#'                                        replace=FALSE),
-#'                    Species = og$Species,
-#'                    Gene = og$Gene)
+#' test <- data.frame(
+#'     Orthogroup = sample(og$Orthogroup, nrow(og), replace = FALSE),
+#'     Species = og$Species,
+#'     Gene = og$Gene
+#' )
 #' comparison <- compare_orthogroups(ref, test)
+#'
 #' # Calculating percentage of preservation
 #' sum(comparison$Preserved) / length(comparison$Preserved)
 compare_orthogroups <- function(ref_orthogroups = NULL,
                                 test_orthogroups = NULL) {
 
-    test_ortho <- test_orthogroups
-    ref_list <- split(ref_orthogroups, ref_orthogroups$Orthogroup)
+    # Get only species that are present in both sets
+    species <- intersect(
+        unique(ref_orthogroups$Species), unique(test_orthogroups$Species)
+    )
+    if(length(species) == 0) {
+        stop("There are no species in common between both sets.")
+    }
+    ref <- ref_orthogroups[ref_orthogroups$Species %in% species, ]
+    test <- test_orthogroups[test_orthogroups$Species %in% species, ]
+
+    # Compare sets
+    ref_list <- split(ref, ref$Orthogroup)
     comp <- Reduce(rbind, lapply(ref_list, function(x) {
+        ## Get all genes in orthogroup x
         genes_ref <- x$Gene
-        og_test <- test_ortho[test_ortho$Gene %in% genes_ref, "Orthogroup"]
-        og_test <- unique(og_test)
+
+        ## Check if `genes_ref` are in a single orthogroup in the test set
+        og_test <- unique(test[test$Gene %in% genes_ref, "Orthogroup"])
         n_ogs <- length(og_test)
+
         preserved <- FALSE
         if(n_ogs == 1) {
-            genes_test <- test_ortho[test_ortho$Orthogroup %in% og_test, "Gene"]
-            if(length(genes_test) == length(genes_ref)) {
+            ## Check if number of genes in OGs is the same for ref and test
+            genes_test <- test[test$Orthogroup %in% og_test, "Gene"]
+            if(identical(length(genes_test), length(genes_ref))) {
                 preserved <- TRUE
             }
         }
+
         df <- data.frame(Orthogroup = unique(x$Orthogroup),
                          Preserved = preserved)
         return(df)

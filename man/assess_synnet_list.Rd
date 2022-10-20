@@ -8,9 +8,8 @@ assess_synnet_list(synnet_list = NULL, cc_type = "average")
 }
 \arguments{
 \item{synnet_list}{A list of networks, each network being
-an edgelist as a 2-column data frame, with variables \strong{anchor1}
-and \strong{anchor2} representing names of loci in anchor 1 and
-anchor 2, respectively.}
+an edge list as a 2-column data frame, with columns 1 and 2
+representing names of loci in anchor 1 and anchor 2, respectively.}
 
 \item{cc_type}{Type of clustering coefficient to be calculated.
 One of 'global' or 'average'. Default: 'average'.}
@@ -19,7 +18,9 @@ One of 'global' or 'average'. Default: 'average'.}
 A data frame with the following variables:
 \describe{
 \item{CC}{Numeric representing clustering coefficient.}
-\item{Node_number}{Numeric representing number of nodes in the network.}
+\item{Node_count}{Numeric representing number of nodes in the network.}
+\item{Rsquared}{Numeric indicating the coefficient of determination
+for the scale-free topology fit.}
 \item{Score}{Numeric representing network score, which is
 the product of 'CC' and 'Node_number'.}
 \item{Network}{Character of network name.}

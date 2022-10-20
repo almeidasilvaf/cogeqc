@@ -2,9 +2,9 @@
 title: "Assessing orthogroup inference"
 author: 
   - name: Fabricio Almeida-Silva
-    affiliation: VIB-UGent Center for Plant Systems Biology, Ghent, Belgium
+    affiliation: VIB-UGent Center for Plant Systems Biology, Ghent University, Ghent, Belgium
   - name: Yves Van de Peer
-    affiliation: VIB-UGent Center for Plant Systems Biology, Ghent, Belgium
+    affiliation: VIB-UGent Center for Plant Systems Biology, Ghent University, Ghent, Belgium
 output: 
   BiocStyle::html_document:
     toc: true
@@ -190,9 +190,10 @@ species), you can use the function `calculate_H()`.
 ## Reference-based orthogroup assessment
 
 In some cases, you may want to compare your orthogroup inference to a 
-reference orthogroup inference. To do that, you can use the function `compare_orthogroups()`. For example, let's simulate a different orthogroup 
-inference by shuffling some rows of the `og` data frame and comparing it to 
-the original data frame.
+reference orthogroup inference. To do that, you can use the 
+function `compare_orthogroups()`. For example, let's simulate a different 
+orthogroup inference by shuffling some rows of the `og` data frame and 
+compare it to the original data frame.
 
 ```{r ref-based_og_assessment}
 set.seed(123)
@@ -314,12 +315,14 @@ plot_og_overlap(ortho_stats)
 
 If you want to take a look at the distribution of OG sizes for each species, 
 you can use the function `plot_og_sizes`. If you have many extreme values and 
-want to visualize the shape of the distribution in a better way, you can also 
-log transform the OG sizes by setting `log = TRUE`.
+want to visualize the shape of the distribution in a better way, you can 
+log transform the OG sizes (with `log = TRUE`) and/or remove OG larger than
+a particular threshold (with `max_size = 100`, for example).
 
 ```{r og_sizes}
 plot_og_sizes(og) 
 plot_og_sizes(og, log = TRUE) # natural logarithm scale
+plot_og_sizes(og, max_size = 100) # only OGs with <= 100 genes
 ```
 
 # Session information {.unnumbered}
@@ -327,7 +330,7 @@ plot_og_sizes(og, log = TRUE) # natural logarithm scale
 This document was created under the following conditions:
 
 ```{r session_info}
-sessionInfo()
+sessioninfo::session_info()
 ```
 
 # References {.unnumbered}

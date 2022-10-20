@@ -35,6 +35,7 @@ test_that("assess_orthogroups() reports homogeneity scores by species", {
 })
 
 test_that("compare_orthogroups() returns a df of preservation status", {
+
     og <- og[1:5000, ]
     ref <- og
     test <- og
@@ -42,4 +43,12 @@ test_that("compare_orthogroups() returns a df of preservation status", {
     perc <- sum(comparison$Preserved) / length(comparison$Preserved)
     expect_equal(class(comparison), "data.frame")
     expect_true(perc == 1)
+
+    # Simulate fake test OG test with no species in common
+    og_nospecies <- test
+    og_nospecies$Species <- paste0(og_nospecies$Species, "_fake")
+
+    expect_error(
+        compare_orthogroups(ref, og_nospecies)
+    )
 })

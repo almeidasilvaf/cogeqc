@@ -2,14 +2,14 @@
 % Please edit documentation in R/synteny.R
 \name{assess_synnet}
 \alias{assess_synnet}
-\title{Assess synteny network based on clustering coefficient and node frequency}
+\title{Assess synteny network based on graph properties}
 \usage{
 assess_synnet(synnet = NULL, cc_type = "average")
 }
 \arguments{
-\item{synnet}{Edgelist for the synteny network in a 2-column data frame,
-with variables \strong{anchor1} and \strong{anchor2} representing
-names of loci in anchor 1 and anchor 2, respectively.}
+\item{synnet}{Edge list for the synteny network in a 2-column data frame,
+with columns 1 and 2 representing names of loci in anchor 1 and
+anchor 2, respectively.}
 
 \item{cc_type}{Type of clustering coefficient to be calculated.
 One of 'global' or 'average'. Default: 'average'.}
@@ -18,13 +18,19 @@ One of 'global' or 'average'. Default: 'average'.}
 A data frame with the following variables:
 \describe{
 \item{CC}{Numeric representing clustering coefficient.}
-\item{Node_number}{Numeric representing number of nodes in the network.}
+\item{Node_count}{Numeric representing number of nodes in the network.}
+\item{Rsquared}{Numeric indicating the coefficient of determination
+for the scale-free topology fit.}
 \item{Score}{Numeric representing network score, which is
 the product of 'CC' and 'Node_number'.}
 }
 }
 \description{
-Assess synteny network based on clustering coefficient and node frequency
+Assess synteny network based on graph properties
+}
+\details{
+Network score is the product of the network's clustering
+coefficient, node count, and R squared for the scale-free topology fit.
 }
 \examples{
 data(synnet)
