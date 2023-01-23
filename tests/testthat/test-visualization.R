@@ -59,3 +59,24 @@ test_that("plot_og_sizes() returns a ggplot object", {
 
 })
 
+test_that("plot_genome_stats() returns a plot composition", {
+
+    ncbi_stats <- get_genome_stats(taxon = "Zea mays")
+    user_stats <- data.frame(
+        accession = "my_lovely_maize",
+        sequence_length = 2.4 * 1e9,
+        gene_count_total = 50000,
+        CC_ratio = 1
+    )
+
+    p1 <- plot_genome_stats(ncbi_stats)
+    p2 <- plot_genome_stats(ncbi_stats, user_stats)
+
+    expect_true("ggplot" %in% class(p1))
+    expect_true("ggplot" %in% class(p2))
+
+
+
+})
+
+

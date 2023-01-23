@@ -24,7 +24,20 @@ knitr::opts_chunk$set(
 
 The goal of `cogeqc` is to facilitate systematic quality checks on standard comparative genomics analyses to help researchers detect issues and select the most suitable parameters for each data set. Currently, cogeqc can be used to assess:
 
-1. **Genome assembly quality:** users can assess genome completeness using Best Universal Single-Copy Orthologs (BUSCOs). `cogeqc` allows users to run BUSCO from the comfort of an R session and explore summary statistics with publication-ready plots.
+1. **Genome assembly and annotation quality:** using two approaches:
+    
+    - *Statistics in a context:* users can 
+    extract summary assembly and annotation statistics for genomes on NCBI 
+    (via the [NCBI Datasets API](https://www.ncbi.nlm.nih.gov/datasets/)) and
+    compare their observed values (e.g., genome size, number of genes, 
+    contiguity measures) with previously reported values on NCBI genomes.
+    
+    - *Gene space completeness with BUSCOs:* users can assess gene space 
+    completeness using Best Universal Single-Copy Orthologs (BUSCOs) through
+    wrapper functions that run [BUSCO](https://doi.org/10.1093/bioinformatics/btv351) 
+    from the comfort of an R session and create publication-ready plots 
+    with summary statistics.
+    
 2. **Orthogroup inference:** orthogroups are assessed based on the percentage of shared protein domains in all ortogroups. The rationale for this approach is that genes in the same orthogroup evolved from a common ancestor, so the percentage of conserved protein domains in an orthogroup should be as high as possible.
 3. **Synteny detection:** synteny detection is assessed using network-based approaches, namely the clustering coefficient and degree of a synteny network.
 

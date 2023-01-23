@@ -17,8 +17,8 @@ Then, it can be imported with \code{treeio::read_tree(path_to_file)}.}
 \item{xlim}{Numeric vector of x-axis limits. This is useful if your
 node tip labels are not visible due to margin issues. Default: c(0, 1).}
 
-\item{stats_list}{(optional) A list of data frames with Orthofinder summary stats
-as returned by the function \code{read_orthofinder_stats}. If this list
+\item{stats_list}{(optional) A list of data frames with Orthofinder summary
+stats as returned by the function \code{read_orthofinder_stats}. If this list
 is given as input, nodes will be labeled with the number of duplications.}
 }
 \value{

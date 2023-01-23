@@ -1,5 +1,5 @@
 ---
-title: "Assessing genome assembly quality"
+title: "Assessing genome assembly and annotation quality"
 author: 
   - name: Fabricio Almeida-Silva
     affiliation: VIB-UGent Center for Plant Systems Biology, Ghent University, Ghent, Belgium
@@ -11,7 +11,7 @@ output:
     number_sections: yes
 bibliography: vignette_01.bib
 vignette: >
-  %\VignetteIndexEntry{Assessing genome assembly}
+  %\VignetteIndexEntry{Assessing genome assembly and annotation quality}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}  
 ---
@@ -27,9 +27,20 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-One of the most common metrics to assess the quality of genome assemblies is BUSCO (best universal single-copy orthologs) [@simao2015busco]. `cogeqc` allows users to run BUSCO from an R session and visualize results graphically. BUSCO summary statistics will help you assess which assemblies have high quality based on the percentage of complete BUSCOs.
+When working on your own genome project or when using publicly available 
+genomes for comparative analyses, it is critical to assess the quality of your
+data. Over the past years, several tools have been developed and several 
+metrics have been proposed to assess the quality of a genome assembly and
+annotation. `cogeqc` helps users interpret their genome assembly statistics
+by comparing them with statistics on publicly available genomes on the NCBI.
+Additionally, `cogeqc` also provides an interface to BUSCO [@simao2015busco],
+a popular tool to assess gene space completeness. Graphical functions are
+available to make publication-ready plots that summarize the results of 
+quality control.
 
 # Installation
+
+You can install `cogeqc` from Bioconductor with the following code:
 
 ```{r installation, eval=FALSE}
 if(!requireNamespace('BiocManager', quietly = TRUE))
@@ -42,11 +53,146 @@ BiocManager::install("cogeqc")
 library(cogeqc)
 ```
 
-# Running BUSCO
+# Assessing genome assembly quality: statistics in a context
 
-To run BUSCO from R, you will use the function `run_busco()`[^1]. Here, we will use an example FASTA file containing the first 1,000 lines of the *Herbaspirilllum seropedicae SmR1* genome (GCA_000143225), which was downloaded from Ensembl Bacteria. We will run BUSCO using *burkholderiales_odb10* as the lineage dataset. To view all available datasets, run `list_busco_datasets()`.
+When analyzing and interpreting genome assembly statistics, it is often
+useful to place your stats in a context by comparing them with stats from genomes
+of closely-related or even the same species. `cogeqc` provides users with
+an interface to the NCBI Datasets API, which can be used to retrieve summary
+stats for genomes on NCBI. In this section, we will guide you on how to 
+retrieve such information and use it as a reference to interpret your data.
 
-[^1]: **NOTE:** You must have BUSCO installed and in your PATH to use `run_busco()`. You can check if BUSCO is installed by running `busco_is_installed()`. If you don't have it already, you can manually install it or use a conda virtual environment with the Bioconductor package `Herper` [@herper].
+## Obtaining assembly statistics for NCBI genomes
+
+To obtain a data frame of summary statistics for NCBI genomes of a particular
+taxon, you will use the function `get_genome_stats()`. In the *taxon* parameter,
+you must specify the taxon from which data will be extracted. This can be done
+either by passing a character scalar with taxon name or by passing a numeric
+scalar with NCBI Taxonomy ID. For example, the code below demonstrates two
+ways of extracting stats on maize (*Zea mays*) genomes on NCBI:
+
+```{r get_maize_genomes}
+# Example 1: get stats for all maize genomes using taxon name
+maize_stats <- get_genome_stats(taxon = "Zea mays")
+head(maize_stats)
+str(maize_stats)
+
+# Example 2: get stats for all maize genomes using NCBI Taxonomy ID
+maize_stats2 <- get_genome_stats(taxon = 4577)
+
+# Checking if objects are the same
+identical(maize_stats, maize_stats2)
+```
+
+As you can see, there are `r nrow(maize_stats)` maize genomes on the NCBI.
+You can also include filters in your searches by passing a list of
+key-value pairs with keys in list names and values in elements. For instance, 
+to obtain only **chromosome-scale** and **annotated** maize genomes, 
+you would run:
+
+```{r get_maize_genomes_with_filters}
+# Get chromosome-scale maize genomes with annotation
+## Create list of filters
+filt <- list(
+    filters.has_annotation = "true",
+    filters.assembly_level = "chromosome"
+)
+filt
+
+## Obtain data
+filtered_maize_genomes <- get_genome_stats(taxon = "Zea mays", filters = filt)
+dim(filtered_maize_genomes)
+```
+
+For a full list of filtering parameters and possible arguments, see the 
+[API documentation](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/rest-api/#get-/genome/taxon/-taxons-/dataset_report).
+
+## Comparing custom stats with NCBI stats
+
+Now, suppose you sequenced a genome, obtained assembly and annotation
+stats, and want to compare them to NCBI genomes to identify potential issues.
+Examples of situations you may encounter include:
+
+- The genome you assembled is huge and you think there might be
+a problem with your assembly. 
+
+- Your gene annotation pipeline predicted *n* genes, but you are not sure if 
+this number is reasonable compared to other assemblies of the same species or 
+closely-related species.
+
+
+To compare user-defined summary stats with NCBI stats, you will use
+the function `compare_genome_stats()`. This function will include the values
+you observed for each statistic into a distribution (based on NCBI stats) and
+return the percentile and rank of your observed values in each distribution.
+
+As an example, let's go back to our maize stats we obtained in the previous 
+section. Suppose you sequenced a new maize genome and observed the following
+values:
+
+1. Genome size = 2.4 Gb
+2. Number of genes = 50,000
+3. CC ratio = 2 [^1]
+
+[^1]: **Note:** The CC ratio is the ratio of the number of contigs
+to the number of chromosome pairs, and it has been proposed 
+in @wang2022proposed as a measurement of contiguity that compensates for
+the flaws of N50 and allows cross-species comparisons.
+
+To compare your observed values with those for publicly available maize genomes,
+you need to store them in a data frame. The column **accession** is mandatory,
+and any other column will be matched against columns in the data frame obtained
+with `get_genome_stats()`. Thus, make sure column names in your data frame
+match column names in the reference data frame. Then, you can compare both
+data frames as below:
+
+```{r}
+# Check column names in the data frame of stats for maize genomes on the NCBI
+names(maize_stats)
+
+# Create a simulated data frame of stats for a maize genome
+my_stats <- data.frame(
+    accession = "my_lovely_maize",
+    sequence_length = 2.4 * 1e9,
+    gene_count_total = 50000,
+    CC_ratio = 2
+)
+
+# Compare stats
+compare_genome_stats(ncbi_stats = maize_stats, user_stats = my_stats)
+```
+
+## Visualizing summary assembly statistics
+
+To have a visual representation of the summary stats obtained with 
+`get_genome_stats()`, you will use the function `plot_genome_stats()`.
+
+```{r plot_genome_stats, fig.width=10, fig.height=5}
+# Summarize genome stats in a plot
+plot_genome_stats(ncbi_stats = maize_stats)
+```
+
+Finally, you can pass your data frame of observed stats to highlight your
+values (as red points) in the distributions.
+
+```{r plot_genome_stats_with_user_stats, fig.width=10, fig.height=5}
+plot_genome_stats(ncbi_stats = maize_stats, user_stats = my_stats)
+```
+
+# Assessing gene space completeness with BUSCO
+
+One of the most common metrics to assess gene space completeness is 
+BUSCO (best universal single-copy orthologs) [@simao2015busco]. 
+`cogeqc` allows users to run BUSCO from an R session and visualize results 
+graphically. BUSCO summary statistics will help you assess which assemblies 
+have high quality based on the percentage of complete BUSCOs.
+
+
+## Running BUSCO
+
+To run BUSCO from R, you will use the function `run_busco()`[^2]. Here, we will use an example FASTA file containing the first 1,000 lines of the *Herbaspirilllum seropedicae SmR1* genome (GCA_000143225), which was downloaded from Ensembl Bacteria. We will run BUSCO using *burkholderiales_odb10* as the lineage dataset. To view all available datasets, run `list_busco_datasets()`.
+
+[^2]: **Note:** You must have BUSCO installed and in your PATH to use `run_busco()`. You can check if BUSCO is installed by running `busco_is_installed()`. If you don't have it already, you can manually install it or use a conda virtual environment with the Bioconductor package `Herper` [@herper].
 
 ```{r run_busco, eval=FALSE}
 # Path to FASTA file
@@ -82,7 +228,7 @@ batch_summary
 
 The only difference between this data frame and the previous one is the column **File**, which contains information on the FASTA file. The example dataset `batch_summary` contains the output of `run_busco()` using a directory containing two genomes (*Herbaspirillum seropedicae SmR1* and *Herbaspirillum rubrisubalbicans M1*) as parameter to the *sequence* argument.
 
-# Visualizing summary statistics
+## Visualizing BUSCO summary statistics
 
 After using `run_busco()` and parsing its output with `read_busco()`, users can visualize summary statistics with `plot_busco()`.
 
