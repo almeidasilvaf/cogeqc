@@ -49,10 +49,19 @@
     <loc>/reference/calculate_H.html</loc>
   </url>
   <url>
+    <loc>/reference/cogeqc-package.html</loc>
+  </url>
+  <url>
+    <loc>/reference/compare_genome_stats.html</loc>
+  </url>
+  <url>
     <loc>/reference/compare_orthogroups.html</loc>
   </url>
   <url>
     <loc>/reference/fit_sft.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_genome_stats.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
@@ -77,6 +86,9 @@
   </url>
   <url>
     <loc>/reference/plot_genes_in_ogs.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plot_genome_stats.html</loc>
   </url>
   <url>
     <loc>/reference/plot_og_overlap.html</loc>
