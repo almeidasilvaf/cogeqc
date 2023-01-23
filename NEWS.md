@@ -44,5 +44,13 @@ BUG FIXES
 * Reference-based orthogroup inference does not require the exact same set
 of species anymore.
 
+# cogeqc 1.3.1
+
+CHANGES
+
+* Added functions to explore assembly and annotation statistics in a context:
+assembly and annotation stats for NCBI genomes can be extracted through the
+Datasets API and compared with user-defined values. New functions:
+`get_genome_stats()`, `compare_genome_stats()`, and `plot_genome_stats()`.
 
 
