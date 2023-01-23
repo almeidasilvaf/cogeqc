@@ -44,7 +44,7 @@ BUG FIXES
 * Reference-based orthogroup inference does not require the exact same set
 of species anymore.
 
-# cogeqc 1.3.1
+# cogeqc 1.2.1
 
 CHANGES
 
