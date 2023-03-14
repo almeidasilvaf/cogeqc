@@ -11,7 +11,7 @@ issues](https://img.shields.io/github/issues/almeidasilvaf/cogeqc)](https://gith
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check-bioc](https://github.com/almeidasilvaf/cogeqc/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/almeidasilvaf/cogeqc/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/almeidasilvaf/cogeqc/branch/master/graph/badge.svg)](https://codecov.io/gh/almeidasilvaf/cogeqc?branch=master)
+coverage](https://codecov.io/gh/almeidasilvaf/cogeqc/branch/devel/graph/badge.svg)](https://codecov.io/gh/almeidasilvaf/cogeqc?branch=devel)
 <!-- badges: end -->
 
 The goal of `cogeqc` is to facilitate systematic quality checks on
@@ -77,7 +77,7 @@ print(citation('cogeqc'), bibtex = TRUE)
 #> To cite package 'cogeqc' in publications use:
 #> 
 #>   Almeida-Silva F, Van de Peer Y (2022). _cogeqc: Systematic quality
-#>   checks on comparative genomics analyses_. R package version 1.3.0,
+#>   checks on comparative genomics analyses_. R package version 1.3.1,
 #>   <https://github.com/almeidasilvaf/cogeqc>.
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -86,7 +86,7 @@ print(citation('cogeqc'), bibtex = TRUE)
 #>     title = {cogeqc: Systematic quality checks on comparative genomics analyses},
 #>     author = {Fabrício Almeida-Silva and Yves {Van de Peer}},
 #>     year = {2022},
-#>     note = {R package version 1.3.0},
+#>     note = {R package version 1.3.1},
 #>     url = {https://github.com/almeidasilvaf/cogeqc},
 #>   }
 ```
