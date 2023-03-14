@@ -11,7 +11,7 @@ issues](https://img.shields.io/github/issues/almeidasilvaf/cogeqc)](https://gith
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check-bioc](https://github.com/almeidasilvaf/cogeqc/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/almeidasilvaf/cogeqc/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/almeidasilvaf/cogeqc/branch/master/graph/badge.svg)](https://codecov.io/gh/almeidasilvaf/cogeqc?branch=master)
+coverage](https://codecov.io/gh/almeidasilvaf/cogeqc/branch/devel/graph/badge.svg)](https://codecov.io/gh/almeidasilvaf/cogeqc?branch=devel)
 <!-- badges: end -->
 
 The goal of `cogeqc` is to facilitate systematic quality checks on
@@ -65,7 +65,7 @@ print(citation('cogeqc'), bibtex = TRUE)
 #> To cite package 'cogeqc' in publications use:
 #> 
 #>   Almeida-Silva F, Van de Peer Y (2022). _cogeqc: Systematic quality
-#>   checks on comparative genomics analyses_. R package version 1.0.0,
+#>   checks on comparative genomics analyses_. R package version 1.3.1,
 #>   <https://github.com/almeidasilvaf/cogeqc>.
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -74,7 +74,7 @@ print(citation('cogeqc'), bibtex = TRUE)
 #>     title = {cogeqc: Systematic quality checks on comparative genomics analyses},
 #>     author = {Fabrício Almeida-Silva and Yves {Van de Peer}},
 #>     year = {2022},
-#>     note = {R package version 1.0.0},
+#>     note = {R package version 1.3.1},
 #>     url = {https://github.com/almeidasilvaf/cogeqc},
 #>   }
 ```
@@ -91,23 +91,23 @@ contributing to this project, you agree to abide by its terms.
 
 ## Development tools
 
--   Continuous code testing is possible thanks to [GitHub
-    actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)
-    through *[usethis](https://CRAN.R-project.org/package=usethis)*,
-    *[remotes](https://CRAN.R-project.org/package=remotes)*, and
-    *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)*
-    customized to use [Bioconductor’s docker
-    containers](https://www.bioconductor.org/help/docker/) and
-    *[BiocCheck](https://bioconductor.org/packages/3.15/BiocCheck)*.
--   Code coverage assessment is possible thanks to
-    [codecov](https://codecov.io/gh) and
-    *[covr](https://CRAN.R-project.org/package=covr)*.
--   The [documentation website](http://almeidasilvaf.github.io/cogeqc)
-    is automatically updated thanks to
-    *[pkgdown](https://CRAN.R-project.org/package=pkgdown)*.
--   The documentation is formatted thanks to
-    *[devtools](https://CRAN.R-project.org/package=devtools)* and
-    *[roxygen2](https://CRAN.R-project.org/package=roxygen2)*.
+- Continuous code testing is possible thanks to [GitHub
+  actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)
+  through *[usethis](https://CRAN.R-project.org/package=usethis)*,
+  *[remotes](https://CRAN.R-project.org/package=remotes)*, and
+  *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized
+  to use [Bioconductor’s docker
+  containers](https://www.bioconductor.org/help/docker/) and
+  *[BiocCheck](https://bioconductor.org/packages/3.15/BiocCheck)*.
+- Code coverage assessment is possible thanks to
+  [codecov](https://codecov.io/gh) and
+  *[covr](https://CRAN.R-project.org/package=covr)*.
+- The [documentation website](http://almeidasilvaf.github.io/cogeqc) is
+  automatically updated thanks to
+  *[pkgdown](https://CRAN.R-project.org/package=pkgdown)*.
+- The documentation is formatted thanks to
+  *[devtools](https://CRAN.R-project.org/package=devtools)* and
+  *[roxygen2](https://CRAN.R-project.org/package=roxygen2)*.
 
 For more details, check the `dev` directory.
 
