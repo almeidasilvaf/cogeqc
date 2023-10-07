@@ -15,8 +15,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><link href="../deps/Atkinson_Hyperlegible-0.4.5/font.css" rel="stylesheet">
-<link href="../deps/Source_Code_Pro-0.4.5/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><link href="../deps/Atkinson_Hyperlegible-0.4.7/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.7/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Assessing genome assembly and annotation quality">
@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cogeqc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,7 +123,7 @@ following code:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">'BiocManager'</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'BiocManager'</span><span class="op">)</span></span>
-<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"cogeqc"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"cogeqc"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load package after installation</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/almeidasilvaf/cogeqc" class="external-link">cogeqc</a></span><span class="op">)</span></span></code></pre></div>
@@ -154,12 +154,12 @@ genomes on NCBI:</p>
 <span><span class="va">maize_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_genome_stats.html">get_genome_stats</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="st">"Zea mays"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">maize_stats</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         accession  source species_taxid         species_name</span></span>
-<span><span class="co">#&gt; 1 GCA_000005005.6 GENBANK          4577             Zea mays</span></span>
-<span><span class="co">#&gt; 2 GCA_000223545.1 GENBANK          4577             Zea mays</span></span>
-<span><span class="co">#&gt; 3 GCA_000275765.1 GENBANK          4577             Zea mays</span></span>
-<span><span class="co">#&gt; 4 GCA_001644905.2 GENBANK        381124 Zea mays subsp. mays</span></span>
-<span><span class="co">#&gt; 5 GCA_001984235.2 GENBANK        381124 Zea mays subsp. mays</span></span>
-<span><span class="co">#&gt; 6 GCA_001990705.1 GENBANK        381124 Zea mays subsp. mays</span></span>
+<span><span class="co">#&gt; 1 GCA_902167145.1 GENBANK          4577             Zea mays</span></span>
+<span><span class="co">#&gt; 2 GCF_902167145.1  REFSEQ          4577             Zea mays</span></span>
+<span><span class="co">#&gt; 3 GCA_022117705.1 GENBANK          4577             Zea mays</span></span>
+<span><span class="co">#&gt; 4 GCA_030347615.1 GENBANK        381124 Zea mays subsp. mays</span></span>
+<span><span class="co">#&gt; 5 GCA_029775835.1 GENBANK          4577             Zea mays</span></span>
+<span><span class="co">#&gt; 6 GCA_905067065.1 GENBANK          4577             Zea mays</span></span>
 <span><span class="co">#&gt;   species_common_name species_ecotype species_strain species_isolate</span></span>
 <span><span class="co">#&gt; 1               maize            &lt;NA&gt;             NA            &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 2               maize            &lt;NA&gt;             NA            &lt;NA&gt;</span></span>
@@ -167,100 +167,100 @@ genomes on NCBI:</p>
 <span><span class="co">#&gt; 4               maize            &lt;NA&gt;             NA            &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 5               maize            &lt;NA&gt;             NA            &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 6               maize            &lt;NA&gt;             NA            &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;               species_cultivar assembly_level assembly_status</span></span>
-<span><span class="co">#&gt; 1                          B73     Chromosome         current</span></span>
-<span><span class="co">#&gt; 2 Palomero Toluqueno EDMX-2231       Scaffold         current</span></span>
-<span><span class="co">#&gt; 3                          B73         Contig         current</span></span>
-<span><span class="co">#&gt; 4                          W22     Chromosome         current</span></span>
-<span><span class="co">#&gt; 5                          EP1     Chromosome         current</span></span>
-<span><span class="co">#&gt; 6                           F7     Chromosome         current</span></span>
-<span><span class="co">#&gt;                 assembly_name assembly_type submission_date</span></span>
-<span><span class="co">#&gt; 1               B73 RefGen_v4       haploid      2017-02-07</span></span>
-<span><span class="co">#&gt; 2     ZeaMays_PT_EDMX2233_1.0       haploid      2011-08-16</span></span>
-<span><span class="co">#&gt; 3            ZmaysB73_wgs_1.0       haploid      2012-07-03</span></span>
-<span><span class="co">#&gt; 4 Zm-W22-REFERENCE-NRGENE-2.0       haploid      2017-02-02</span></span>
-<span><span class="co">#&gt; 5    Zm-EP1-REFERENCE-TUM-1.0       haploid      2017-02-09</span></span>
-<span><span class="co">#&gt; 6     Zm-F7-REFERENCE-TUM-1.0       haploid      2017-02-09</span></span>
-<span><span class="co">#&gt;                                                                              submitter</span></span>
-<span><span class="co">#&gt; 1                                                                        maizesequence</span></span>
-<span><span class="co">#&gt; 2 Laboratorio Nacional de Genómica para la Biodiversidad (LANGEBIO) CINVESTAV Irapuato</span></span>
-<span><span class="co">#&gt; 3                                                                        maizesequence</span></span>
-<span><span class="co">#&gt; 4                                                            W22 Sequencing Consortium</span></span>
-<span><span class="co">#&gt; 5                                       Technical University of Munich, Plant Breeding</span></span>
-<span><span class="co">#&gt; 6                                       Technical University of Munich, Plant Breeding</span></span>
-<span><span class="co">#&gt;            sequencing_technology atypical refseq_category chromosome_count</span></span>
-<span><span class="co">#&gt; 1                         PacBio    FALSE            &lt;NA&gt;               10</span></span>
-<span><span class="co">#&gt; 2 454 GS20; 454 Titanium; Sanger     TRUE            &lt;NA&gt;               NA</span></span>
-<span><span class="co">#&gt; 3                     454 GS FLX     TRUE            &lt;NA&gt;               NA</span></span>
-<span><span class="co">#&gt; 4   Illumina HiSeq; 10x Genomics    FALSE            &lt;NA&gt;               10</span></span>
-<span><span class="co">#&gt; 5                       Illumina    FALSE            &lt;NA&gt;               10</span></span>
-<span><span class="co">#&gt; 6                       Illumina    FALSE            &lt;NA&gt;               10</span></span>
-<span><span class="co">#&gt;   sequence_length ungapped_length contig_count contig_N50 contig_L50</span></span>
-<span><span class="co">#&gt; 1      2134373047      2103640169         2787    1279870        506</span></span>
-<span><span class="co">#&gt; 2       177051422       177051324       196705       1129      44576</span></span>
-<span><span class="co">#&gt; 3         1335069         1335069         1844        949        434</span></span>
-<span><span class="co">#&gt; 4      2133880228      2093255169        68134      72426       8765</span></span>
-<span><span class="co">#&gt; 5      2455259639      2429778437       130125      82504       8782</span></span>
-<span><span class="co">#&gt; 6      2392801755      2367184004       117311      96966       7318</span></span>
-<span><span class="co">#&gt;   scaffold_count scaffold_N50 scaffold_L50 GC_percent annotation_provider</span></span>
-<span><span class="co">#&gt; 1            596     10679170           62       46.5       maizesequence</span></span>
-<span><span class="co">#&gt; 2         196697         1129        44576       45.5                &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 3             NA           NA           NA       45.0                &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 4            191    222590201            5       46.5                &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 5          60567    249966684            5       46.5                &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 6          62610    237276974            5       46.5                &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   species_cultivar assembly_level assembly_status</span></span>
+<span><span class="co">#&gt; 1              B73     Chromosome         current</span></span>
+<span><span class="co">#&gt; 2              B73     Chromosome         current</span></span>
+<span><span class="co">#&gt; 3        Mo17-2021           &lt;NA&gt;         current</span></span>
+<span><span class="co">#&gt; 4        TPD BC8S3           &lt;NA&gt;         current</span></span>
+<span><span class="co">#&gt; 5           LT2357     Chromosome         current</span></span>
+<span><span class="co">#&gt; 6             &lt;NA&gt;     Chromosome         current</span></span>
+<span><span class="co">#&gt;                        assembly_name assembly_type submission_date</span></span>
+<span><span class="co">#&gt; 1           Zm-B73-REFERENCE-NAM-5.0       haploid              NA</span></span>
+<span><span class="co">#&gt; 2           Zm-B73-REFERENCE-NAM-5.0       haploid              NA</span></span>
+<span><span class="co">#&gt; 3 Zm-Mo17-REFERENCE-CAU-T2T-assembly       haploid              NA</span></span>
+<span><span class="co">#&gt; 4                    Zm-TPD-CSHL-1.0       haploid              NA</span></span>
+<span><span class="co">#&gt; 5                       ASM2977583v1       haploid              NA</span></span>
+<span><span class="co">#&gt; 6       Zm-LH244-REFERENCE-BAYER-1.0       haploid              NA</span></span>
+<span><span class="co">#&gt;                        submitter                     sequencing_technology</span></span>
+<span><span class="co">#&gt; 1                       MaizeGDB                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                       MaizeGDB                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 3   China Agriculture University        Oxford Nanopore PromethION; PacBio</span></span>
+<span><span class="co">#&gt; 4  Cold Spring Harbor Laboratory Oxford Nanopore GridION; Illumina NextSeq</span></span>
+<span><span class="co">#&gt; 5 Beijing Lantron Seed Co., LTD.                             PacBio Sequel</span></span>
+<span><span class="co">#&gt; 6              BAYER CROPSCIENCE                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   atypical       refseq_category chromosome_count sequence_length</span></span>
+<span><span class="co">#&gt; 1    FALSE                  &lt;NA&gt;               10      2182075994</span></span>
+<span><span class="co">#&gt; 2    FALSE representative genome               10      2182075994</span></span>
+<span><span class="co">#&gt; 3    FALSE                  &lt;NA&gt;               10      2178604320</span></span>
+<span><span class="co">#&gt; 4    FALSE                  &lt;NA&gt;               10      2111672847</span></span>
+<span><span class="co">#&gt; 5    FALSE                  &lt;NA&gt;               10      2106865080</span></span>
+<span><span class="co">#&gt; 6    FALSE                  &lt;NA&gt;               10      2147745480</span></span>
+<span><span class="co">#&gt;   ungapped_length contig_count contig_N50 contig_L50 scaffold_count</span></span>
+<span><span class="co">#&gt; 1      2178268108         1393   47037903         16            685</span></span>
+<span><span class="co">#&gt; 2      2178268108         1393   47037903         16            685</span></span>
+<span><span class="co">#&gt; 3      2178604320           10  220303002          5             10</span></span>
+<span><span class="co">#&gt; 4      2111264320          945    7665969         74            126</span></span>
+<span><span class="co">#&gt; 5      2106637080          460   15883073         41             10</span></span>
+<span><span class="co">#&gt; 6      2107651308        56173      84946       7498             10</span></span>
+<span><span class="co">#&gt;   scaffold_N50 scaffold_L50 GC_percent annotation_provider</span></span>
+<span><span class="co">#&gt; 1    226353449            5       46.5                &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2    226353449            5       46.5         NCBI RefSeq</span></span>
+<span><span class="co">#&gt; 3    220303002            5       46.5                &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 4    223003967            5       46.5                &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5    222005600            5       46.5                &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6    225452224            5       46.5                &lt;NA&gt;</span></span>
 <span><span class="co">#&gt;   annotation_release_date gene_count_total gene_count_coding</span></span>
-<span><span class="co">#&gt; 1              2017-02-07            39320             39320</span></span>
-<span><span class="co">#&gt; 2                    &lt;NA&gt;               NA                NA</span></span>
+<span><span class="co">#&gt; 1                    &lt;NA&gt;               NA                NA</span></span>
+<span><span class="co">#&gt; 2              2020-08-09            49897             34337</span></span>
 <span><span class="co">#&gt; 3                    &lt;NA&gt;               NA                NA</span></span>
 <span><span class="co">#&gt; 4                    &lt;NA&gt;               NA                NA</span></span>
 <span><span class="co">#&gt; 5                    &lt;NA&gt;               NA                NA</span></span>
 <span><span class="co">#&gt; 6                    &lt;NA&gt;               NA                NA</span></span>
 <span><span class="co">#&gt;   gene_count_noncoding gene_count_pseudogene gene_count_other CC_ratio</span></span>
-<span><span class="co">#&gt; 1                   NA                    NA               NA    278.7</span></span>
-<span><span class="co">#&gt; 2                   NA                    NA               NA       NA</span></span>
-<span><span class="co">#&gt; 3                   NA                    NA               NA       NA</span></span>
-<span><span class="co">#&gt; 4                   NA                    NA               NA   6813.4</span></span>
-<span><span class="co">#&gt; 5                   NA                    NA               NA  13012.5</span></span>
-<span><span class="co">#&gt; 6                   NA                    NA               NA  11731.1</span></span>
+<span><span class="co">#&gt; 1                   NA                    NA               NA    139.3</span></span>
+<span><span class="co">#&gt; 2                10366                  5194               NA    139.3</span></span>
+<span><span class="co">#&gt; 3                   NA                    NA               NA      1.0</span></span>
+<span><span class="co">#&gt; 4                   NA                    NA               NA     94.5</span></span>
+<span><span class="co">#&gt; 5                   NA                    NA               NA     46.0</span></span>
+<span><span class="co">#&gt; 6                   NA                    NA               NA   5617.3</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">maize_stats</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 'data.frame':    94 obs. of  36 variables:</span></span>
-<span><span class="co">#&gt;  $ accession              : chr  "GCA_000005005.6" "GCA_000223545.1" "GCA_000275765.1" "GCA_001644905.2" ...</span></span>
-<span><span class="co">#&gt;  $ source                 : chr  "GENBANK" "GENBANK" "GENBANK" "GENBANK" ...</span></span>
-<span><span class="co">#&gt;  $ species_taxid          : int  4577 4577 4577 381124 381124 381124 381124 381124 4579 381124 ...</span></span>
+<span><span class="co">#&gt; 'data.frame':    97 obs. of  36 variables:</span></span>
+<span><span class="co">#&gt;  $ accession              : chr  "GCA_902167145.1" "GCF_902167145.1" "GCA_022117705.1" "GCA_030347615.1" ...</span></span>
+<span><span class="co">#&gt;  $ source                 : chr  "GENBANK" "REFSEQ" "GENBANK" "GENBANK" ...</span></span>
+<span><span class="co">#&gt;  $ species_taxid          : int  4577 4577 4577 381124 4577 4577 4577 4577 4577 4577 ...</span></span>
 <span><span class="co">#&gt;  $ species_name           : chr  "Zea mays" "Zea mays" "Zea mays" "Zea mays subsp. mays" ...</span></span>
 <span><span class="co">#&gt;  $ species_common_name    : chr  "maize" "maize" "maize" "maize" ...</span></span>
 <span><span class="co">#&gt;  $ species_ecotype        : chr  NA NA NA NA ...</span></span>
 <span><span class="co">#&gt;  $ species_strain         : logi  NA NA NA NA NA NA ...</span></span>
 <span><span class="co">#&gt;  $ species_isolate        : chr  NA NA NA NA ...</span></span>
-<span><span class="co">#&gt;  $ species_cultivar       : chr  "B73" "Palomero Toluqueno EDMX-2231" "B73" "W22" ...</span></span>
-<span><span class="co">#&gt;  $ assembly_level         : Factor w/ 4 levels "Complete","Chromosome",..: 2 3 4 2 2 2 2 2 3 3 ...</span></span>
+<span><span class="co">#&gt;  $ species_cultivar       : chr  "B73" "B73" "Mo17-2021" "TPD BC8S3" ...</span></span>
+<span><span class="co">#&gt;  $ assembly_level         : Factor w/ 4 levels "Complete","Chromosome",..: 2 2 NA NA 2 2 2 2 2 2 ...</span></span>
 <span><span class="co">#&gt;  $ assembly_status        : chr  "current" "current" "current" "current" ...</span></span>
-<span><span class="co">#&gt;  $ assembly_name          : chr  "B73 RefGen_v4" "ZeaMays_PT_EDMX2233_1.0" "ZmaysB73_wgs_1.0" "Zm-W22-REFERENCE-NRGENE-2.0" ...</span></span>
+<span><span class="co">#&gt;  $ assembly_name          : chr  "Zm-B73-REFERENCE-NAM-5.0" "Zm-B73-REFERENCE-NAM-5.0" "Zm-Mo17-REFERENCE-CAU-T2T-assembly" "Zm-TPD-CSHL-1.0" ...</span></span>
 <span><span class="co">#&gt;  $ assembly_type          : chr  "haploid" "haploid" "haploid" "haploid" ...</span></span>
-<span><span class="co">#&gt;  $ submission_date        : chr  "2017-02-07" "2011-08-16" "2012-07-03" "2017-02-02" ...</span></span>
-<span><span class="co">#&gt;  $ submitter              : chr  "maizesequence" "Laboratorio Nacional de Genómica para la Biodiversidad (LANGEBIO) CINVESTAV Irapuato" "maizesequence" "W22 Sequencing Consortium" ...</span></span>
-<span><span class="co">#&gt;  $ sequencing_technology  : chr  "PacBio" "454 GS20; 454 Titanium; Sanger" "454 GS FLX" "Illumina HiSeq; 10x Genomics" ...</span></span>
-<span><span class="co">#&gt;  $ atypical               : logi  FALSE TRUE TRUE FALSE FALSE FALSE ...</span></span>
-<span><span class="co">#&gt;  $ refseq_category        : chr  NA NA NA NA ...</span></span>
-<span><span class="co">#&gt;  $ chromosome_count       : int  10 NA NA 10 10 10 10 10 NA NA ...</span></span>
-<span><span class="co">#&gt;  $ sequence_length        : num  2.13e+09 1.77e+08 1.34e+06 2.13e+09 2.46e+09 ...</span></span>
-<span><span class="co">#&gt;  $ ungapped_length        : num  2.10e+09 1.77e+08 1.34e+06 2.09e+09 2.43e+09 ...</span></span>
-<span><span class="co">#&gt;  $ contig_count           : int  2787 196705 1844 68134 130125 117311 405730 182074 140894 102656 ...</span></span>
-<span><span class="co">#&gt;  $ contig_N50             : int  1279870 1129 949 72426 82504 96966 10873 39757 31764 71122 ...</span></span>
-<span><span class="co">#&gt;  $ contig_L50             : int  506 44576 434 8765 8782 7318 42688 16302 7912 8373 ...</span></span>
-<span><span class="co">#&gt;  $ scaffold_count         : int  596 196697 NA 191 60567 62610 43299 3538 107418 48268 ...</span></span>
-<span><span class="co">#&gt;  $ scaffold_N50           : int  10679170 1129 NA 222590201 249966684 237276974 215148664 2707071 107689 2995073 ...</span></span>
-<span><span class="co">#&gt;  $ scaffold_L50           : int  62 44576 NA 5 5 5 5 233 499 168 ...</span></span>
-<span><span class="co">#&gt;  $ GC_percent             : num  46.5 45.5 45 46.5 46.5 46.5 46 46.5 45.5 46 ...</span></span>
-<span><span class="co">#&gt;  $ annotation_provider    : chr  "maizesequence" NA NA NA ...</span></span>
-<span><span class="co">#&gt;  $ annotation_release_date: chr  "2017-02-07" NA NA NA ...</span></span>
-<span><span class="co">#&gt;  $ gene_count_total       : int  39320 NA NA NA NA NA NA NA NA NA ...</span></span>
-<span><span class="co">#&gt;  $ gene_count_coding      : int  39320 NA NA NA NA NA NA NA NA NA ...</span></span>
-<span><span class="co">#&gt;  $ gene_count_noncoding   : int  NA NA NA NA NA NA NA NA NA NA ...</span></span>
-<span><span class="co">#&gt;  $ gene_count_pseudogene  : int  NA NA NA NA NA NA NA NA NA NA ...</span></span>
+<span><span class="co">#&gt;  $ submission_date        : logi  NA NA NA NA NA NA ...</span></span>
+<span><span class="co">#&gt;  $ submitter              : chr  "MaizeGDB" "MaizeGDB" "China Agriculture University" "Cold Spring Harbor Laboratory" ...</span></span>
+<span><span class="co">#&gt;  $ sequencing_technology  : chr  NA NA "Oxford Nanopore PromethION; PacBio" "Oxford Nanopore GridION; Illumina NextSeq" ...</span></span>
+<span><span class="co">#&gt;  $ atypical               : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...</span></span>
+<span><span class="co">#&gt;  $ refseq_category        : chr  NA "representative genome" NA NA ...</span></span>
+<span><span class="co">#&gt;  $ chromosome_count       : int  10 10 10 10 10 10 10 10 10 10 ...</span></span>
+<span><span class="co">#&gt;  $ sequence_length        : num  2.18e+09 2.18e+09 2.18e+09 2.11e+09 2.11e+09 ...</span></span>
+<span><span class="co">#&gt;  $ ungapped_length        : num  2.18e+09 2.18e+09 2.18e+09 2.11e+09 2.11e+09 ...</span></span>
+<span><span class="co">#&gt;  $ contig_count           : int  1393 1393 10 945 460 56173 1016 1191 1747 2634 ...</span></span>
+<span><span class="co">#&gt;  $ contig_N50             : int  47037903 47037903 220303002 7665969 15883073 84946 161994764 49888411 49071148 38847693 ...</span></span>
+<span><span class="co">#&gt;  $ contig_L50             : int  16 16 5 74 41 7498 6 12 13 21 ...</span></span>
+<span><span class="co">#&gt;  $ scaffold_count         : int  685 685 10 126 10 10 936 800 1379 2223 ...</span></span>
+<span><span class="co">#&gt;  $ scaffold_N50           : int  226353449 226353449 220303002 223003967 222005600 225452224 225306452 220287990 223168870 222765871 ...</span></span>
+<span><span class="co">#&gt;  $ scaffold_L50           : int  5 5 5 5 5 5 5 5 5 5 ...</span></span>
+<span><span class="co">#&gt;  $ GC_percent             : num  46.5 46.5 46.5 46.5 46.5 46.5 46.5 46.5 46.5 46.5 ...</span></span>
+<span><span class="co">#&gt;  $ annotation_provider    : chr  NA "NCBI RefSeq" NA NA ...</span></span>
+<span><span class="co">#&gt;  $ annotation_release_date: chr  NA "2020-08-09" NA NA ...</span></span>
+<span><span class="co">#&gt;  $ gene_count_total       : int  NA 49897 NA NA NA NA NA NA NA NA ...</span></span>
+<span><span class="co">#&gt;  $ gene_count_coding      : int  NA 34337 NA NA NA NA NA NA NA NA ...</span></span>
+<span><span class="co">#&gt;  $ gene_count_noncoding   : int  NA 10366 NA NA NA NA NA NA NA NA ...</span></span>
+<span><span class="co">#&gt;  $ gene_count_pseudogene  : int  NA 5194 NA NA NA NA NA NA NA NA ...</span></span>
 <span><span class="co">#&gt;  $ gene_count_other       : int  NA NA NA NA NA NA NA NA NA NA ...</span></span>
-<span><span class="co">#&gt;  $ CC_ratio               : num  279 NA NA 6813 13012 ...</span></span>
+<span><span class="co">#&gt;  $ CC_ratio               : num  139.3 139.3 1 94.5 46 ...</span></span>
 <span></span>
 <span><span class="co"># Example 2: get stats for all maize genomes using NCBI Taxonomy ID</span></span>
 <span><span class="va">maize_stats2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_genome_stats.html">get_genome_stats</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="fl">4577</span><span class="op">)</span></span>
@@ -268,7 +268,7 @@ genomes on NCBI:</p>
 <span><span class="co"># Checking if objects are the same</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">maize_stats</span>, <span class="va">maize_stats2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
-<p>As you can see, there are 94 maize genomes on the NCBI. You can also
+<p>As you can see, there are 97 maize genomes on the NCBI. You can also
 include filters in your searches by passing a list of key-value pairs
 with keys in list names and values in elements. For instance, to obtain
 only <strong>chromosome-scale</strong> and <strong>annotated</strong>
@@ -366,9 +366,9 @@ compare both data frames as below:</p>
 <span><span class="co"># Compare stats</span></span>
 <span><span class="fu"><a href="../reference/compare_genome_stats.html">compare_genome_stats</a></span><span class="op">(</span>ncbi_stats <span class="op">=</span> <span class="va">maize_stats</span>, user_stats <span class="op">=</span> <span class="va">my_stats</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         accession         variable percentile rank</span></span>
-<span><span class="co">#&gt; 1 my_lovely_maize  sequence_length 0.97894737    3</span></span>
+<span><span class="co">#&gt; 1 my_lovely_maize  sequence_length 0.97959184    3</span></span>
 <span><span class="co">#&gt; 2 my_lovely_maize gene_count_total 1.00000000    1</span></span>
-<span><span class="co">#&gt; 3 my_lovely_maize         CC_ratio 0.02941176    2</span></span></code></pre></div>
+<span><span class="co">#&gt; 3 my_lovely_maize         CC_ratio 0.02857143    2</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="visualizing-summary-assembly-statistics">Visualizing summary assembly statistics<a class="anchor" aria-label="anchor" href="#visualizing-summary-assembly-statistics"></a>
@@ -491,104 +491,103 @@ are high-quality genomes.</p>
 <code class="sourceCode R"><span><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://r-lib.github.io/sessioninfo/reference/session_info.html" class="external-link">session_info</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
-<span><span class="co">#&gt;  version  R version 4.2.1 (2022-06-23)</span></span>
-<span><span class="co">#&gt;  os       Ubuntu 20.04.4 LTS</span></span>
+<span><span class="co">#&gt;  version  R version 4.3.1 (2023-06-16)</span></span>
+<span><span class="co">#&gt;  os       Ubuntu 22.04.3 LTS</span></span>
 <span><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
 <span><span class="co">#&gt;  ui       X11</span></span>
 <span><span class="co">#&gt;  language en</span></span>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2023-03-14</span></span>
-<span><span class="co">#&gt;  pandoc   2.18 @ /usr/local/bin/ (via rmarkdown)</span></span>
+<span><span class="co">#&gt;  date     2023-10-07</span></span>
+<span><span class="co">#&gt;  pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package         </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version  </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
-<span><span class="co">#&gt;  ape                5.7       <span style="color: #555555;">2023-02-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  aplot              0.1.10    <span style="color: #555555;">2023-03-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  beeswarm           0.4.0     <span style="color: #555555;">2021-06-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  BiocGenerics       0.42.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  BiocManager        1.30.20   <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  BiocStyle        * 2.24.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  Biostrings         2.64.1    <span style="color: #555555;">2022-08-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  bitops             1.0-7     <span style="color: #555555;">2021-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  bookdown           0.33      <span style="color: #555555;">2023-03-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  bslib              0.4.2     <span style="color: #555555;">2022-12-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  cachem             1.0.7     <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  cli                3.6.0     <span style="color: #555555;">2023-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  cogeqc           * 1.3.1     <span style="color: #555555;">2023-03-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  colorspace         2.1-0     <span style="color: #555555;">2023-01-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  crayon             1.5.2     <span style="color: #555555;">2022-09-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  desc               1.4.2     <span style="color: #555555;">2022-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  digest             0.6.31    <span style="color: #555555;">2022-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  dplyr              1.1.0     <span style="color: #555555;">2023-01-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  evaluate           0.20      <span style="color: #555555;">2023-01-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  fansi              1.0.4     <span style="color: #555555;">2023-01-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  farver             2.1.1     <span style="color: #555555;">2022-07-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  fastmap            1.1.1     <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  fs                 1.6.1     <span style="color: #555555;">2023-02-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  generics           0.1.3     <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  GenomeInfoDb       1.32.4    <span style="color: #555555;">2022-09-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  GenomeInfoDbData   1.2.8     <span style="color: #555555;">2022-05-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  ggbeeswarm         0.7.1     <span style="color: #555555;">2022-12-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  ggfun              0.0.9     <span style="color: #555555;">2022-11-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  ggplot2            3.4.1     <span style="color: #555555;">2023-02-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  ggplotify          0.1.0     <span style="color: #555555;">2021-09-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  ggtree             3.4.4     <span style="color: #555555;">2022-09-27</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  glue               1.6.2     <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  gridGraphics       0.5-1     <span style="color: #555555;">2020-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  gtable             0.3.1     <span style="color: #555555;">2022-09-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  highr              0.10      <span style="color: #555555;">2022-12-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  htmltools          0.5.4     <span style="color: #555555;">2022-12-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  igraph             1.4.1     <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  IRanges            2.30.1    <span style="color: #555555;">2022-08-18</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  jquerylib          0.1.4     <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  jsonlite           1.8.4     <span style="color: #555555;">2022-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  knitr              1.42      <span style="color: #555555;">2023-01-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  labeling           0.4.2     <span style="color: #555555;">2020-10-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  lattice            0.20-45   <span style="color: #555555;">2021-09-22</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
-<span><span class="co">#&gt;  lazyeval           0.2.2     <span style="color: #555555;">2019-03-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  lifecycle          1.0.3     <span style="color: #555555;">2022-10-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  magrittr           2.0.3     <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  memoise            2.0.1     <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  munsell            0.5.0     <span style="color: #555555;">2018-06-12</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  nlme               3.1-162   <span style="color: #555555;">2023-01-31</span> <span style="color: #555555;">[3]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  patchwork          1.1.2     <span style="color: #555555;">2022-08-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  pillar             1.8.1     <span style="color: #555555;">2022-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  pkgconfig          2.0.3     <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  pkgdown            2.0.7     <span style="color: #555555;">2022-12-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  plyr               1.8.8     <span style="color: #555555;">2022-11-11</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  purrr              1.0.1     <span style="color: #555555;">2023-01-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  R6                 2.5.1     <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  ragg               1.2.5     <span style="color: #555555;">2023-01-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  Rcpp               1.0.10    <span style="color: #555555;">2023-01-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  RCurl              1.98-1.10 <span style="color: #555555;">2023-01-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  reshape2           1.4.4     <span style="color: #555555;">2020-04-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  rlang              1.0.6     <span style="color: #555555;">2022-09-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  rmarkdown          2.20      <span style="color: #555555;">2023-01-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  rprojroot          2.0.3     <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  S4Vectors          0.34.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  sass               0.4.5     <span style="color: #555555;">2023-01-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  scales             1.2.1     <span style="color: #555555;">2022-08-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  sessioninfo        1.2.2     <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  stringi            1.7.12    <span style="color: #555555;">2023-01-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  stringr            1.5.0     <span style="color: #555555;">2022-12-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  systemfonts        1.0.4     <span style="color: #555555;">2022-02-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  textshaping        0.3.6     <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  tibble             3.2.0     <span style="color: #555555;">2023-03-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  tidyr              1.3.0     <span style="color: #555555;">2023-01-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  tidyselect         1.2.0     <span style="color: #555555;">2022-10-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  tidytree           0.4.2     <span style="color: #555555;">2022-12-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  treeio             1.20.2    <span style="color: #555555;">2022-08-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  utf8               1.2.3     <span style="color: #555555;">2023-01-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  vctrs              0.5.2     <span style="color: #555555;">2023-01-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  vipor              0.4.5     <span style="color: #555555;">2017-03-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  withr              2.5.0     <span style="color: #555555;">2022-03-03</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  xfun               0.37      <span style="color: #555555;">2023-01-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  XVector            0.36.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  yaml               2.3.7     <span style="color: #555555;">2023-01-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  yulab.utils        0.0.6     <span style="color: #555555;">2022-12-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  zlibbioc           1.42.0    <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  ape                5.7-1     <span style="color: #555555;">2023-03-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  aplot              0.2.1     <span style="color: #555555;">2023-09-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  beeswarm           0.4.0     <span style="color: #555555;">2021-06-01</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  BiocGenerics       0.46.0    <span style="color: #555555;">2023-04-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  BiocManager        1.30.22   <span style="color: #555555;">2023-08-08</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
+<span><span class="co">#&gt;  BiocStyle        * 2.28.1    <span style="color: #555555;">2023-09-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  Biostrings         2.68.1    <span style="color: #555555;">2023-05-16</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  bitops             1.0-7     <span style="color: #555555;">2021-04-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  bookdown           0.35      <span style="color: #555555;">2023-08-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  bslib              0.5.1     <span style="color: #555555;">2023-08-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  cachem             1.0.8     <span style="color: #555555;">2023-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  cli                3.6.1     <span style="color: #555555;">2023-03-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  cogeqc           * 1.5.1     <span style="color: #555555;">2023-10-07</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  colorspace         2.1-0     <span style="color: #555555;">2023-01-23</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  crayon             1.5.2     <span style="color: #555555;">2022-09-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  desc               1.4.2     <span style="color: #555555;">2022-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  digest             0.6.33    <span style="color: #555555;">2023-07-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  dplyr              1.1.3     <span style="color: #555555;">2023-09-03</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  evaluate           0.22      <span style="color: #555555;">2023-09-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  fansi              1.0.4     <span style="color: #555555;">2023-01-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  farver             2.1.1     <span style="color: #555555;">2022-07-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  fastmap            1.1.1     <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  fs                 1.6.3     <span style="color: #555555;">2023-07-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  generics           0.1.3     <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  GenomeInfoDb       1.36.4    <span style="color: #555555;">2023-10-02</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  GenomeInfoDbData   1.2.10    <span style="color: #555555;">2023-08-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  ggbeeswarm         0.7.2     <span style="color: #555555;">2023-04-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  ggfun              0.1.3     <span style="color: #555555;">2023-09-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  ggplot2            3.4.3     <span style="color: #555555;">2023-08-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  ggplotify          0.1.2     <span style="color: #555555;">2023-08-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  ggtree             3.8.2     <span style="color: #555555;">2023-07-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  glue               1.6.2     <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  gridGraphics       0.5-1     <span style="color: #555555;">2020-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  gtable             0.3.4     <span style="color: #555555;">2023-08-21</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  htmltools          0.5.6     <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  igraph             1.5.1     <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  IRanges            2.34.1    <span style="color: #555555;">2023-06-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  jquerylib          0.1.4     <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  jsonlite           1.8.7     <span style="color: #555555;">2023-06-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  knitr              1.44      <span style="color: #555555;">2023-09-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  labeling           0.4.3     <span style="color: #555555;">2023-08-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  lattice            0.21-9    <span style="color: #555555;">2023-10-01</span> <span style="color: #555555;">[3]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  lazyeval           0.2.2     <span style="color: #555555;">2019-03-15</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  lifecycle          1.0.3     <span style="color: #555555;">2022-10-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  magrittr           2.0.3     <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  memoise            2.0.1     <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  munsell            0.5.0     <span style="color: #555555;">2018-06-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  nlme               3.1-163   <span style="color: #555555;">2023-08-09</span> <span style="color: #555555;">[3]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  patchwork          1.1.3     <span style="color: #555555;">2023-08-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  pillar             1.9.0     <span style="color: #555555;">2023-03-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  pkgconfig          2.0.3     <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  pkgdown            2.0.7     <span style="color: #555555;">2022-12-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  plyr               1.8.9     <span style="color: #555555;">2023-10-02</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  purrr              1.0.2     <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  R6                 2.5.1     <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  ragg               1.2.5     <span style="color: #555555;">2023-01-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  Rcpp               1.0.11    <span style="color: #555555;">2023-07-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  RCurl              1.98-1.12 <span style="color: #555555;">2023-03-27</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  reshape2           1.4.4     <span style="color: #555555;">2020-04-09</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  rlang              1.1.1     <span style="color: #555555;">2023-04-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  rmarkdown          2.25      <span style="color: #555555;">2023-09-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  rprojroot          2.0.3     <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  S4Vectors          0.38.2    <span style="color: #555555;">2023-09-22</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  sass               0.4.7     <span style="color: #555555;">2023-07-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  scales             1.2.1     <span style="color: #555555;">2022-08-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  sessioninfo        1.2.2     <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  stringi            1.7.12    <span style="color: #555555;">2023-01-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  stringr            1.5.0     <span style="color: #555555;">2022-12-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  systemfonts        1.0.4     <span style="color: #555555;">2022-02-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  textshaping        0.3.6     <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  tibble             3.2.1     <span style="color: #555555;">2023-03-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  tidyr              1.3.0     <span style="color: #555555;">2023-01-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  tidyselect         1.2.0     <span style="color: #555555;">2022-10-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  tidytree           0.4.5     <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  treeio             1.24.3    <span style="color: #555555;">2023-07-24</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  utf8               1.2.3     <span style="color: #555555;">2023-01-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  vctrs              0.6.3     <span style="color: #555555;">2023-06-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  vipor              0.4.5     <span style="color: #555555;">2017-03-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  withr              2.5.1     <span style="color: #555555;">2023-09-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  xfun               0.40      <span style="color: #555555;">2023-08-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  XVector            0.40.0    <span style="color: #555555;">2023-04-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  yaml               2.3.7     <span style="color: #555555;">2023-01-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  yulab.utils        0.1.0     <span style="color: #555555;">2023-09-20</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  zlibbioc           1.46.0    <span style="color: #555555;">2023-04-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [1] /__w/_temp/Library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /usr/local/lib/R/site-library</span></span></span>
