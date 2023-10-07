@@ -4,7 +4,12 @@
 \alias{calculate_H}
 \title{Calculate homogeneity scores for orthogroups}
 \usage{
-calculate_H(orthogroup_df, correct_overclustering = TRUE)
+calculate_H(
+  orthogroup_df,
+  correct_overclustering = TRUE,
+  max_size = 200,
+  update_score = TRUE
+)
 }
 \arguments{
 \item{orthogroup_df}{Data frame with orthogroups and their associated genes
@@ -14,11 +19,22 @@ Orthogroup ID, and Annotation ID (e.g., Interpro/PFAM), respectively.}
 
 \item{correct_overclustering}{Logical indicating whether to correct
 for overclustering in orthogroups. Default: TRUE.}
+
+\item{max_size}{Numeric indicating the maximum orthogroup size to consider.
+If orthogroups are too large, calculating Sorensen-Dice indices for all
+pairwise combinations could take a long time, so setting a limit prevents
+that. Default: 200.}
+
+\item{update_score}{Logical indicating whether to replace scores with
+corrected scores or not. If FALSE, the dispersal term and corrected scores
+are returned as separate variables in the output data frame.}
 }
 \value{
 A 2-column data frame with the variables \strong{Orthogroup}
 and \strong{Score}, corresponding to orthogroup ID and orthogroup score,
-respectively.
+respectively. If \strong{update_score = FALSE}, additional columns
+named \strong{Dispersal} and \strong{Score_c} are added, which correspond
+to the dispersal term and corrected scores, respectively.
 }
 \description{
 Calculate homogeneity scores for orthogroups
@@ -30,6 +46,9 @@ from 0 to 1. Thus, if all genes in an
 orthogroup share the same domain, the orthogroup will have a homogeneity
 score of 1. On the other hand, if genes in an orthogroup do not have any
 domain in common, the orthogroup will have a homogeneity score of 0.
+The percentage of orthogroups with size greater
+than \strong{max_size} will be subtracted from the homogeneity scores, since
+too large orthogroups typically have very low scores.
 Additionally, users can correct for overclustering by penalizing
 protein domains that appear in multiple orthogroups (default).
 }

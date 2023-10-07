@@ -1,4 +1,51 @@
 
+#' Correct orthogroup scores for overclustering
+#'
+#' @param homogeneity_df A 2-column data frame with
+#' variables \strong{Orthogroup} and \strong{Score} as returned
+#' by \code{calculate_H().}
+#' @param orthogroup_df Data frame with orthogroups and their associated genes
+#' and annotation. The columns \strong{Gene}, \strong{Orthogroup}, and
+#' \strong{Annotation} are mandatory, and they must represent Gene ID,
+#' Orthogroup ID, and Annotation ID (e.g., Interpro/PFAM), respectively.
+#' @param update_score Logical indicating whether to replace scores with
+#' corrected scores or not. If FALSE, the dispersal term and corrected scores
+#' are returned as separate variables in the output data frame.
+#'
+#' @return A data frame with the following variables:
+#' \describe{
+#'   \item{Orthogroup}{Character, orthogroup ID.}
+#'   \item{Score}{Numeric, orthogroup scores.}
+#'   \item{Dispersal}{Numeric, dispersal term. Only present
+#'         if \strong{update_score = FALSE}.}
+#'   \item{Score_c}{Numeric, corrected orthogroup scores. Only present if
+#'         \strong{update_score = FALSE}.}
+#' }
+#'
+#' @noRd
+overclustering_correction <- function(
+        homogeneity_df, orthogroup_df, update_score = TRUE
+) {
+
+    # Calculate % of domains present in 2+ OGs
+    dispersal <- split(orthogroup_df, orthogroup_df$Annotation)
+    dispersal <- unlist(lapply(dispersal, function(x) {
+        return(length(unique(x$Orthogroup)))
+    }))
+
+    dispersal_freq <- (sum(dispersal > 1) / length(dispersal))
+
+    if(update_score) {
+        homogeneity_df$Score <- homogeneity_df$Score / dispersal_freq
+    } else {
+        homogeneity_df$Dispersal <- dispersal_freq
+        homogeneity_df$Score_c <- homogeneity_df$Score - dispersal_freq
+    }
+
+    return(homogeneity_df)
+}
+
+
 #' Calculate homogeneity scores for orthogroups
 #'
 #' @param orthogroup_df Data frame with orthogroups and their associated genes
@@ -7,6 +54,13 @@
 #' Orthogroup ID, and Annotation ID (e.g., Interpro/PFAM), respectively.
 #' @param correct_overclustering Logical indicating whether to correct
 #' for overclustering in orthogroups. Default: TRUE.
+#' @param max_size Numeric indicating the maximum orthogroup size to consider.
+#' If orthogroups are too large, calculating Sorensen-Dice indices for all
+#' pairwise combinations could take a long time, so setting a limit prevents
+#' that. Default: 200.
+#' @param update_score Logical indicating whether to replace scores with
+#' corrected scores or not. If FALSE, the dispersal term and corrected scores
+#' are returned as separate variables in the output data frame.
 #'
 #' @details
 #' Homogeneity is calculated based on pairwise Sorensen-Dice similarity
@@ -15,12 +69,18 @@
 #' orthogroup share the same domain, the orthogroup will have a homogeneity
 #' score of 1. On the other hand, if genes in an orthogroup do not have any
 #' domain in common, the orthogroup will have a homogeneity score of 0.
+#' The percentage of orthogroups with size greater
+#' than \strong{max_size} will be subtracted from the homogeneity scores, since
+#' too large orthogroups typically have very low scores.
 #' Additionally, users can correct for overclustering by penalizing
 #' protein domains that appear in multiple orthogroups (default).
 #'
 #' @return A 2-column data frame with the variables \strong{Orthogroup}
 #' and \strong{Score}, corresponding to orthogroup ID and orthogroup score,
-#' respectively.
+#' respectively. If \strong{update_score = FALSE}, additional columns
+#' named \strong{Dispersal} and \strong{Score_c} are added, which correspond
+#' to the dispersal term and corrected scores, respectively.
+#'
 #' @export
 #' @rdname calculate_H
 #' @examples
@@ -30,22 +90,31 @@
 #' # Filter data to reduce run time
 #' orthogroup_df <- orthogroup_df[1:10000, ]
 #' H <- calculate_H(orthogroup_df)
-calculate_H <- function(orthogroup_df, correct_overclustering = TRUE) {
+calculate_H <- function(orthogroup_df, correct_overclustering = TRUE,
+                        max_size = 200, update_score = TRUE) {
 
     by_og <- split(orthogroup_df, orthogroup_df$Orthogroup)
 
+    # Calculate OG sizes
+    og_sizes <- vapply(by_og, function(x) {
+        return(length(unique(x$Gene)))
+    }, numeric(1))
+    perc_excluded <- (sum(og_sizes >= max_size) / length(og_sizes)) * 100
+
     # Calculate homogeneity scores
     sdice <- Reduce(rbind, lapply(by_og, function(x) {
-        genes <- unique(x$Gene)
+
+        ngenes <- length(unique(x$Gene))
         og <- unique(x$Orthogroup)
 
+        x <- x[!is.na(x$Annotation), ]
+        annot_genes <- unique(x$Gene)
+
         scores_df <- NULL
-        if(length(genes) > 1) {
-            # Create a list of domains for each gene
-            domains_per_gene <- split(x$Annotation, x$Gene)
+        if(length(annot_genes) > 1 & ngenes <= max_size) {
 
             # Calculate Sorensen-Dice indices for all pairwise combinations
-            combinations <- utils::combn(genes, 2, simplify = FALSE)
+            combinations <- utils::combn(annot_genes, 2, simplify = FALSE)
             scores <- lapply(combinations, function(y) {
                 d1 <- x$Annotation[x$Gene == y[1]]
                 d2 <- x$Annotation[x$Gene == y[2]]
@@ -55,7 +124,8 @@ calculate_H <- function(orthogroup_df, correct_overclustering = TRUE) {
                 s <- round(numerator / denominator, 2)
                 return(s)
             })
-            scores <- mean(Reduce(c, scores))
+            scores <- unlist(scores) - perc_excluded * 0.1
+            scores <- mean(scores)
 
             scores_df <- data.frame(
                 Orthogroup = og,
@@ -67,19 +137,9 @@ calculate_H <- function(orthogroup_df, correct_overclustering = TRUE) {
 
     # Account for overclustering
     if(correct_overclustering) {
-
-        n_domains <- length(unique(orthogroup_df$Annotation))
-        n_ogs <- length(unique(orthogroup_df$Orthogroup))
-
-        dispersal <- split(orthogroup_df, orthogroup_df$Annotation)
-        dispersal <- unlist(lapply(dispersal, function(x) {
-            return(length(unique(x$Orthogroup)))
-        }))
-
-        dispersal <- sum(dispersal) / (n_domains * n_ogs)
-        sdice$Score <- sdice$Score / dispersal
-
+        sdice <- overclustering_correction(sdice, orthogroup_df, update_score)
     }
+
     return(sdice)
 }
 
