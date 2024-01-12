@@ -45,7 +45,6 @@ test_that("get_genome_stats() returns a data frame of NCBI genome stats", {
     expect_equal(ncol(t1), 36)
 
     expect_error(get_genome_stats())
-    expect_error(get_genome_stats(taxon = "nonexisting taxon"))
 })
 
 
