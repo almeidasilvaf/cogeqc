@@ -1,0 +1,23 @@
+citHeader("To cite cogeqc in publications, use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "Assessing the quality of comparative genomics data and results with the cogeqc R/Bioconductor package",
+  author   = personList(
+      as.person("Fabricio Almeida-Silva"),
+      as.person("Yves Van de Peer")
+  ),
+  journal  = "Methods in Ecology and Evolution",
+  year     = "2023",
+  volume   = "14",
+  number   = "12",
+  pages    = "2942-2952",
+  url      = "https://besjournals.onlinelibrary.wiley.com/doi/abs/10.1111/2041-210X.14243",
+  doi      = "10.1111/2041-210X.14243",
+  textVersion = paste(
+      "Almeida-Silva, F., & Van de Peer, Y. (2023).",
+      "Assessing the quality of comparative genomics data and results with the cogeqc R/Bioconductor package.",
+      "Methods in Ecology and Evolution, 14, 2942–2952.",
+      "https://doi.org/10.1111/2041-210X.14243"
+  )
+)
