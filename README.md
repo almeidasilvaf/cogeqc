@@ -9,7 +9,7 @@
 issues](https://img.shields.io/github/issues/almeidasilvaf/cogeqc)](https://github.com/almeidasilvaf/cogeqc/issues)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![R-CMD-check-bioc](https://github.com/almeidasilvaf/cogeqc/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/almeidasilvaf/cogeqc/actions)
+[![check-bioc](https://github.com/almeidasilvaf/cogeqc/actions/workflows/rworkflows.devel.yml/badge.svg)](https://github.com/almeidasilvaf/cogeqc/actions/workflows/rworkflows.devel.yml)
 [![Codecov test
 coverage](https://codecov.io/gh/almeidasilvaf/cogeqc/branch/devel/graph/badge.svg)](https://codecov.io/gh/almeidasilvaf/cogeqc?branch=devel)
 <!-- badges: end -->
@@ -73,21 +73,25 @@ Please run this yourself to check for any updates on how to cite
 
 ``` r
 print(citation('cogeqc'), bibtex = TRUE)
+#> To cite cogeqc in publications, use:
 #> 
-#> To cite package 'cogeqc' in publications use:
-#> 
-#>   Almeida-Silva F, Van de Peer Y (2022). _cogeqc: Systematic quality
-#>   checks on comparative genomics analyses_. R package version 1.3.1,
-#>   <https://github.com/almeidasilvaf/cogeqc>.
+#>   Almeida-Silva, F., & Van de Peer, Y. (2023). Assessing the quality of
+#>   comparative genomics data and results with the cogeqc R/Bioconductor
+#>   package. Methods in Ecology and Evolution, 14, 2942–2952.
+#>   https://doi.org/10.1111/2041-210X.14243
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
-#>   @Manual{,
-#>     title = {cogeqc: Systematic quality checks on comparative genomics analyses},
-#>     author = {Fabrício Almeida-Silva and Yves {Van de Peer}},
-#>     year = {2022},
-#>     note = {R package version 1.3.1},
-#>     url = {https://github.com/almeidasilvaf/cogeqc},
+#>   @Article{,
+#>     title = {Assessing the quality of comparative genomics data and results with the cogeqc R/Bioconductor package},
+#>     author = {Fabricio Almeida-Silva and Yves {Van de Peer}},
+#>     journal = {Methods in Ecology and Evolution},
+#>     year = {2023},
+#>     volume = {14},
+#>     number = {12},
+#>     pages = {2942-2952},
+#>     url = {https://besjournals.onlinelibrary.wiley.com/doi/abs/10.1111/2041-210X.14243},
+#>     doi = {10.1111/2041-210X.14243},
 #>   }
 ```
 
@@ -110,7 +114,7 @@ contributing to this project, you agree to abide by its terms.
   *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized
   to use [Bioconductor’s docker
   containers](https://www.bioconductor.org/help/docker/) and
-  *[BiocCheck](https://bioconductor.org/packages/3.15/BiocCheck)*.
+  *[BiocCheck](https://bioconductor.org/packages/3.22/BiocCheck)*.
 - Code coverage assessment is possible thanks to
   [codecov](https://codecov.io/gh) and
   *[covr](https://CRAN.R-project.org/package=covr)*.
@@ -124,4 +128,4 @@ contributing to this project, you agree to abide by its terms.
 For more details, check the `dev` directory.
 
 This package was developed using
-*[biocthis](https://bioconductor.org/packages/3.15/biocthis)*.
+*[biocthis](https://bioconductor.org/packages/3.22/biocthis)*.
