@@ -29,8 +29,6 @@ species-specific orthogroups.}
 \item{Dups}{Integer with number of duplications per species.}
 }
 
-\item \strong{og_overlap} A symmetric data frame of pairwise
-orthogroup overlap between species.
 \item \strong{duplications} A 2-column data frame with node IDs
 in the first column and number of gene duplications (50\% support)
 in the second column.

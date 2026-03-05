@@ -293,11 +293,36 @@ plot_orthofinder_stats(
 
 ## Orthogroup overlap
 
-You can also visualize a heatmap of pairwise orthogroup overlap across species 
-with `plot_og_overlap()`. 
+You can also visualize a heatmap of pairwise orthogroup overlap (i.e., number
+of shared orthogroups) for each species pair with `plot_og_overlap()`.
+Previous versions of OrthoFinder used to return such data in a square matrix
+saved to `Comparative_Genomics_Statistics/Orthogroups_SpeciesOverlaps.tsv`.
+However, since OrthoFinder v3, this file is no longer created. Hence, you will
+first need to compute pairwise orthogroup overlaps from the orthogroups
+table created with `read_orthogroups()`.
+
+To demonstrate how this works, let's compute pairwise orthogroup overlaps using
+the example object `og`.
+
+```{r get_og_overlap}
+og_overlap <- get_og_overlap(og)
+og_overlap
+```
+
+In this case, since the example object `og` contains only 2 species,
+`get_og_overlap()` returns only one comparison. The more species you have,
+the more comparisons you'd get. As a demonstration of a nicer-looking table,
+the example object `og_overlap_model` contains the output of 
+`get_og_overlap()` run on the output of OrthoFinder with model organisms
+(see examples in OrthoFinder docs for details).
 
 ```{r plot_og_overlap}
-plot_og_overlap(ortho_stats)
+# Load example overlap table for model organisms and have a look at it
+data(og_overlap_model)
+head(og_overlap_model)
+
+# Plot overlaps
+plot_og_overlap(og_overlap_model, add_numbers = TRUE)
 ```
 
 ## Orthogroup size per species

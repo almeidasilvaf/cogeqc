@@ -162,6 +162,8 @@ calculate_H <- function(orthogroup_df, correct_overclustering = TRUE,
 #' "SpeciesA" and "SpeciesB".
 #' @param correct_overclustering Logical indicating whether to correct
 #' for overclustering in orthogroups. Default: TRUE.
+#' @param verbose Logical indicating whether to print progress messages.
+#' Default: FALSE.
 #'
 #' @return A data frame.
 #' @rdname assess_orthogroups
@@ -174,14 +176,20 @@ calculate_H <- function(orthogroup_df, correct_overclustering = TRUE,
 #' # Subsetting annotation for demonstration purposes.
 #' annotation <- list(Ath = interpro_ath[1:1000,], Bol = interpro_bol[1:1000,])
 #' assess <- assess_orthogroups(og, annotation)
-assess_orthogroups <- function(orthogroups = NULL, annotation = NULL,
-                               correct_overclustering = TRUE) {
+assess_orthogroups <- function(
+        orthogroups = NULL, annotation = NULL,
+        correct_overclustering = TRUE, verbose = FALSE
+) {
 
     og_list <- split(orthogroups, orthogroups$Species)
     og_list <- lapply(seq_along(og_list), function(x) {
         species <- names(og_list)[x]
+        if(verbose) { message("Calculating scores for species: ", species) }
         idx <- which(names(annotation) == species)
         merged <- merge(og_list[[x]], annotation[[idx]])
+        if(nrow(merged) == 0) {
+            stop("Gene IDs in `orthogroups` and `annotation` do not match for species: ", species)
+        }
         names(merged)[4] <- "Annotation"
         H <- calculate_H(
             merged,
