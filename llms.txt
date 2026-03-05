@@ -1,0 +1,225 @@
+# cogeqc
+
+The goal of `cogeqc` is to facilitate systematic quality checks on
+standard comparative genomics analyses to help researchers detect issues
+and select the most suitable parameters for each data set. Currently,
+cogeqc can be used to assess:
+
+1.  **Genome assembly and annotation quality:** using two approaches:
+
+    - *Statistics in a context:* users can extract summary assembly and
+      annotation statistics for genomes on NCBI (via the [NCBI Datasets
+      API](https://www.ncbi.nlm.nih.gov/datasets/)) and compare their
+      observed values (e.g., genome size, number of genes, contiguity
+      measures) with previously reported values on NCBI genomes.
+
+    - *Gene space completeness with BUSCOs:* users can assess gene space
+      completeness using Best Universal Single-Copy Orthologs (BUSCOs)
+      through wrapper functions that run
+      [BUSCO](https://doi.org/10.1093/bioinformatics/btv351) from the
+      comfort of an R session and create publication-ready plots with
+      summary statistics.
+
+2.  **Orthogroup inference:** orthogroups are assessed based on the
+    percentage of shared protein domains in all ortogroups. The
+    rationale for this approach is that genes in the same orthogroup
+    evolved from a common ancestor, so the percentage of conserved
+    protein domains in an orthogroup should be as high as possible.
+
+3.  **Synteny detection:** synteny detection is assessed using
+    network-based approaches, namely the clustering coefficient and
+    degree of a synteny network.
+
+## Installation instructions
+
+Get the latest stable `R` release from
+[CRAN](http://cran.r-project.org/). Then install `cogeqc` using from
+[Bioconductor](http://bioconductor.org/) the following code:
+
+``` r
+
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+    install.packages("BiocManager")
+}
+
+BiocManager::install("cogeqc")
+```
+
+And the development version from
+[GitHub](https://github.com/almeidasilvaf/cogeqc) with:
+
+``` r
+
+BiocManager::install("almeidasilvaf/cogeqc")
+```
+
+## Citation
+
+Below is the citation output from using `citation('cogeqc')` in R.
+Please run this yourself to check for any updates on how to cite
+**cogeqc**.
+
+``` r
+
+print(citation('cogeqc'), bibtex = TRUE)
+#> To cite cogeqc in publications, use:
+#> 
+#>   Almeida-Silva, F., & Van de Peer, Y. (2023). Assessing the quality of
+#>   comparative genomics data and results with the cogeqc R/Bioconductor
+#>   package. Methods in Ecology and Evolution, 14, 2942–2952.
+#>   https://doi.org/10.1111/2041-210X.14243
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Article{,
+#>     title = {Assessing the quality of comparative genomics data and results with the cogeqc R/Bioconductor package},
+#>     author = {Fabricio Almeida-Silva and Yves {Van de Peer}},
+#>     journal = {Methods in Ecology and Evolution},
+#>     year = {2023},
+#>     volume = {14},
+#>     number = {12},
+#>     pages = {2942-2952},
+#>     url = {https://besjournals.onlinelibrary.wiley.com/doi/abs/10.1111/2041-210X.14243},
+#>     doi = {10.1111/2041-210X.14243},
+#>   }
+```
+
+Please note that the `cogeqc` was only made possible thanks to many
+other R and bioinformatics software authors, which are cited either in
+the vignettes and/or the paper(s) describing this package.
+
+## Code of Conduct
+
+Please note that the `cogeqc` project is released with a [Contributor
+Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By
+contributing to this project, you agree to abide by its terms.
+
+## Development tools
+
+- Continuous code testing is possible thanks to [GitHub
+  actions](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/)
+  through *[usethis](https://CRAN.R-project.org/package=usethis)*,
+  *[remotes](https://CRAN.R-project.org/package=remotes)*, and
+  *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized
+  to use [Bioconductor’s docker
+  containers](https://www.bioconductor.org/help/docker/) and
+  *[BiocCheck](https://bioconductor.org/packages/3.23/BiocCheck)*.
+- Code coverage assessment is possible thanks to
+  [codecov](https://codecov.io/gh) and
+  *[covr](https://CRAN.R-project.org/package=covr)*.
+- The [documentation website](http://almeidasilvaf.github.io/cogeqc) is
+  automatically updated thanks to
+  *[pkgdown](https://CRAN.R-project.org/package=pkgdown)*.
+- The documentation is formatted thanks to
+  *[devtools](https://CRAN.R-project.org/package=devtools)* and
+  *[roxygen2](https://CRAN.R-project.org/package=roxygen2)*.
+
+For more details, check the `dev` directory.
+
+This package was developed using
+*[biocthis](https://bioconductor.org/packages/3.23/biocthis)*.
+
+# Package index
+
+## All functions
+
+- [`assess_orthogroups()`](assess_orthogroups.md) : Assess orthogroup
+  inference based on functional annotation
+
+- [`assess_synnet()`](assess_synnet.md) : Assess synteny network based
+  on graph properties
+
+- [`assess_synnet_list()`](assess_synnet_list.md) :
+
+  Assess list of synteny networks as in `assess_synnet`
+
+- [`batch_summary`](batch_summary.md) : BUSCO summary output for batch
+  mode
+
+- [`busco_is_installed()`](busco_is_installed.md) : Check if BUSCO is
+  installed
+
+- [`calculate_H()`](calculate_H.md) : Calculate homogeneity scores for
+  orthogroups
+
+- [`compare_genome_stats()`](compare_genome_stats.md) : Compare
+  user-defined assembly statistics with statistics of NCBI genomes
+
+- [`compare_orthogroups()`](compare_orthogroups.md) : Compare inferred
+  orthogroups to a reference set
+
+- [`fit_sft()`](fit_sft.md) : Goodness of fit test for the scale-free
+  topology model
+
+- [`get_genome_stats()`](get_genome_stats.md) : Get summary statistics
+  for genomes on NCBI using the NCBI Datasets API
+
+- [`get_og_overlap()`](get_og_overlap.md) : Get number of shared
+  orthogroups between species pairs
+
+- [`interpro_ath`](interpro_ath.md) : Intepro annotation for Arabidopsis
+  thaliana's genes
+
+- [`interpro_bol`](interpro_bol.md) : Intepro annotation for Brassica
+  oleraceae's genes
+
+- [`list_busco_datasets()`](list_busco_datasets.md) : List BUSCO data
+  sets
+
+- [`og`](og.md) : Orthogroups between Arabidopsis thaliana and Brassica
+  oleraceae
+
+- [`og_overlap_model`](og_overlap_model.md) : Number of shared
+  orthogroups between model organisms
+
+- [`plot_busco()`](plot_busco.md) : Plot BUSCO summary output
+
+- [`plot_duplications()`](plot_duplications.md) : Plot species-specific
+  duplications
+
+- [`plot_genes_in_ogs()`](plot_genes_in_ogs.md) : Plot percentage of
+  genes in orthogroups for each species
+
+- [`plot_genome_stats()`](plot_genome_stats.md) : Plot statistics on
+  genome assemblies on the NCBI
+
+- [`plot_og_overlap()`](plot_og_overlap.md) : Plot pairwise orthogroup
+  overlap between species
+
+- [`plot_og_sizes()`](plot_og_sizes.md) : Plot orthogroup sizes per
+  species
+
+- [`plot_orthofinder_stats()`](plot_orthofinder_stats.md) : Plot a panel
+  with a summary of Orthofinder stats
+
+- [`plot_species_specific_ogs()`](plot_species_specific_ogs.md) : Plot
+  number of species-specific orthogroups
+
+- [`plot_species_tree()`](plot_species_tree.md) : Plot species tree
+
+- [`read_busco()`](read_busco.md) : Read and parse BUSCO's summary
+  report
+
+- [`read_orthofinder_stats()`](read_orthofinder_stats.md) : Read and
+  parse Orthofinder summary statistics
+
+- [`read_orthogroups()`](read_orthogroups.md) : Read and parse
+  orthogroups file created by OrthoFinder
+
+- [`run_busco()`](run_busco.md) : Run BUSCO assessment of assembly and
+  annotation quality
+
+- [`synnet`](synnet.md) : Synteny network for Brassica oleraceae, B.
+  napus, and B. rapa
+
+- [`tree`](tree.md) : Species tree for model species
+
+# Articles
+
+### All vignettes
+
+- [Assessing genome assembly and annotation
+  quality](vignette_01_assessing_genome_assembly.md):
+- [Assessing orthogroup
+  inference](vignette_02_assessing_orthogroup_inference.md):
+- [Assessing synteny identification](vignette_03_assessing_synteny.md):
