@@ -2,6 +2,7 @@
 #----Load data------------------------------------------------------------------
 data(tree)
 data(og)
+data(og_overlap_model)
 dir <- system.file("extdata", package = "cogeqc")
 stats_list <- read_orthofinder_stats(dir)
 
@@ -34,7 +35,7 @@ test_that("plot_orthofinder_stats() returns a ggplot object", {
 })
 
 test_that("plot_og_overlap() returns a ggplot object", {
-    p <- plot_og_overlap(stats_list)
+    p <- plot_og_overlap(og_overlap_model, add_numbers = TRUE)
     expect_true("ggplot" %in% class(p))
 })
 

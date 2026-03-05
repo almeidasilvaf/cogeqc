@@ -42,7 +42,7 @@ cd inst/extdata
 gzip Orthogroups.tsv
 ```
 
-## short\_summary.txt (BUSCO output)
+## short_summary.txt (BUSCO output)
 
 Here, we will run BUSCO in a Conda environment created with a temporary
 installation of miniconda. This temporary miniconda installation is only
@@ -85,10 +85,10 @@ fs::file_copy("~/Documents/ota/run_chlorophyta_odb10/short_summary.txt",
               here::here("inst", "extdata", "short_summary.txt"))
 ```
 
-## Hse\_subset.fa
+## Hse_subset.fa
 
 This file contains the first 1,000 lines from the *Herbaspirilllum
-seropedicae SmR1* (GCA\_000143225) genome, and it was downloaded from
+seropedicae SmR1* (GCA_000143225) genome, and it was downloaded from
 Ensembl Bacteria.
 
 ``` bash
@@ -96,7 +96,7 @@ Ensembl Bacteria.
 head -n 1001 Hse.fa > Hse_subset.fa
 ```
 
-## Statistics\_PerSpecies.tsv, Duplications\_per\_Species\_Tree\_Node.tsv and Orthogroups\_SpeciesOverlaps.tsv
+## Statistics_PerSpecies.tsv, Duplications_per_Species_Tree_Node.tsv and Orthogroups_SpeciesOverlaps.tsv
 
 Example of files containing Orthofinder’s per-species statistics. These
 files were downloaded from
@@ -135,7 +135,16 @@ og$Species <- gsub("bol", "Bol", og$Species)
 usethis::use_data(og, compress = "xz")
 ```
 
-## interpro\_ath.rda
+## og_overlap.rda
+
+``` r
+og_overlap_model <- read_orthogroups("~/Downloads/Results_model_species/Results_Nov26/Orthogroups/Orthogroups.tsv") |>
+    get_og_overlap()
+
+usethis::use_data(og_overlap_model, compress = "xz")
+```
+
+## interpro_ath.rda
 
 ``` r
 # Download and tidy the data set
@@ -154,7 +163,7 @@ interpro_ath <- interpro_ath[, c(1,2)]
 usethis::use_data(interpro_ath, compress = "xz", overwrite = TRUE)
 ```
 
-## interpro\_bol.rda
+## interpro_bol.rda
 
 ``` r
 # Download and tidy the data set
@@ -173,13 +182,13 @@ interpro_bol <- interpro_bol[, c(1,2)]
 usethis::use_data(interpro_bol, compress = "xz", overwrite = TRUE)
 ```
 
-## batch\_summary.rda (BUSCO batch mode)
+## batch_summary.rda (BUSCO batch mode)
 
 This object contains BUSCO’s summary output for batch mode with the
 following genomes:
 
--   *Herbaspirillum seropedicae SmR1* (GCA\_000143225)
--   *Herbaspirillum rubrisubalbicans M1* (GCA\_001483945))
+- *Herbaspirillum seropedicae SmR1* (GCA_000143225)
+- *Herbaspirillum rubrisubalbicans M1* (GCA_001483945))
 
 Both genomes were downloaded from Ensembl Bacteria. After downloading,
 FASTA files were gunzipped and stored in the directory

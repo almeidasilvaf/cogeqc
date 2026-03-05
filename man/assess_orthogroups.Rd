@@ -7,7 +7,8 @@
 assess_orthogroups(
   orthogroups = NULL,
   annotation = NULL,
-  correct_overclustering = TRUE
+  correct_overclustering = TRUE,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -27,6 +28,9 @@ list of 2 data frames, and each list element must be named
 
 \item{correct_overclustering}{Logical indicating whether to correct
 for overclustering in orthogroups. Default: TRUE.}
+
+\item{verbose}{Logical indicating whether to print progress messages.
+Default: FALSE.}
 }
 \value{
 A data frame.

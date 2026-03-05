@@ -4,23 +4,26 @@
 \alias{plot_og_overlap}
 \title{Plot pairwise orthogroup overlap between species}
 \usage{
-plot_og_overlap(stats_list = NULL, clust = TRUE)
+plot_og_overlap(overlap_df, add_numbers = FALSE, abbreviate_names = TRUE)
 }
 \arguments{
-\item{stats_list}{A list of data frames with Orthofinder summary stats
-as returned by the function \code{read_orthofinder_stats}.}
+\item{overlap_df}{A data frame with the number of shared orthogroups
+between species pairs as returned by \code{get_og_overlap()}.}
 
-\item{clust}{Logical indicating whether to clust data based on overlap.
-Default: TRUE}
+\item{add_numbers}{Logical indicating whether to add numbers to each entry
+of the heatmap. Default: FALSE.}
+
+\item{abbreviate_names}{Logical indicating whether to abbreviate species
+names. Default: TRUE.}
 }
 \value{
-A ggplot object with a heatmap.
+A ggplot object with a heatmap displaying the number of shared
+orthogroups between species pairs.
 }
 \description{
 Plot pairwise orthogroup overlap between species
 }
 \examples{
-dir <- system.file("extdata", package = "cogeqc")
-stats_list <- read_orthofinder_stats(dir)
-plot_og_overlap(stats_list)
+data(og_overlap_model)
+plot_og_overlap(og_overlap_model, add_numbers = TRUE)
 }

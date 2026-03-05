@@ -22,6 +22,28 @@
 "og"
 
 
+#' Number of shared orthogroups between model organisms
+#'
+#' Orthogroups from a set of model organisms obtained from
+#' OrthoFinder2' example output, which was then passed
+#' to \code{get_og_overlap()} to get shared orthogroups.
+#'
+#' @name og_overlap_model
+#' @format A 3-column data frame with the following variables:
+#' \describe{
+#'   \item{sp1}{Character, name of species 1.}
+#'   \item{sp2}{Character, name of species 2.}
+#'   \item{og_overlap}{Numeric, number of shared orthogroups.}
+#' }
+#' @references
+#' Emms, D. M., & Kelly, S. (2019). OrthoFinder: phylogenetic orthology
+#' inference for comparative genomics. Genome biology, 20(1), 1-14.
+#' @examples
+#' data(og_overlap_model)
+#' @usage data(og_overlap_model)
+"og_overlap_model"
+
+
 #' Intepro annotation for Arabidopsis thaliana's genes
 #'
 #' The annotation data were retrieved from PLAZA Dicots 5.0.

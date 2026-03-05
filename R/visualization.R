@@ -204,62 +204,71 @@ plot_orthofinder_stats <- function(tree = NULL, stats_list = NULL,
 
 #' Plot pairwise orthogroup overlap between species
 #'
-#' @param stats_list A list of data frames with Orthofinder summary stats
-#' as returned by the function \code{read_orthofinder_stats}.
-#' @param clust Logical indicating whether to clust data based on overlap.
-#' Default: TRUE
-#' @return A ggplot object with a heatmap.
+#' @param overlap_df A data frame with the number of shared orthogroups
+#' between species pairs as returned by \code{get_og_overlap()}.
+#' @param add_numbers Logical indicating whether to add numbers to each entry
+#' of the heatmap. Default: FALSE.
+#' @param abbreviate_names Logical indicating whether to abbreviate species
+#' names. Default: TRUE.
+#'
+#' @return A ggplot object with a heatmap displaying the number of shared
+#' orthogroups between species pairs.
+#'
 #' @export
 #' @rdname plot_og_overlap
+#'
 #' @importFrom reshape2 melt
-#' @importFrom ggplot2 ggplot aes geom_tile theme_minimal geom_text labs
-#' scale_fill_gradient coord_fixed scale_color_manual
-#' @importFrom stats hclust as.dist quantile
+#' @importFrom ggplot2 ggplot aes geom_tile theme_classic geom_text labs
+#' scale_fill_gradient coord_fixed scale_color_manual element_text
+#' @importFrom stats quantile
+#'
 #' @examples
-#' dir <- system.file("extdata", package = "cogeqc")
-#' stats_list <- read_orthofinder_stats(dir)
-#' plot_og_overlap(stats_list)
-plot_og_overlap <- function(stats_list = NULL, clust = TRUE) {
+#' data(og_overlap_model)
+#' plot_og_overlap(og_overlap_model, add_numbers = TRUE)
+plot_og_overlap <- function(
+        overlap_df, add_numbers = FALSE, abbreviate_names = TRUE
+) {
 
-    overlap <- as.matrix(stats_list$og_overlap)
-    rownames(overlap) <- abbreviate_names(rownames(overlap))
-    colnames(overlap) <- abbreviate_names(colnames(overlap))
-
-    # Cluster to reorder
-    if(clust) {
-        hc <- stats::hclust(stats::as.dist(overlap))
-        overlap <- overlap[hc$order, hc$order]
-    }
-
-    # Remove diagonals and lower triangle
-    diag(overlap) <- NA
-    overlap[lower.tri(overlap)] <- NA
-    ovm <- reshape2::melt(overlap, na.rm = TRUE)
+    ovm <- overlap_df
     names(ovm) <- c("Species1", "Species2", "N")
-
     q75 <- stats::quantile(ovm$N)[4]
     ovm$high <- ifelse(ovm$N >= q75, 'yes', 'no')
+
+    # Abbreviate names?
+    if(abbreviate_names) {
+        ovm$Species1 <- abbreviate_names(ovm$Species1)
+        ovm$Species2 <- abbreviate_names(ovm$Species2)
+    }
+
     p <- ggplot(
         ovm, aes(x = .data$Species1, y = .data$Species2,fill = .data$N)
     ) +
         geom_tile() +
         scale_fill_gradient(low = "#E5F5E0", high = "#00441B",
                                      name = "Overlap size") +
-        theme_minimal() +
+        theme_classic() +
         labs(
             title = "Orthogroup overlap",
             x = "",
             y = ""
         ) +
-        geom_text(
-            aes(
-                x = .data$Species1, y = .data$Species2, label = .data$N,
-                color = .data$high
-            ), size = 4
-        ) +
-        scale_color_manual(
-            values = c('no' = 'grey20', 'yes' = "grey90"), guide = "none"
+        theme(
+            axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)
         )
+
+    # Add numbers?
+    if(add_numbers) {
+        p <- p +
+            geom_text(
+                aes(
+                    x = .data$Species1, y = .data$Species2, label = .data$N,
+                    color = .data$high
+                ), size = 4
+            ) +
+            scale_color_manual(
+                values = c('no' = 'grey20', 'yes' = "grey90"), guide = "none"
+            )
+    }
 
     return(p)
 }

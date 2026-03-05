@@ -22,16 +22,24 @@ fake_og <- rbind(fake_og_hundred, fake_og_zero)
 test_that("calculate_H() calculates orthogroup homogeneity", {
     H <- calculate_H(fake_og, correct_overclustering = TRUE)
     H2 <- calculate_H(fake_og, correct_overclustering = FALSE)
+    H3 <- calculate_H(fake_og, update_score = FALSE)
     expect_equal(class(H), "data.frame")
     expect_equal(ncol(H), 2)
     expect_equal(ncol(H2), 2)
+    expect_equal(ncol(H3), 4)
 })
 
 test_that("assess_orthogroups() reports homogeneity scores by species", {
     annotation <- list(Ath = interpro_ath[1:1000,], Bol = interpro_bol[1:1000,])
-    assess <- assess_orthogroups(og, annotation)
+    assess <- assess_orthogroups(og, annotation, verbose = TRUE)
     expect_equal(class(assess), "data.frame")
     expect_true("Mean_score" %in% names(assess))
+
+    og2 <- og
+    og2$Gene <- paste0(og2$Gene, "_mRNA")
+    expect_error(
+        assess_orthogroups(og2, annotation)
+    )
 })
 
 test_that("compare_orthogroups() returns a df of preservation status", {
